@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ufcat_app/view/home.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,9 +24,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomeView(),
     );
   }
 }
@@ -95,6 +97,56 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            CarouselSlider(
+              options: CarouselOptions(
+                  height: 400.0,
+                  enableInfiniteScroll: true,
+                  initialPage: 0,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 2)),
+              items: <Widget>[
+                //Text("Text 1"),
+                // Image(
+                //   image: AssetImage("images/nitobi.jpg") ,
+                //   fit:BoxFit.fitHeight,
+                //   width: 605,
+                // ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.network(
+                      "https://images.pexels.com/photos/2899097/pexels-photo-2899097.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.network(
+                      "https://files.cercomp.ufg.br/weby/up/519/o/monitoria_hab_clinicas.jpg?1666187039"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.network(
+                      "https://media.gettyimages.com/photos/neymar-jr-10-of-brazil-reacts-after-assisting-casemiro-on-a-goal-picture-id1172846416?k=20&m=1172846416&s=612x612&w=0&h=bmq9XPnVFL28cRwaUmstVEIsY41TCPhWHlYQOjbTDiU="),
+                ),
+              ],
+            ),
+            //   Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: imgList.asMap().entries.map((entry) {
+            //     return GestureDetector(
+            //       onTap: () => _controller.animateToPage(entry.key),
+            //       child: Container(
+            //         width: 12.0,
+            //         height: 12.0,
+            //         margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+            //         decoration: BoxDecoration(
+            //             shape: BoxShape.circle,
+            //             color: (Theme.of(context).brightness == Brightness.dark
+            //                     ? Colors.white
+            //                     : Colors.black)
+            //                 .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+            //       ),
+            //     );
+            //   }).toList(),
+            // ),
             const Text(
               'You have pushed the button this many times:',
             ),
