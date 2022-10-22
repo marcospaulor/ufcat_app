@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'view/components/splash.dart';
+import 'package:ufcat_app/view/home.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ufcat_app/view/const.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,12 +15,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Ufcat App',
       theme: ThemeData(
         fontFamily: 'Rawline',
-        primarySwatch: Colors.green,
+        primarySwatch: greenUfcat,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomeView(),
     );
   }
 }
