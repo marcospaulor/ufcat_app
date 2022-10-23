@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ufcat_app/view/const.dart';
 
 class AtalhoIcon extends StatelessWidget {
   const AtalhoIcon({
@@ -12,25 +13,35 @@ class AtalhoIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ElevatedButton(
-            onPressed: () {
-              // Navigator.pushNamed(context, '/news');
-            },
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(15),
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 10,
+        bottom: 10,
+        left: 15,
+      ),
+      child: SizedBox(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                // Navigator.pushNamed(context, '/news');
+              },
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(15.0),
+              ),
+              child: Icon(icon, size: 30),
             ),
-            child: Icon(icon, size: 40),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: Text(text),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: Text(
+                text,
+                style: const TextStyle(color: greenUfcat),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

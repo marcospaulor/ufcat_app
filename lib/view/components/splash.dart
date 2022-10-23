@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(
-      milliseconds: 1500,
+      milliseconds: 3500,
     ),
     vsync: this,
   )..repeat();
@@ -32,23 +32,19 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSplashScreen.withScreenFunction(
-      duration: 2500,
-      splash: Stack(
-        children: <Widget>[
-          RotationTransition(
-            turns: _animation,
-            child: Image.asset('assets/images/letras_logo.png'),
-          ),
-          Image.asset('assets/images/logo_logo.png'),
-        ],
-      ),
-      splashIconSize: 200,
-      // nextScreen: const HomeView(),
-      screenFunction: () async {
-        await Future.delayed(const Duration(milliseconds: 2500));
-        return const HomeView();
-      },
-    );
+    return AnimatedSplashScreen(
+        duration: 5500,
+        splash: Stack(
+          children: <Widget>[
+            RotationTransition(
+              turns: _animation,
+              child: Image.asset('assets/images/letras_logo.png'),
+            ),
+            Image.asset('assets/images/logo_logo.png'),
+          ],
+        ),
+        splashIconSize: 200,
+        nextScreen: const HomeView(),
+        splashTransition: SplashTransition.scaleTransition);
   }
 }
