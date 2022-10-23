@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ufcat_app/view/const.dart';
 
 class AtalhoIcon extends StatelessWidget {
   const AtalhoIcon({
@@ -34,7 +35,10 @@ class AtalhoIcon extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 5),
-              child: Text(text),
+              child: Text(
+                text,
+                style: const TextStyle(color: greenUfcat),
+              ),
             ),
           ],
         ),
