@@ -14,14 +14,19 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(
         // align logo to the center
         centerTitle: true,
-        title: const Image(
-          image: AssetImage('assets/images/logo_logo.png'),
-          height: 50,
+        title: IconButton(
+          icon: const Image(
+            image: AssetImage('assets/images/logo_logo.png'),
+          ),
+          iconSize: width * 0.15,
+          onPressed: () {
+            // Navigator.pushNamed(context, '/home');
+          },
         ),
         // Menu button in the top left corner
         leading: IconButton(
           icon: const Icon(FontAwesomeIcons.bars),
-          iconSize: width * 0.04,
+          iconSize: width * 0.05,
           onPressed: () {
             // Open the drawer
             // Scaffold.of(context).openDrawer();
@@ -30,7 +35,7 @@ class HomeView extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(FontAwesomeIcons.magnifyingGlass),
-            iconSize: width * 0.04,
+            iconSize: width * 0.05,
             onPressed: () {},
           ),
         ],

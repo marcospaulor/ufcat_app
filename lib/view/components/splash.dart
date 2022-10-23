@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:ufcat_app/view/home_screen.dart';
+import 'package:ufcat_app/view/home.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(
-      milliseconds: 1250,
+      milliseconds: 3500,
     ),
     vsync: this,
   )..repeat();
@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-        duration: 5000,
+        duration: 5500,
         splash: Stack(
           children: <Widget>[
             RotationTransition(
@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen>
           ],
         ),
         splashIconSize: 200,
-        nextScreen: const HomeScreen(),
+        nextScreen: const HomeView(),
         splashTransition: SplashTransition.scaleTransition);
   }
 }
