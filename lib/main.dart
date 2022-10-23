@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'view/components/splash.dart';
-import 'package:ufcat_app/view/home.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ufcat_app/view/const.dart';
 
 void main() {
@@ -20,7 +18,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Rawline',
         primarySwatch: greenUfcat,
       ),
-      home: const HomeView(),
+      home: const MyHomePage(title: 'Ufcat App'),
     );
   }
 }

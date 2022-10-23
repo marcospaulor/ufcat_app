@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:ufcat_app/view/home_screen.dart';
+import 'package:ufcat_app/view/home.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(
-      milliseconds: 1250,
+      milliseconds: 1500,
     ),
     vsync: this,
   )..repeat();
@@ -32,19 +32,23 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSplashScreen(
-        duration: 5000,
-        splash: Stack(
-          children: <Widget>[
-            RotationTransition(
-              turns: _animation,
-              child: Image.asset('assets/images/letras_logo.png'),
-            ),
-            Image.asset('assets/images/logo_logo.png'),
-          ],
-        ),
-        splashIconSize: 200,
-        nextScreen: const HomeScreen(),
-        splashTransition: SplashTransition.scaleTransition);
+    return AnimatedSplashScreen.withScreenFunction(
+      duration: 2500,
+      splash: Stack(
+        children: <Widget>[
+          RotationTransition(
+            turns: _animation,
+            child: Image.asset('assets/images/letras_logo.png'),
+          ),
+          Image.asset('assets/images/logo_logo.png'),
+        ],
+      ),
+      splashIconSize: 200,
+      // nextScreen: const HomeView(),
+      screenFunction: () async {
+        await Future.delayed(const Duration(milliseconds: 2500));
+        return const HomeView();
+      },
+    );
   }
 }
