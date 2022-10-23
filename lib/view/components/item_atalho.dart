@@ -16,7 +16,7 @@ class AtalhoIcon extends StatelessWidget {
       padding: const EdgeInsets.only(
         top: 10,
         bottom: 10,
-        left: 10,
+        left: 15,
       ),
       child: SizedBox(
         child: Column(
@@ -28,12 +28,12 @@ class AtalhoIcon extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15.0),
               ),
-              child: Icon(icon, size: 40),
+              child: Icon(icon, size: 30),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 5),
               child: Text(text),
             ),
           ],
