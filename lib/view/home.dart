@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/view/components/carousel.dart';
 import 'package:ufcat_app/view/components/item_atalho.dart';
 import 'package:ufcat_app/view/const.dart';
-import 'package:ufcat_app/view/components/item_atalho.dart';
 import 'package:ufcat_app/view/side_menu.dart';
 
 class HomeView extends StatelessWidget {
@@ -16,22 +15,20 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(
         // align logo to the center
         centerTitle: true,
-        title: IconButton(
-          icon: const Image(
-            image: AssetImage('assets/images/logo_logo.png'),
-          ),
-          iconSize: width * 0.15,
-          onPressed: () {
-            // Navigator.pushNamed(context, '/home');
-          },
+        title: Image.asset(
+          'assets/images/logo.png',
+          width: width * 0.15,
         ),
         // Menu button in the top left corner
-        leading: IconButton(
-          icon: const Icon(FontAwesomeIcons.bars),
-          iconSize: width * 0.05,
-          onPressed: () {
-            // Open the drawer
-            // Scaffold.of(context).openDrawer();
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: const Icon(FontAwesomeIcons.bars),
+              iconSize: width * 0.06,
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
           },
         ),
         actions: [
@@ -50,7 +47,10 @@ class HomeView extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  padding: const EdgeInsets.only(
+                    top: 20.0,
+                    bottom: 10.0,
+                  ),
                   child: SizedBox(
                     height: 174.0,
                     width: width,
