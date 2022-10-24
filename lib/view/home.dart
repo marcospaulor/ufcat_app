@@ -15,16 +15,19 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(
         // align logo to the center
         centerTitle: true,
-        title: Image.asset(
-          'assets/images/logo.png',
-          width: width * 0.15,
+        title: IconButton(
+          icon: Image.asset(
+            'assets/images/logo.png',
+          ),
+          iconSize: width * 0.08,
+          onPressed: () {},
         ),
         // Menu button in the top left corner
         leading: Builder(
           builder: (context) {
             return IconButton(
               icon: const Icon(FontAwesomeIcons.bars),
-              iconSize: width * 0.06,
+              iconSize: width * 0.05,
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -34,7 +37,7 @@ class HomeView extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(FontAwesomeIcons.magnifyingGlass),
-            iconSize: width * 0.05,
+            iconSize: width * 0.04,
             onPressed: () {},
           ),
         ],
@@ -69,26 +72,33 @@ class HomeView extends StatelessWidget {
                         AtalhoIcon(
                           icon: FontAwesomeIcons.solidNewspaper,
                           text: 'Notícias',
+                          left: 10.0,
                         ),
                         AtalhoIcon(
                           icon: FontAwesomeIcons.solidFileLines,
                           text: 'Editais',
+                          left: 10.0,
                         ),
                         AtalhoIcon(
                           icon: FontAwesomeIcons.utensils,
                           text: 'RU',
+                          left: 10.0,
                         ),
                         AtalhoIcon(
                           icon: FontAwesomeIcons.locationDot,
                           text: 'Mapa',
+                          left: 10.0,
                         ),
                         AtalhoIcon(
                           icon: FontAwesomeIcons.book,
                           text: 'Biblioteca',
+                          left: 10.0,
                         ),
                         AtalhoIcon(
                           icon: FontAwesomeIcons.book,
                           text: 'Biblioteca',
+                          left: 10.0,
+                          right: 10.0,
                         ),
                       ],
                     ),

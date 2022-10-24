@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:ufcat_app/view/const.dart';
 
 class AtalhoIcon extends StatelessWidget {
+  final IconData icon;
+  final String text;
+  final double? left;
+  final double? right;
+
   const AtalhoIcon({
     Key? key,
     required this.icon,
     required this.text,
+    this.left,
+    this.right,
   }) : super(key: key);
-
-  final IconData icon;
-  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,8 @@ class AtalhoIcon extends StatelessWidget {
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top,
         bottom: MediaQuery.of(context).padding.bottom,
-        left: 10,
+        left: left ?? 0.0,
+        right: right ?? 0.0,
       ),
       child: SizedBox(
         child: Column(
