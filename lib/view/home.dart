@@ -54,9 +54,20 @@ class HomeView extends StatelessWidget {
                     top: 20.0,
                     bottom: 10.0,
                   ),
-                  child: SizedBox(
+                  child: Container(
                     height: 174.0,
                     width: width,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.25),
+                          spreadRadius: 0,
+                          blurRadius: 4,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
                     child: const Carousel(),
                   ),
                 ),
@@ -65,7 +76,17 @@ class HomeView extends StatelessWidget {
                   child: Container(
                     height: 103.0,
                     width: width,
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.25),
+                          spreadRadius: 0,
+                          blurRadius: 4,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: const <Widget>[
@@ -109,7 +130,17 @@ class HomeView extends StatelessWidget {
                   child: Container(
                     height: 245.0,
                     width: width,
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.25),
+                          spreadRadius: 0,
+                          blurRadius: 4,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: const [Text("Últimas Notícias")],
@@ -121,7 +152,17 @@ class HomeView extends StatelessWidget {
                   child: Container(
                     height: 245.0,
                     width: width,
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.25),
+                          spreadRadius: 0,
+                          blurRadius: 4,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: const [Text("Últimas Editais")],
@@ -133,7 +174,17 @@ class HomeView extends StatelessWidget {
                   child: Container(
                     height: 245.0,
                     width: width, // Largura total da tela
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.25),
+                          spreadRadius: 0,
+                          blurRadius: 4,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: const [Text("Últimas Eventos")],

@@ -65,6 +65,26 @@ class _CarouselState extends State<Carousel> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: current == index ? orangeUfcat : grayUfcat,
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    current == index ? orangeUfcat : grayUfcat,
+                    current == index
+                        ? orangeUfcat.shade600
+                        : grayUfcat.shade600,
+                    current == index
+                        ? orangeUfcat.shade700
+                        : grayUfcat.shade700,
+                    current == index
+                        ? orangeUfcat.shade800
+                        : grayUfcat.shade800,
+                    current == index
+                        ? orangeUfcat.shade900
+                        : grayUfcat.shade900,
+                    Colors.black,
+                  ],
+                ),
               ),
             );
           }).toList(),

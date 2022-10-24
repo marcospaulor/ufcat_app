@@ -50,10 +50,10 @@ const MaterialColor orangeUfcat = MaterialColor(
     300: Color(0xFFFC831E),
     400: Color(0xFFFC831E),
     500: Color(_orangeUfcatValue),
-    600: Color(0xFFFC831E),
-    700: Color(0xFFFC831E),
-    800: Color(0xFFFC831E),
-    900: Color(0xFFFC831E),
+    600: Color(0xFFF3761B),
+    700: Color(0xFFCA6918),
+    800: Color(0xFFB05C15),
+    900: Color(0xFF974F12),
   },
 );
 const int _orangeUfcatValue = 0xFFFC831E;
@@ -69,10 +69,10 @@ const MaterialColor grayUfcat = MaterialColor(
     300: Color(0xFFE1DEE3),
     400: Color(0xFFE1DEE3),
     500: Color(_grayUfcatValue),
-    600: Color(0xFFE1DEE3),
-    700: Color(0xFFE1DEE3),
-    800: Color(0xFFE1DEE3),
-    900: Color(0xFFE1DEE3),
+    600: Color(0xFFCBC8CC),
+    700: Color(0xFFb4b2b6),
+    800: Color(0xFF9e9b9f),
+    900: Color(0xFF878588),
   },
 );
 const int _grayUfcatValue = 0xFFE1DEE3;
