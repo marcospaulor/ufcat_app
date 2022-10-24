@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/view/components/carousel.dart';
 import 'package:ufcat_app/view/components/item_atalho.dart';
 import 'package:ufcat_app/view/const.dart';
+import 'package:ufcat_app/view/side_menu.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -15,31 +16,33 @@ class HomeView extends StatelessWidget {
         // align logo to the center
         centerTitle: true,
         title: IconButton(
-          icon: const Image(
-            image: AssetImage('assets/images/logo_logo.png'),
+          icon: Image.asset(
+            'assets/images/logo.png',
           ),
-          iconSize: width * 0.15,
-          onPressed: () {
-            // Navigator.pushNamed(context, '/home');
-          },
+          iconSize: width * 0.08,
+          onPressed: () {},
         ),
         // Menu button in the top left corner
-        leading: IconButton(
-          icon: const Icon(FontAwesomeIcons.bars),
-          iconSize: width * 0.05,
-          onPressed: () {
-            // Open the drawer
-            // Scaffold.of(context).openDrawer();
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: const Icon(FontAwesomeIcons.bars),
+              iconSize: width * 0.05,
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
           },
         ),
         actions: [
           IconButton(
             icon: const Icon(FontAwesomeIcons.magnifyingGlass),
-            iconSize: width * 0.05,
+            iconSize: width * 0.04,
             onPressed: () {},
           ),
         ],
       ),
+      drawer: const NavigationDrawer(),
       body: SingleChildScrollView(
         child: Center(
           child: Container(
@@ -47,7 +50,10 @@ class HomeView extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  padding: const EdgeInsets.only(
+                    top: 20.0,
+                    bottom: 10.0,
+                  ),
                   child: SizedBox(
                     height: 174.0,
                     width: width,
@@ -66,26 +72,33 @@ class HomeView extends StatelessWidget {
                         AtalhoIcon(
                           icon: FontAwesomeIcons.solidNewspaper,
                           text: 'Notícias',
+                          left: 10.0,
                         ),
                         AtalhoIcon(
                           icon: FontAwesomeIcons.solidFileLines,
                           text: 'Editais',
+                          left: 10.0,
                         ),
                         AtalhoIcon(
                           icon: FontAwesomeIcons.utensils,
                           text: 'RU',
+                          left: 10.0,
                         ),
                         AtalhoIcon(
                           icon: FontAwesomeIcons.locationDot,
                           text: 'Mapa',
+                          left: 10.0,
                         ),
                         AtalhoIcon(
                           icon: FontAwesomeIcons.book,
                           text: 'Biblioteca',
+                          left: 10.0,
                         ),
                         AtalhoIcon(
                           icon: FontAwesomeIcons.book,
                           text: 'Biblioteca',
+                          left: 10.0,
+                          right: 10.0,
                         ),
                       ],
                     ),
