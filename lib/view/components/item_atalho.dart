@@ -4,25 +4,19 @@ import 'package:ufcat_app/view/const.dart';
 class AtalhoIcon extends StatelessWidget {
   final IconData icon;
   final String text;
-  final double? left;
-  final double? right;
 
   const AtalhoIcon({
     Key? key,
     required this.icon,
     required this.text,
-    this.left,
-    this.right,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        top: MediaQuery.of(context).padding.top,
-        bottom: MediaQuery.of(context).padding.bottom,
-        left: left ?? 0.0,
-        right: right ?? 0.0,
+      padding: EdgeInsets.symmetric(
+        vertical: MediaQuery.of(context).padding.top,
+        horizontal: 5.0,
       ),
       child: SizedBox(
         child: Column(
@@ -33,6 +27,7 @@ class AtalhoIcon extends StatelessWidget {
                 // Navigator.pushNamed(context, '/news');
               },
               style: ElevatedButton.styleFrom(
+                elevation: 5,
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(15.0),
               ),
