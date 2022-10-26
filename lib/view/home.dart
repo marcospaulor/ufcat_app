@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ufcat_app/view/components/search_bar.dart';
+import 'package:ufcat_app/view/const.dart';
 import 'package:ufcat_app/view/components/carousel.dart';
 import 'package:ufcat_app/view/components/item_atalho.dart';
-import 'package:ufcat_app/view/const.dart';
 import 'package:ufcat_app/view/side_menu.dart';
 import 'package:ufcat_app/view/components/card.dart';
 
@@ -21,7 +22,9 @@ class HomeView extends StatelessWidget {
             'assets/images/logo.png',
           ),
           iconSize: width * 0.08,
-          onPressed: () {},
+          onPressed: () {
+            // TODO: implementar ação do botão
+          },
         ),
         // Menu button in the top left corner
         leading: Builder(
@@ -39,7 +42,26 @@ class HomeView extends StatelessWidget {
           IconButton(
             icon: const Icon(FontAwesomeIcons.magnifyingGlass),
             iconSize: width * 0.04,
-            onPressed: () {},
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: SearchBar(
+                  listExample: [
+                    'Resultado 2021',
+                    'Sisu 2021',
+                    'Calendário Acadêmico',
+                    'Bolsas',
+                    'Enacomp',
+                    'Enfermagem',
+                    'Engenharia',
+                    'Medicina',
+                    'Nutrição',
+                    'Odontologia',
+                    'Psicologia',
+                  ],
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -85,38 +107,7 @@ class HomeView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 5.0,
-                    ),
-                    children: const <Widget>[
-                      AtalhoIcon(
-                        icon: FontAwesomeIcons.solidNewspaper,
-                        text: 'Notícias',
-                      ),
-                      AtalhoIcon(
-                        icon: FontAwesomeIcons.solidFileLines,
-                        text: 'Editais',
-                      ),
-                      AtalhoIcon(
-                        icon: FontAwesomeIcons.utensils,
-                        text: 'RU',
-                      ),
-                      AtalhoIcon(
-                        icon: FontAwesomeIcons.locationDot,
-                        text: 'Mapa',
-                      ),
-                      AtalhoIcon(
-                        icon: FontAwesomeIcons.book,
-                        text: 'Biblioteca',
-                      ),
-                      AtalhoIcon(
-                        icon: FontAwesomeIcons.book,
-                        text: 'Biblioteca',
-                      ),
-                    ],
-                  ),
+                  child: const AtalhoIcon(),
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 10.0),
