@@ -29,15 +29,13 @@ class _CarouselState extends State<Carousel> {
       children: [
         CarouselSlider(
           items: imgList
-              .map((item) => Container(
-                    child: Center(
-                        child: Image.network(
-                      item,
-                      fit: BoxFit.cover,
-                      width: width,
-                      height: height,
-                    )),
-                  ))
+              .map((item) => Center(
+                      child: Image.network(
+                    item,
+                    fit: BoxFit.cover,
+                    width: width,
+                    height: height,
+                  )))
               .toList(),
           carouselController: controller,
           options: CarouselOptions(
@@ -58,13 +56,15 @@ class _CarouselState extends State<Carousel> {
           children: imgList.map((url) {
             int index = imgList.indexOf(url);
             return Container(
-              width: 8.0,
-              height: 8.0,
+              width: 10.0,
+              height: 10.0,
               margin:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                  const EdgeInsets.symmetric(vertical: 1.0, horizontal: 2.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: current == index ? orangeUfcat : grayUfcat,
+                color: current == index
+                    ? orangeUfcat.withOpacity(0.9)
+                    : grayUfcat.withOpacity(0.9),
                 gradient: LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.bottomRight,

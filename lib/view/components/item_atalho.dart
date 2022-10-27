@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ufcat_app/view/const.dart';
+import 'package:ufcat_app/view/tabScreen.dart';
 
 class AtalhoIcon extends StatelessWidget {
   final IconData icon;
@@ -24,7 +25,12 @@ class AtalhoIcon extends StatelessWidget {
           children: <Widget>[
             ElevatedButton(
               onPressed: () {
-                // Navigator.pushNamed(context, '/news');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const TabScreen(),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 elevation: 5,
