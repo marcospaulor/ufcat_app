@@ -13,10 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Ufcat App',
+      title: 'UFCAT',
       theme: ThemeData(
         fontFamily: 'Rawline',
         primarySwatch: greenUfcat,
+        hoverColor: Colors.yellow,
       ),
       home: const SplashScreen(),
     );
