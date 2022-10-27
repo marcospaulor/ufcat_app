@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ufcat_app/view/const.dart';
+import 'package:ufcat_app/view/tabScreen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AtalhoIcon extends StatelessWidget {

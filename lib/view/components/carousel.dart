@@ -56,13 +56,15 @@ class _CarouselState extends State<Carousel> {
           children: imgList.map((url) {
             int index = imgList.indexOf(url);
             return Container(
-              width: 8.0,
-              height: 8.0,
+              width: 10.0,
+              height: 10.0,
               margin:
                   const EdgeInsets.symmetric(vertical: 1.0, horizontal: 2.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: current == index ? orangeUfcat : grayUfcat,
+                color: current == index
+                    ? orangeUfcat.withOpacity(0.9)
+                    : grayUfcat.withOpacity(0.9),
                 gradient: LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.bottomRight,
