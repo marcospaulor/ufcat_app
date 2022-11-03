@@ -7,6 +7,43 @@ class SearchBar extends SearchDelegate {
   final List<String> listExample;
   SearchBar({required this.listExample});
 
+  // change search textfield hint text
+  @override
+  String get searchFieldLabel => 'Pesquisar...';
+
+  // change search textfield text color
+  @override
+  TextStyle get searchFieldStyle => const TextStyle(color: greenUfcat);
+
+  // Change appbar color to greenUfcat
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return theme.copyWith(
+      appBarTheme: const AppBarTheme(
+        color: greenUfcat,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        hintStyle: TextStyle(color: Color.fromARGB(157, 41, 121, 124)),
+        // border radius
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.all(
+            Radius.circular(50),
+          ),
+        ),
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
+      ),
+    );
+  }
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -29,6 +66,7 @@ class SearchBar extends SearchDelegate {
     );
   }
 
+  // TODO: change search result list
   @override
   Widget buildResults(BuildContext context) {
     return Container(

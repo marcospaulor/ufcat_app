@@ -11,6 +11,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
+// TODO: Thread splash screen
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(

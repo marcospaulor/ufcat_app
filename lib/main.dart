@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Rawline',
         primarySwatch: greenUfcat,
-        hoverColor: Colors.yellow,
       ),
       home: const SplashScreen(),
     );

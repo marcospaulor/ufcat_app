@@ -6,7 +6,7 @@ class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
 
   static const MaterialColor textColor = grayUfcat;
-  final MaterialColor iconColor = darkUfcat;
+  final MaterialColor iconColor = grayUfcat;
 
   @override
   Widget build(BuildContext context) {
