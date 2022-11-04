@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ufcat_app/view/components/webview.dart';
 import 'package:ufcat_app/view/const.dart';
 import 'package:ufcat_app/view/tabScreen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -36,7 +37,18 @@ class AtalhoIcon extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => e.key != 'Biblioteca'
+                                ? const TabScreen()
+                                : const WebViewPage(
+                                    url:
+                                        'https://biblioteca.sophia.com.br/terminal/9396'),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         elevation: 5,
                         shape: const CircleBorder(),

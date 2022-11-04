@@ -84,36 +84,34 @@ class NavigationDrawer extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Wrap(
               children: items
-                  .expand(
-                    (item) => [
-                      item['divider'] == null
-                          ? ListTile(
-                              leading: Icon(
-                                item['icon'],
-                                semanticLabel: item['title'],
-                                // TODO: acessibilidade
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              iconColor: iconColor.withOpacity(0.75),
-                              title: Text(
-                                item['title'],
-                                style: const TextStyle(
-                                  color: textColor,
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                            )
-                          : const Divider(
-                              indent: 15,
-                              endIndent: 15,
-                              thickness: 2,
-                              color: textColor,
+                  .map(
+                    (item) => item['divider'] == null
+                        ? ListTile(
+                            leading: Icon(
+                              item['icon'],
+                              semanticLabel: item['title'],
+                              // TODO: acessibilidade
                             ),
-                    ],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            iconColor: iconColor.withOpacity(0.75),
+                            title: Text(
+                              item['title'],
+                              style: const TextStyle(
+                                color: textColor,
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                          )
+                        : const Divider(
+                            indent: 15,
+                            endIndent: 15,
+                            thickness: 2,
+                            color: textColor,
+                          ),
                   )
                   .toList(),
             ),
