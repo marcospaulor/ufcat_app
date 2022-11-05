@@ -19,6 +19,8 @@ class WebViewPage extends StatefulWidget {
 }
 
 class _WebViewPageState extends State<WebViewPage> {
+  final _key = UniqueKey();
+  bool isLoading = true;
   WebViewController? _controller;
   final Completer<WebViewController> _controllerCompleter =
       Completer<WebViewController>();
@@ -42,25 +44,54 @@ class _WebViewPageState extends State<WebViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _goBack(context),
-      child: Scaffold(
-        appBar: const MyAppBar(
-          icon: FontAwesomeIcons.arrowLeft,
-          title: 'Biblioteca',
+    return Stack(
+      children: <Widget>[
+        WillPopScope(
+          onWillPop: () => _goBack(context),
+          child: Scaffold(
+            appBar: const MyAppBar(
+              icon: FontAwesomeIcons.arrowLeft,
+              title: 'Biblioteca',
+            ),
+            body: WebView(
+              key: _key,
+              initialUrl: widget.url,
+              javascriptMode: JavascriptMode.unrestricted,
+              onPageStarted: (finish) {
+                setState(
+                  () {
+                    isLoading = true;
+                  },
+                );
+              },
+              onProgress: (int progress) {
+                print('WebView is loading (progress : $progress%)');
+              },
+              onPageFinished: (finish) {
+                setState(
+                  () {
+                    isLoading = false;
+                  },
+                );
+              },
+              onWebViewCreated: (WebViewController webViewController) {
+                _controllerCompleter.future
+                    .then((value) => _controller = value);
+                _controllerCompleter.complete(webViewController);
+              },
+            ),
+          ),
         ),
-        body: WebView(
-          initialUrl: widget.url,
-          javascriptMode: JavascriptMode.unrestricted,
-          onProgress: (int progress) {
-            print('WebView is loading (progress : $progress%)');
-          },
-          onWebViewCreated: (WebViewController webViewController) {
-            _controllerCompleter.future.then((value) => _controller = value);
-            _controllerCompleter.complete(webViewController);
-          },
-        ),
-      ),
+        isLoading
+            ? Center(
+                child: Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.all(20),
+                  child: const CircularProgressIndicator(),
+                ),
+              )
+            : Stack(),
+      ],
     );
   }
 }

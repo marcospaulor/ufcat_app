@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ufcat_app/view/components/webview.dart';
 import 'package:ufcat_app/view/const.dart';
+import 'package:ufcat_app/view/mapa.dart';
 import 'package:ufcat_app/view/tabScreen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -46,11 +47,17 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => e.key != 'Biblioteca'
-                                ? const TabScreen()
-                                : const WebViewPage(
-                                    url:
-                                        'https://biblioteca.sophia.com.br/terminal/9396'),
+                            builder: (context) {
+                              if (e.key == "Mapa") return const MapView();
+                              if (e.key == "Biblioteca") {
+                                return const WebViewPage(
+                                  url:
+                                      'https://biblioteca.sophia.com.br/terminal/9396/',
+                                );
+                              }
+
+                              return const TabScreen();
+                            },
                           ),
                         );
                       },
