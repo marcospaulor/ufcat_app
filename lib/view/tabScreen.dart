@@ -114,36 +114,47 @@ class TabScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Column(
-                children: [
-                  Builder(builder: (context) {
-                    return Wrap(
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height:
-                              MediaQuery.of(context).size.height * 0.25 * 0.65,
-                          child: Image.network(
-                            item['imagePath'],
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          height:
-                              MediaQuery.of(context).size.height * 0.25 * 0.35,
-                          child: Text(
-                            item['title'],
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 16,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(0.0),
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.grey,
+                ),
+                child: Column(
+                  children: [
+                    Builder(builder: (context) {
+                      return Wrap(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height *
+                                0.25 *
+                                0.65,
+                            child: Image.network(
+                              item['imagePath'],
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                      ],
-                    );
-                  }),
-                ],
+                          Container(
+                            alignment: Alignment.center,
+                            height: MediaQuery.of(context).size.height *
+                                0.25 *
+                                0.35,
+                            child: Text(
+                              item['title'],
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
+                  ],
+                ),
+                onPressed: () {},
               ),
             ),
           )

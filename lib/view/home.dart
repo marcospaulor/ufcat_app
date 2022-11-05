@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/view/components/myAppBar.dart';
-import 'package:ufcat_app/view/components/search_bar.dart';
 import 'package:ufcat_app/view/const.dart';
 import 'package:ufcat_app/view/components/carousel.dart';
 import 'package:ufcat_app/view/components/item_atalho.dart';
