@@ -1,7 +1,7 @@
 // anim_search_bar statefull widget
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ufcat_app/view/const.dart';
+import 'package:ufcat_app/src/view/style/const.dart';
 
 class SearchBar extends SearchDelegate {
   final List<String> listExample;
