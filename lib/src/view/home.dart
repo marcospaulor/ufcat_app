@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ufcat_app/view/components/myAppBar.dart';
-import 'package:ufcat_app/view/const.dart';
-import 'package:ufcat_app/view/components/carousel.dart';
-import 'package:ufcat_app/view/components/item_atalho.dart';
-import 'package:ufcat_app/view/side_menu.dart';
-import 'package:ufcat_app/view/components/card.dart';
+import 'package:ufcat_app/src/view/components/appBar.dart';
+import 'package:ufcat_app/src/view/style/const.dart';
+import 'package:ufcat_app/src/view/components/carousel.dart';
+import 'package:ufcat_app/src/view/components/shortcutItem.dart';
+import 'package:ufcat_app/src/view/sideMenu.dart';
+import 'package:ufcat_app/src/view/components/card.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);

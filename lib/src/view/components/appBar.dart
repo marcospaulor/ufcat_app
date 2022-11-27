@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ufcat_app/view/components/search_bar.dart';
+import 'package:ufcat_app/src/view/components/searchBar.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   final IconData icon;

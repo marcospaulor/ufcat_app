@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:ufcat_app/view/home.dart';
+import 'package:ufcat_app/src/view/home.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({

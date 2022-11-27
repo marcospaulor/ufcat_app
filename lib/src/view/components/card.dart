@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ufcat_app/view/const.dart';
+import 'package:ufcat_app/src/view/style/const.dart';
 
 class CardButton extends StatelessWidget {
   final String label;
@@ -67,10 +67,7 @@ class CardButton extends StatelessWidget {
                 : label == 'eventos'
                     ? 'Últimos Eventos'
                     : 'Últimos Editais',
-            style: const TextStyle(
-              color: darkUfcat,
-              fontSize: 16,
-            ),
+            style: Theme.of(context).textTheme.headline4,
           ),
         ),
         ListView(
