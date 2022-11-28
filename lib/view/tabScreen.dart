@@ -4,7 +4,12 @@ import 'package:ufcat_app/view/const.dart';
 import 'package:ufcat_app/view/components/myAppBar.dart';
 
 class TabScreen extends StatelessWidget {
-  const TabScreen({Key? key}) : super(key: key);
+  final int index;
+
+  const TabScreen({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +58,7 @@ class TabScreen extends StatelessWidget {
 
     return DefaultTabController(
       length: 3,
+      initialIndex: index,
       child: Scaffold(
         appBar: const MyAppBar(
           icon: FontAwesomeIcons.arrowLeft,
@@ -114,47 +120,41 @@ class TabScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(0.0),
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.grey,
-                ),
-                child: Column(
-                  children: [
-                    Builder(builder: (context) {
-                      return Wrap(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height *
-                                0.25 *
-                                0.65,
-                            child: Image.network(
-                              item['imagePath'],
-                              fit: BoxFit.cover,
-                            ),
+              child: Card(
+                clipBehavior: Clip.antiAlias,
+                margin: EdgeInsets.zero,
+                elevation: 5.0,
+                child: InkWell(
+                  onTap: () {},
+                  splashColor: Colors.black.withOpacity(0.25),
+                  highlightColor: Colors.transparent,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height:
+                            MediaQuery.of(context).size.height * 0.25 * 0.65,
+                        child: Ink.image(
+                          image: NetworkImage(item['imagePath']),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height:
+                            MediaQuery.of(context).size.height * 0.25 * 0.35,
+                        child: Text(
+                          item['title'],
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
                           ),
-                          Container(
-                            alignment: Alignment.center,
-                            height: MediaQuery.of(context).size.height *
-                                0.25 *
-                                0.35,
-                            child: Text(
-                              item['title'],
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    }),
-                  ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                onPressed: () {},
               ),
             ),
           )
