@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ufcat_app/view/const.dart';
+import 'package:ufcat_app/src/view/style/const.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -82,38 +82,44 @@ class NavigationDrawer extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Wrap(
-              children: items
-                  .map(
-                    (item) => item['divider'] == null
-                        ? ListTile(
-                            leading: Icon(
-                              item['icon'],
-                              semanticLabel: item['title'],
-                              // TODO: acessibilidade
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            iconColor: iconColor.withOpacity(0.75),
-                            title: Text(
-                              item['title'],
-                              style: const TextStyle(
-                                color: textColor,
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                splashColor: redUfcat,
+                highlightColor: redUfcat,
+              ),
+              child: Wrap(
+                children: items
+                    .map(
+                      (item) => item['divider'] == null
+                          ? ListTile(
+                              leading: Icon(
+                                item['icon'],
+                                semanticLabel: item['title'],
+                                // TODO: acessibilidade
                               ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              iconColor: iconColor.withOpacity(0.75),
+                              title: Text(
+                                item['title'],
+                                style: const TextStyle(
+                                  color: textColor,
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                            )
+                          : const Divider(
+                              indent: 15,
+                              endIndent: 15,
+                              thickness: 2,
+                              color: textColor,
                             ),
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        : const Divider(
-                            indent: 15,
-                            endIndent: 15,
-                            thickness: 2,
-                            color: textColor,
-                          ),
-                  )
-                  .toList(),
+                    )
+                    .toList(),
+              ),
             ),
           ),
         ],

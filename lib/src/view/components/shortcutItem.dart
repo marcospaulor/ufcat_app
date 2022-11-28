@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ufcat_app/view/components/webview.dart';
-import 'package:ufcat_app/view/const.dart';
-import 'package:ufcat_app/view/mapa.dart';
-import 'package:ufcat_app/view/tabScreen.dart';
+import 'package:ufcat_app/src/view/components/webview.dart';
+import 'package:ufcat_app/src/view/style/const.dart';
+import 'package:ufcat_app/src/view/mapaScreen.dart';
+import 'package:ufcat_app/src/view/tabScreen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AtalhoIcon extends StatefulWidget {
@@ -29,6 +29,7 @@ class _AtalhoIconState extends State<AtalhoIcon> {
 
     return ListView(
       scrollDirection: Axis.horizontal,
+      physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.symmetric(
         horizontal: 5.0,
       ),

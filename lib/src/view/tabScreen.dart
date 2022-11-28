@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ufcat_app/view/const.dart';
-import 'package:ufcat_app/view/components/myAppBar.dart';
+import 'package:ufcat_app/src/view/style/const.dart';
+import 'package:ufcat_app/src/view/components/appBar.dart';
 
 class TabScreen extends StatelessWidget {
   final int index;

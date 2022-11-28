@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'view/components/splash.dart';
-import 'package:ufcat_app/view/const.dart';
+import 'package:ufcat_app/src/view/components/splash.dart';
+import 'package:ufcat_app/src/view/style/const.dart';
+import 'package:ufcat_app/src/view/style/fontsStyle.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,8 +16,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'UFCAT',
       theme: ThemeData(
-        fontFamily: 'Rawline',
         primarySwatch: greenUfcat,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Rawline',
+        // fontstyle
+        textTheme: textTheme(),
       ),
       home: const SplashScreen(),
     );

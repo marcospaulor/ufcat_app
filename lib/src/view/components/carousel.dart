@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ufcat_app/view/const.dart';
+import 'package:ufcat_app/src/view/style/const.dart';
 import 'package:flutter/material.dart';
 
 class Carousel extends StatefulWidget {
