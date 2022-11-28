@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ufcat_app/src/view/style/const.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ufcat_app/view/const.dart';
+import 'package:ufcat_app/view/tabScreen.dart';
+import 'package:page_transition/page_transition.dart';
 
 class CardButton extends StatelessWidget {
   final String label;
@@ -54,90 +57,157 @@ class CardButton extends StatelessWidget {
       ],
     };
 
-    return Stack(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(
-            top: 10.0,
             left: 20.0,
           ),
-          child: Text(
-            label == 'noticias'
-                ? 'Últimas Notícias'
-                : label == 'eventos'
-                    ? 'Últimos Eventos'
-                    : 'Últimos Editais',
-            style: Theme.of(context).textTheme.headline4,
-          ),
-        ),
-        ListView(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          padding: const EdgeInsets.only(
-            left: 10.0,
-            right: 10.0,
-            top: 20.0,
-          ),
-          children: info[label]!
-              .map(
-                (item) => Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10.0,
-                    horizontal: 10.0,
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      elevation: 5,
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.grey,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: SizedBox(
-                      width: 318,
-                      height: 186,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: 108,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                              ),
-                              child: Image.network(
-                                item['imagePath'],
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0,
-                            ),
-                            alignment: Alignment.center,
-                            height: 78,
-                            child: Text(
-                              item['title'],
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                color: darkUfcat,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+          child: Container(
+            height: 25,
+            color: Colors.black,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label == 'noticias'
+                      ? 'Últimas Notícias'
+                      : label == 'eventos'
+                          ? 'Últimos Eventos'
+                          : 'Últimos Editais',
+                  style: const TextStyle(
+                    color: darkUfcat,
+                    fontSize: 16,
                   ),
                 ),
-              )
-              .toList(),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.rightToLeftWithFade,
+                        child: TabScreen(
+                            index: label == 'noticias'
+                                ? 0
+                                : label == 'eventos'
+                                    ? 1
+                                    : 2),
+                      ),
+                    );
+                  },
+                  child: const Icon(
+                    FontAwesomeIcons.angleRight,
+                    size: 20,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          child: ListView(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(
+              left: 10.0,
+              right: 10.0,
+            ),
+            children: [
+              ...info[label]!
+                  .map(
+                    (item) => UnconstrainedBox(
+                      child: SizedBox(
+                        width: 318,
+                        height: 206,
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          elevation: 10.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          margin: const EdgeInsets.all(10.0),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(10.0),
+                            onTap: () {},
+                            splashColor: Colors.black.withOpacity(0.25),
+                            highlightColor: Colors.transparent,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 108,
+                                  child: Ink.image(
+                                    image: NetworkImage(item['imagePath']),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.zero,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0,
+                                  ),
+                                  alignment: Alignment.center,
+                                  height: 78,
+                                  child: Text(
+                                    item['title'],
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      color: darkUfcat,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.rightToLeftWithFade,
+                      child: TabScreen(
+                          index: label == 'noticias'
+                              ? 0
+                              : label == 'eventos'
+                                  ? 1
+                                  : 2),
+                    ),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'Ver mais',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: darkUfcat,
+                          fontSize: 16,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 7.5),
+                        child: Icon(
+                          FontAwesomeIcons.angleRight,
+                          size: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

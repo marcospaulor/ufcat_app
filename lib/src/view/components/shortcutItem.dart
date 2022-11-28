@@ -26,6 +26,7 @@ class _AtalhoIconState extends State<AtalhoIcon> {
       'Segurança': FontAwesomeIcons.shieldHalved,
       'Calendário': FontAwesomeIcons.solidCalendarMinus,
     };
+
     return ListView(
       scrollDirection: Axis.horizontal,
       physics: const BouncingScrollPhysics(),
@@ -34,50 +35,48 @@ class _AtalhoIconState extends State<AtalhoIcon> {
       ),
       children: atalhos.entries
           .map(
-            (e) => Padding(
+            (e) => Container(
               padding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).padding.top,
                 horizontal: 5.0,
               ),
-              child: SizedBox(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              if (e.key == "Mapa") return const MapScreen();
-                              if (e.key == "Biblioteca") {
-                                return const WebViewPage(
-                                  url:
-                                      'https://biblioteca.sophia.com.br/terminal/9396/',
-                                );
-                              }
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            if (e.key == "Mapa") return const MapView();
+                            if (e.key == "Biblioteca") {
+                              return const WebViewPage(
+                                url:
+                                    'https://biblioteca.sophia.com.br/terminal/9396/',
+                              );
+                            }
 
-                              return const TabScreen();
-                            },
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        elevation: 5,
-                        shape: const CircleBorder(),
-                        padding: const EdgeInsets.all(15.0),
-                      ),
-                      child: Icon(e.value, size: 30),
+                            return const TabScreen(index: 0);
+                          },
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 5,
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(15.0),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5.0),
-                      child: Text(
-                        e.key,
-                        style: const TextStyle(color: greenUfcat),
-                      ),
+                    child: Icon(e.value, size: 30),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: Text(
+                      e.key,
+                      style: const TextStyle(color: greenUfcat),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           )
