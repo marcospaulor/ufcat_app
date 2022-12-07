@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ufcat_app/src/view/RUScreen.dart';
 import 'package:ufcat_app/src/view/components/webview.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 import 'package:ufcat_app/src/view/mapaScreen.dart';
@@ -50,6 +51,7 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                         MaterialPageRoute(
                           builder: (context) {
                             if (e.key == "Mapa") return const MapScreen();
+                            if (e.key == "RU") return const RUScreen();
                             if (e.key == "Biblioteca") {
                               return const WebViewPage(
                                 url:
