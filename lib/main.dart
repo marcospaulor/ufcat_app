@@ -18,7 +18,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: greenUfcat,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        useMaterial3: true,
         fontFamily: 'Rawline',
+        appBarTheme: ,
         // fontstyle
         textTheme: textTheme(),
       ),
