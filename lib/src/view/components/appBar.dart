@@ -49,7 +49,12 @@ class _MyAppBarState extends State<MyAppBar> {
               iconSize: width * 0.08,
               onPressed: () {},
             )
-          : Text(widget.title!),
+          : Text(
+              widget.title!,
+              style: const TextStyle(
+                fontSize: 16,
+              ),
+            ),
       actions: [
         IconButton(
           icon: const Icon(FontAwesomeIcons.magnifyingGlass),

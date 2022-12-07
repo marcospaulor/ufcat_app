@@ -49,7 +49,7 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            if (e.key == "Mapa") return const MapView();
+                            if (e.key == "Mapa") return const MapScreen();
                             if (e.key == "Biblioteca") {
                               return const WebViewPage(
                                 url:

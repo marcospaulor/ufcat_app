@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/components/appBar.dart';
+import 'package:ufcat_app/src/view/style/const.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatefulWidget {
@@ -85,7 +86,7 @@ class _WebViewPageState extends State<WebViewPage> {
         isLoading
             ? Center(
                 child: Container(
-                  color: Colors.white,
+                  color: grayUfcat,
                   padding: const EdgeInsets.all(20),
                   child: const CircularProgressIndicator(),
                 ),

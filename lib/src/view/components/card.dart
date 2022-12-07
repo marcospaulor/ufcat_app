@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ufcat_app/view/const.dart';
-import 'package:ufcat_app/view/tabScreen.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:ufcat_app/src/view/style/const.dart';
+import 'package:ufcat_app/src/view/tabScreen.dart';
 
 class CardButton extends StatelessWidget {
   final String label;
@@ -58,37 +57,72 @@ class CardButton extends StatelessWidget {
     };
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Padding(
+        Container(
+          height: 39.0,
           padding: const EdgeInsets.only(
             left: 20.0,
           ),
-          child: Container(
-            height: 25,
-            color: Colors.black,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  label == 'noticias'
-                      ? 'Últimas Notícias'
-                      : label == 'eventos'
-                          ? 'Últimos Eventos'
-                          : 'Últimos Editais',
-                  style: const TextStyle(
-                    color: darkUfcat,
-                    fontSize: 16,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (contex) => TabScreen(
+                          index: label == 'noticias'
+                              ? 0
+                              : label == 'eventos'
+                                  ? 1
+                                  : 2),
+                    ),
+                  );
+                },
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.only(
+                    top: 8.0,
+                    bottom: 8.0,
+                    right: 8.0,
                   ),
                 ),
-                TextButton(
+                child: label == 'noticias'
+                    ? const Text(
+                        'Últimas Notícias',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      )
+                    : label == 'eventos'
+                        ? const Text(
+                            'Últimos Eventos',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          )
+                        : const Text(
+                            'Últimos Editais',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  padding: const EdgeInsets.only(
+                    top: 8.0,
+                    bottom: 8.0,
+                    left: 8.0,
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,
-                      PageTransition(
-                        type: PageTransitionType.rightToLeftWithFade,
-                        child: TabScreen(
+                      MaterialPageRoute(
+                        builder: (contex) => TabScreen(
                             index: label == 'noticias'
                                 ? 0
                                 : label == 'eventos'
@@ -97,13 +131,14 @@ class CardButton extends StatelessWidget {
                       ),
                     );
                   },
-                  child: const Icon(
+                  icon: const Icon(
                     FontAwesomeIcons.angleRight,
                     size: 20,
+                    color: greenUfcat,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         Expanded(
@@ -120,14 +155,18 @@ class CardButton extends StatelessWidget {
                     (item) => UnconstrainedBox(
                       child: SizedBox(
                         width: 318,
-                        height: 206,
+                        height: 196,
                         child: Card(
                           clipBehavior: Clip.antiAlias,
                           elevation: 10.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          margin: const EdgeInsets.all(10.0),
+                          margin: const EdgeInsets.only(
+                            left: 10.0,
+                            right: 10.0,
+                            bottom: 10.0,
+                          ),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(10.0),
                             onTap: () {},
@@ -167,45 +206,6 @@ class CardButton extends StatelessWidget {
                     ),
                   )
                   .toList(),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.rightToLeftWithFade,
-                      child: TabScreen(
-                          index: label == 'noticias'
-                              ? 0
-                              : label == 'eventos'
-                                  ? 1
-                                  : 2),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'Ver mais',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: darkUfcat,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 7.5),
-                        child: Icon(
-                          FontAwesomeIcons.angleRight,
-                          size: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ],
           ),
         ),
