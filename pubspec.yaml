@@ -39,6 +39,7 @@ dependencies:
   webview_flutter: ^3.0.4
   photo_view: ^0.14.0
   flutter_rating_bar: ^4.0.1
+  page_transition: ^2.0.9
 
 dev_dependencies:
   flutter_test:

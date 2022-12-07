@@ -19,9 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: greenUfcat,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         useMaterial3: true,
-        fontFamily: 'Rawline',
-        appBarTheme: ,
-        // fontstyle
+        fontFamily: 'Rawline', // fontstyle
         textTheme: textTheme(),
       ),
       home: const SplashScreen(),
