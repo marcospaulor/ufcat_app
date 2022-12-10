@@ -19,7 +19,7 @@ TextTheme textTheme() {
     headline4: TextStyle(
       fontSize: 18.0,
       fontWeight: FontWeight.bold,
-      color: greenUfcat,
+      color: Colors.white,
     ),
     headline5: TextStyle(
       fontSize: 14.0,
@@ -30,7 +30,7 @@ TextTheme textTheme() {
       fontWeight: FontWeight.bold,
     ),
     bodyText1: TextStyle(
-      fontSize: 14.0,
+      fontSize: 16.0,
       fontWeight: FontWeight.normal,
     ),
     bodyText2: TextStyle(
