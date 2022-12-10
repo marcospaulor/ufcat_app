@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/components/webview.dart';
-import 'package:ufcat_app/src/view/mapaScreen.dart';
+import 'package:ufcat_app/src/view/mapa_screen.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 
-import 'tabScreen.dart';
+import 'tab_screen.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);

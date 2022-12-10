@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ufcat_app/src/view/newsScreen.dart';
+import 'package:ufcat_app/src/view/news_screen.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
-import 'package:ufcat_app/src/view/components/appBar.dart';
+import 'package:ufcat_app/src/view/components/app_bar.dart';
 
 class TabScreen extends StatelessWidget {
   final int index;
@@ -16,6 +16,18 @@ class TabScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<String, List> info = {
       'noticias': [
+        {
+          'imagePath':
+              'https://files.cercomp.ufg.br/weby/up/519/m/Homologa%C3%A7%C3%A3o_de_inscri%C3%A7%C3%B5es_UFCAT.png',
+          'title':
+              'Homologação final das inscrições para Eleição de Representantes nas instâncias deliberativas da UFCAT'
+        },
+        {
+          'imagePath':
+              'https://files.cercomp.ufg.br/weby/up/519/m/Curso_de_Matem%C3%A1tica_colabora_na_prepara%C3%A7%C3%A3o_de_estudantes_para_o_SAEGO_-_capa.jpg',
+          'title':
+              'Curso de Matemática colabora na preparação de estudantes para o SAEGO'
+        },
         {
           'imagePath':
               'https://files.cercomp.ufg.br/weby/up/519/m/Homologa%C3%A7%C3%A3o_de_inscri%C3%A7%C3%B5es_UFCAT.png',
@@ -110,16 +122,8 @@ class TabScreen extends StatelessWidget {
             (item) => Container(
               height: MediaQuery.of(context).size.height * 0.25,
               margin: const EdgeInsets.symmetric(vertical: 10.0),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    spreadRadius: 0,
-                    blurRadius: 4,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
               ),
               child: Card(
                 clipBehavior: Clip.antiAlias,

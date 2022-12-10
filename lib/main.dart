@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ufcat_app/src/view/components/splash.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
-import 'package:ufcat_app/src/view/style/fontsStyle.dart';
-import 'package:flutter/rendering.dart';
+import 'package:ufcat_app/src/view/style/fonts_style.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
-  runApp(const MyApp());
+  initializeDateFormatting().then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,8 +14,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    debugPaintSizeEnabled = true;
-
     return MaterialApp(
       title: 'UFCAT',
       theme: ThemeData(
