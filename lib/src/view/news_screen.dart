@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/components/app_bar.dart';
-import "package:ufcat_app/src/view/style/const.dart";
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({
@@ -54,22 +53,22 @@ class _NewsScreenState extends State<NewsScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     width: width,
                     child: Text(
                       widget.title,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 20,
                       ),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: width,
                     child: Text(
                       widget.data,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 12,
                       ),
@@ -83,7 +82,7 @@ class _NewsScreenState extends State<NewsScreen> {
               padding: const EdgeInsets.all(10.0),
               child: Text(
                 widget.text,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                 ),

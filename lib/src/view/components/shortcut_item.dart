@@ -59,7 +59,9 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                                     'https://biblioteca.sophia.com.br/terminal/9396/',
                               );
                             }
-                            if (e.key == "Calendário") return CalendarScreen();
+                            if (e.key == "Calendário") {
+                              return const CalendarScreen();
+                            }
 
                             return const TabScreen(index: 0);
                           },

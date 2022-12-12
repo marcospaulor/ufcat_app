@@ -79,7 +79,7 @@ class _RUScreenState extends State<RUScreen> {
                     ),
                   ),
 
-                  Center(
+                  const Center(
                     child: Text(
                       'Almoço',
                       style: TextStyle(
@@ -94,8 +94,8 @@ class _RUScreenState extends State<RUScreen> {
                 ],
               ),
             ),
-            Expanded(
-              child: const Center(
+            const Expanded(
+              child: Center(
                 child: Text('RU'),
               ),
             ),
