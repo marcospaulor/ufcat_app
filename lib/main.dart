@@ -29,6 +29,9 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Rawline', // fontstyle
         textTheme: textTheme(),
       ),
+      scrollBehavior: const ScrollBehavior().copyWith(
+        physics: const BouncingScrollPhysics(),
+      ),
       home: const SplashScreen(),
     );
   }

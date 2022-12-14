@@ -23,6 +23,11 @@ class _CalendarScreen extends State<CalendarScreen> {
   };
   late final ValueNotifier<List<dynamic>> _selectedEvents;
 
+  BoxDecoration _defaultDecoration = const BoxDecoration(
+    color: Colors.transparent,
+    shape: BoxShape.circle,
+  );
+
   @override
   void initState() {
     super.initState();
@@ -49,6 +54,7 @@ class _CalendarScreen extends State<CalendarScreen> {
               ),
             ),
             calendarStyle: CalendarStyle(
+              defaultDecoration: _defaultDecoration,
               markerSizeScale: 0.15,
               markerMargin: const EdgeInsets.only(
                 top: 5.0,
@@ -127,6 +133,13 @@ class _CalendarScreen extends State<CalendarScreen> {
               _focusedDay = focusedDay;
             },
             eventLoader: (day) {
+              if (day.isAfter(DateTime.utc(2022, 12, 16)) &&
+                  day.isBefore(DateTime.utc(2023, 1, 6))) {
+                _defaultDecoration = const BoxDecoration(
+                  color: Colors.transparent,
+                  shape: BoxShape.circle,
+                );
+              }
               if (_events.containsKey(day)) {
                 return _events[day]!;
               }
