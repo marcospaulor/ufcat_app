@@ -4,26 +4,33 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 
 class StarRating extends StatefulWidget {
-  const StarRating({Key? key}) : super(key: key);
+  double padding;
+  double size;
+  int _rating = 0;
+
+  StarRating({
+    Key? key,
+    required this.padding,
+    required this.size,
+  }) : super(key: key);
 
   @override
   State<StarRating> createState() => _StarRatingState();
 }
 
 class _StarRatingState extends State<StarRating> {
-  int _rating = 0;
-
   @override
   Widget build(BuildContext context) {
     return RatingBar(
       initialRating: 3,
-      minRating: 0,
+      minRating: 1,
       maxRating: 5,
       direction: Axis.horizontal,
+      ignoreGestures: widget.size == 20.0 ? true : false,
       allowHalfRating: false,
       itemCount: 5,
-      itemSize: 20.0,
-      itemPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+      itemSize: widget.size,
+      itemPadding: EdgeInsets.symmetric(horizontal: widget.padding),
       ratingWidget: RatingWidget(
         full: const Icon(
           FontAwesomeIcons.solidStar,
@@ -40,7 +47,7 @@ class _StarRatingState extends State<StarRating> {
       ),
       onRatingUpdate: (rating) {
         setState(() {
-          _rating = rating.toInt();
+          widget._rating = rating.toInt();
         });
       },
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ufcat_app/src/view/components/sticky_button.dart';
+import 'package:ufcat_app/src/view/rating_screen.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 import 'package:ufcat_app/src/view/components/app_bar.dart';
 import 'package:ufcat_app/src/view/components/star_rating.dart';
@@ -120,10 +120,10 @@ class _RUScreenState extends State<RUScreen> {
                 indicatorColor: orangeUfcat,
                 tabs: [
                   Tab(
-                    text: 'Almoço',
+                    text: 'ALMOÇO',
                   ),
                   Tab(
-                    text: 'Jantar',
+                    text: 'JANTAR',
                   ),
                 ],
               ),
@@ -138,21 +138,41 @@ class _RUScreenState extends State<RUScreen> {
                       // Avaliação da refeição com estrelas e botão de enviar
                       Container(
                         height: width * 0.2,
-                        color: Colors.white,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          // Border on the bottom of the container
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Colors.black.withOpacity(0.2),
+                              width: 0.5,
+                            ),
+                          ),
+                        ),
                         child: Row(
                           children: [
-                            const Expanded(
+                            Expanded(
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                   horizontal: 13.0,
                                   vertical: 1.0,
                                 ),
-                                child: StarRating(),
+                                child: StarRating(
+                                  padding: 6.0,
+                                  size: 20.0,
+                                ),
                               ),
                             ),
                             Expanded(
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RatingScreen(),
+                                    ),
+                                  );
+                                },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: orangeUfcat,
                                   shape: RoundedRectangleBorder(
@@ -199,21 +219,41 @@ class _RUScreenState extends State<RUScreen> {
                       // Avaliação da refeição com estrelas e botão de enviar
                       Container(
                         height: width * 0.2,
-                        color: Colors.white,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          // Border on the bottom of the container
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Colors.black.withOpacity(0.2),
+                              width: 0.5,
+                            ),
+                          ),
+                        ),
                         child: Row(
                           children: [
-                            const Expanded(
+                            Expanded(
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                   horizontal: 13.0,
                                   vertical: 1.0,
                                 ),
-                                child: StarRating(),
+                                child: StarRating(
+                                  padding: 6.0,
+                                  size: 20.0,
+                                ),
                               ),
                             ),
                             Expanded(
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RatingScreen(),
+                                    ),
+                                  );
+                                },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: orangeUfcat,
                                   shape: RoundedRectangleBorder(
