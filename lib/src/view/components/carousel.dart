@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ufcat_app/src/view/components/card.dart';
-import 'package:ufcat_app/src/view/newsScreen.dart';
+import 'package:ufcat_app/src/view/news_screen.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 import 'package:flutter/material.dart';
 

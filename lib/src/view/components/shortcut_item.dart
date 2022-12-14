@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ufcat_app/src/view/RUScreen.dart';
+import 'package:ufcat_app/src/view/calendar_screen.dart';
+import 'package:ufcat_app/src/view/ru_screen.dart';
 import 'package:ufcat_app/src/view/components/webview.dart';
+import 'package:ufcat_app/src/view/security_screen.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
-import 'package:ufcat_app/src/view/mapaScreen.dart';
-import 'package:ufcat_app/src/view/tabScreen.dart';
+import 'package:ufcat_app/src/view/mapa_screen.dart';
+import 'package:ufcat_app/src/view/tab_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AtalhoIcon extends StatefulWidget {
@@ -30,7 +32,6 @@ class _AtalhoIconState extends State<AtalhoIcon> {
 
     return ListView(
       scrollDirection: Axis.horizontal,
-      physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.symmetric(
         horizontal: 5.0,
       ),
@@ -57,6 +58,12 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                                 url:
                                     'https://biblioteca.sophia.com.br/terminal/9396/',
                               );
+                            }
+                            if (e.key == "Calendário") {
+                              return const CalendarScreen();
+                            }
+                            if (e.key == "Segurança") {
+                              return const SecurityScreen();
                             }
 
                             return const TabScreen(index: 0);
