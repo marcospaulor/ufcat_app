@@ -24,6 +24,12 @@ class MyApp extends StatelessWidget {
           },
         ),
         primarySwatch: greenUfcat,
+        // colorScheme: ColorScheme.fromSwatch(
+        //   primarySwatch: greenUfcat,
+        //   backgroundColor: greenUfcat,
+        //   accentColor: greenUfcat,
+        //   cardColor: greenUfcat,
+        // ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         // useMaterial3: true,
         fontFamily: 'Rawline', // fontstyle
