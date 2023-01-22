@@ -4,8 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 
 class StarRating extends StatefulWidget {
-  double padding;
-  double size;
+  final double padding;
+  final double size;
   int _rating = 0;
 
   StarRating({
@@ -27,7 +27,7 @@ class _StarRatingState extends State<StarRating> {
       maxRating: 5,
       direction: Axis.horizontal,
       ignoreGestures: widget.size == 20.0 ? true : false,
-      allowHalfRating: false,
+      allowHalfRating: true,
       itemCount: 5,
       itemSize: widget.size,
       itemPadding: EdgeInsets.symmetric(horizontal: widget.padding),
@@ -51,25 +51,5 @@ class _StarRatingState extends State<StarRating> {
         });
       },
     );
-    // RatingBar.builder(
-    //   initialRating: 3,
-    //   minRating: 1,
-    //   maxRating: 5,
-    //   direction: Axis.horizontal,
-    //   allowHalfRating: false,
-    //   itemCount: 5,
-    //   itemPadding: EdgeInsets.symmetric(
-    //     horizontal: 4,
-    //   ),
-    //   itemBuilder: (context, _) => Icon(
-    //     FontAwesomeIcons.star,
-    //     color: orangeUfcat,
-    //   ),
-    //   onRatingUpdate: (rating) {
-    //     setState(() {
-    //       _rating = rating.toInt();
-    //     });
-    //   },
-    // );
   }
 }
