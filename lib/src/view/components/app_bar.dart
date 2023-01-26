@@ -42,12 +42,9 @@ class _MyAppBarState extends State<MyAppBar> {
         },
       ),
       title: widget.title!.contains('/')
-          ? IconButton(
-              icon: Image.asset(
-                widget.title!,
-              ),
-              iconSize: width * 0.08,
-              onPressed: () {},
+          ? Image.asset(
+              widget.title!,
+              width: width * 0.15,
             )
           : Text(
               widget.title!,

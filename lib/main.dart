@@ -3,9 +3,11 @@ import 'package:ufcat_app/src/view/components/splash.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 import 'package:ufcat_app/src/view/style/fonts_style.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'dart:io';
 
 void main() {
-  initializeDateFormatting().then((_) => runApp(const MyApp()));
+  initializeDateFormatting().then((_) =>
+      Platform.isAndroid ? runApp(const MyApp()) : runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
