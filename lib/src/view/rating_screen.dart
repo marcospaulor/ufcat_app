@@ -27,18 +27,26 @@ class _RatingScreenState extends State<RatingScreen> {
           width: double.infinity,
           child: Container(
             decoration: const BoxDecoration(
-              color: grayUfcat,
+              color: Colors.white,
               borderRadius: BorderRadius.all(
                 Radius.circular(20),
               ),
             ),
             margin: const EdgeInsets.all(20),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                Container(
+                    margin: const EdgeInsets.only(top: 50),
+                    child: const Icon(
+                      FontAwesomeIcons.heartCircleCheck,
+                      color: greenUfcat,
+                      size: 150,
+                    )),
                 Container(
                   margin: const EdgeInsets.only(top: 50),
                   child: Text(
-                    'Avalie o refeição!',
+                    'Avalie a refeição!',
                     style: Theme.of(context)
                         .textTheme
                         .headline3!
@@ -46,15 +54,19 @@ class _RatingScreenState extends State<RatingScreen> {
                   ),
                 ),
                 Container(
-                  width: width,
-                  height: height * 0.1,
-                  color: Colors.white,
+                  width: width * 0.6,
+                  height: height * 0.075,
                   margin: const EdgeInsets.only(top: 50),
-                  child: Center(
-                    child: StarRating(
-                      padding: 20.0,
-                      size: 30.0,
+                  alignment: Alignment.center,
+                  decoration: const BoxDecoration(
+                    color: grayUfcat,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50),
                     ),
+                  ),
+                  child: StarRating(
+                    padding: 10.0,
+                    size: 30.0,
                   ),
                 ),
                 // input area
@@ -64,8 +76,15 @@ class _RatingScreenState extends State<RatingScreen> {
                   child: const TextField(
                     maxLines: 8,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                      ),
                       hintText: 'Digite seu comentário aqui...',
+                      filled: true,
+                      fillColor: grayUfcat,
                     ),
                   ),
                 ),

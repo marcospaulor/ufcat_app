@@ -86,8 +86,11 @@ class _WebViewPageState extends State<WebViewPage> {
         isLoading
             ? Center(
                 child: Container(
-                  color: grayUfcat,
                   padding: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
+                    color: grayUfcat,
+                    shape: BoxShape.circle,
+                  ),
                   child: const CircularProgressIndicator(),
                 ),
               )
