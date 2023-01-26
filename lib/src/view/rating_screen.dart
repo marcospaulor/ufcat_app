@@ -38,7 +38,7 @@ class _RatingScreenState extends State<RatingScreen> {
                 Container(
                   margin: const EdgeInsets.only(top: 50),
                   child: Text(
-                    'Avalie o refeição!',
+                    'Avalie a refeição!',
                     style: Theme.of(context)
                         .textTheme
                         .headline3!
@@ -64,7 +64,7 @@ class _RatingScreenState extends State<RatingScreen> {
                   child: const TextField(
                     maxLines: 8,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: InputBorder.none, // no border
                       hintText: 'Digite seu comentário aqui...',
                     ),
                   ),
