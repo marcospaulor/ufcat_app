@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:ufcat_app/src/view/components/app_bar.dart';
+import 'package:ufcat_app/src/view/components/bottom_bar.dart';
+import 'package:ufcat_app/src/view/side_menu.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 
 class CalendarScreen extends StatefulWidget {
@@ -37,11 +39,15 @@ class _CalendarScreen extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<ScaffoldState> drawerKey = GlobalKey<ScaffoldState>();
+
     return Scaffold(
+      key: drawerKey,
       appBar: const MyAppBar(
         icon: FontAwesomeIcons.arrowLeft,
         title: 'Calendário',
       ),
+      drawer: const NavigationDrawer(),
       body: Column(
         children: [
           TableCalendar(
@@ -201,6 +207,7 @@ class _CalendarScreen extends State<CalendarScreen> {
           )
         ],
       ),
+      bottomNavigationBar: BottomBar(drawerKey: drawerKey),
     );
   }
 }

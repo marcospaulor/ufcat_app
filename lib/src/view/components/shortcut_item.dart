@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ufcat_app/src/view/calendar_screen.dart';
+import 'package:ufcat_app/src/view/home_screen.dart';
 import 'package:ufcat_app/src/view/ru_screen.dart';
 import 'package:ufcat_app/src/view/components/webview.dart';
 import 'package:ufcat_app/src/view/security_screen.dart';
@@ -22,6 +23,7 @@ class _AtalhoIconState extends State<AtalhoIcon> {
   Widget build(BuildContext context) {
     Map<String, IconData> atalhos = {
       'Notícias': FontAwesomeIcons.solidNewspaper,
+      'Eventos': FontAwesomeIcons.solidCalendarCheck,
       'Editais': FontAwesomeIcons.solidFileLines,
       'RU': FontAwesomeIcons.utensils,
       'Mapa': FontAwesomeIcons.locationDot,
@@ -31,15 +33,15 @@ class _AtalhoIconState extends State<AtalhoIcon> {
     };
 
     return GridView.count(
-      crossAxisCount: 3,
+      crossAxisCount: 2,
       padding: const EdgeInsets.symmetric(
-        horizontal: 5.0,
+        horizontal: 10.0,
       ),
-      shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       children: atalhos.entries
           .map(
-            (e) => Container(
+            (item) => Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: 5.0,
               ),
@@ -53,37 +55,46 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            if (e.key == "Mapa") return const MapScreen();
-                            if (e.key == "RU") return const RUScreen();
-                            if (e.key == "Biblioteca") {
-                              return const WebViewPage(
-                                url:
-                                    'https://biblioteca.sophia.com.br/terminal/9396/',
-                              );
+                            switch (item.key) {
+                              case 'Mapa':
+                                return const MapScreen();
+                              case 'RU':
+                                return const RUScreen();
+                              case 'Biblioteca':
+                                return const WebViewPage(
+                                  url:
+                                      'https://biblioteca.sophia.com.br/terminal/9396/',
+                                );
+                              case 'Calendário':
+                                return const CalendarScreen();
+                              case 'Segurança':
+                                return const SecurityScreen();
+                              case 'Notícias':
+                                return const TabScreen(index: 0);
+                              case 'Eventos':
+                                return const TabScreen(index: 1);
+                              case 'Editais':
+                                return const TabScreen(index: 2);
+                              default:
+                                return const HomeView();
                             }
-                            if (e.key == "Calendário") {
-                              return const CalendarScreen();
-                            }
-                            if (e.key == "Segurança") {
-                              return const SecurityScreen();
-                            }
-
-                            return const TabScreen(index: 0);
                           },
                         ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 5,
-                      shape: const CircleBorder(),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
                       padding: const EdgeInsets.all(30.0),
                     ),
-                    child: Icon(e.value, size: 60),
+                    child: Icon(item.value, size: 100),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 5.0),
+                    padding: const EdgeInsets.only(top: 10.0),
                     child: Text(
-                      e.key,
+                      item.key,
                       style: const TextStyle(
                         color: greenUfcat,
                         fontSize: 18,

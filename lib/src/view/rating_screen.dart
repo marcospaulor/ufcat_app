@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/components/app_bar.dart';
+import 'package:ufcat_app/src/view/components/bottom_bar.dart';
 import 'package:ufcat_app/src/view/components/star_rating.dart';
+import 'package:ufcat_app/src/view/side_menu.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 
 class RatingScreen extends StatefulWidget {
@@ -12,101 +14,108 @@ class RatingScreen extends StatefulWidget {
 }
 
 class _RatingScreenState extends State<RatingScreen> {
+  GlobalKey<ScaffoldState> drawerKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
+      key: drawerKey,
       appBar: const MyAppBar(
         title: 'Avaliação',
         icon: FontAwesomeIcons.arrowLeft,
       ),
-      body: ListView(children: [
-        SizedBox(
-          height: height * 0.9,
-          width: double.infinity,
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(20),
-              ),
-            ),
-            margin: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                    margin: const EdgeInsets.only(top: 50),
-                    child: const Icon(
-                      FontAwesomeIcons.heartCircleCheck,
-                      color: greenUfcat,
-                      size: 150,
-                    )),
-                Container(
-                  margin: const EdgeInsets.only(top: 50),
-                  child: Text(
-                    'Avalie a refeição!',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3!
-                        .copyWith(color: primaryBlack),
-                  ),
+      drawer: const NavigationDrawer(),
+      body: ListView(
+        children: [
+          SizedBox(
+            height: height * 0.9,
+            width: double.infinity,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
                 ),
-                Container(
-                  width: width * 0.6,
-                  height: height * 0.075,
-                  margin: const EdgeInsets.only(top: 50),
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    color: grayUfcat,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
+              ),
+              margin: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                      margin: const EdgeInsets.only(top: 50),
+                      child: const Icon(
+                        FontAwesomeIcons.heartCircleCheck,
+                        color: greenUfcat,
+                        size: 150,
+                      )),
+                  Container(
+                    margin: const EdgeInsets.only(top: 50),
+                    child: Text(
+                      'Avalie a refeição!',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline3!
+                          .copyWith(color: primaryBlack),
                     ),
                   ),
-                  child: StarRating(
-                    padding: 10.0,
-                    size: 30.0,
+                  Container(
+                    width: width * 0.6,
+                    height: height * 0.075,
+                    margin: const EdgeInsets.only(top: 50),
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      color: grayUfcat,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                    ),
+                    child: StarRating(
+                      padding: 10.0,
+                      size: 30.0,
+                    ),
                   ),
-                ),
-                // input area
-                Container(
-                  margin: const EdgeInsets.only(top: 50),
-                  width: width * 0.8,
-                  child: const TextField(
-                    maxLines: 8,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
+                  // input area
+                  Container(
+                    margin: const EdgeInsets.only(top: 50),
+                    width: width * 0.8,
+                    child: const TextField(
+                      maxLines: 8,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        hintText: 'Digite seu comentário aqui...',
+                        filled: true,
+                        fillColor: grayUfcat,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 50),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(width * 0.4, height * 0.05),
+                        backgroundColor: orangeUfcat,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      hintText: 'Digite seu comentário aqui...',
-                      filled: true,
-                      fillColor: grayUfcat,
+                      child: const Text('ENVIAR'),
                     ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 50),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(width * 0.4, height * 0.05),
-                      backgroundColor: orangeUfcat,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: const Text('ENVIAR'),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-      ]),
+        ],
+      ),
+      bottomNavigationBar: BottomBar(drawerKey: drawerKey),
     );
   }
 }

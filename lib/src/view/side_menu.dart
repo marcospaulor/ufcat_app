@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ufcat_app/src/view/calendar_screen.dart';
 import 'package:ufcat_app/src/view/components/webview.dart';
+import 'package:ufcat_app/src/view/home_screen.dart';
 import 'package:ufcat_app/src/view/mapa_screen.dart';
+import 'package:ufcat_app/src/view/ru_screen.dart';
+import 'package:ufcat_app/src/view/security_screen.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 
 import 'tab_screen.dart';
@@ -22,6 +26,10 @@ class NavigationDrawer extends StatelessWidget {
       {
         'title': 'Notícias',
         'icon': FontAwesomeIcons.solidNewspaper,
+      },
+      {
+        'title': 'Eventos',
+        'icon': FontAwesomeIcons.solidCalendarCheck,
       },
       {
         'title': 'Editais',
@@ -118,17 +126,29 @@ class NavigationDrawer extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      if (item['title'] == "Mapa") {
-                                        return const MapScreen();
+                                      switch (item['title']) {
+                                        case 'Mapa':
+                                          return const MapScreen();
+                                        case 'RU':
+                                          return const RUScreen();
+                                        case 'Biblioteca':
+                                          return const WebViewPage(
+                                            url:
+                                                'https://biblioteca.sophia.com.br/terminal/9396/',
+                                          );
+                                        case 'Calendário':
+                                          return const CalendarScreen();
+                                        case 'Segurança':
+                                          return const SecurityScreen();
+                                        case 'Notícias':
+                                          return const TabScreen(index: 0);
+                                        case 'Eventos':
+                                          return const TabScreen(index: 1);
+                                        case 'Editais':
+                                          return const TabScreen(index: 2);
+                                        default:
+                                          return const HomeView();
                                       }
-                                      if (item['title'] == "Biblioteca") {
-                                        return const WebViewPage(
-                                          url:
-                                              'https://biblioteca.sophia.com.br/terminal/9396/',
-                                        );
-                                      }
-
-                                      return const TabScreen(index: 0);
                                     },
                                   ),
                                 );
