@@ -17,8 +17,16 @@ class _CarouselState extends State<Carousel> {
     "https://files.cercomp.ufg.br/weby/up/519/o/monitoria_hab_clinicas.jpg?1666187039",
     "https://files.cercomp.ufg.br/weby/up/519/o/Vamos_conversar_sobre_a_Pol%C3%ADtica_de_A%C3%A7%C3%B5es_Afirmativas_-_atualizado.png?1666268795",
   ];
+  List titleList = [
+    "Equipe Gestora da MUC cria e divulga \"Guia Prático de Convivência\"",
+    "Reitora da UFCAT participa de reunião com presidente Lula e reitores",
+    "Diretoria de Cultura/PROEC promove Mapeamento Artístico Cultural na UFCAT",
+    "UFCAT monitora denúncias de participação de membros da comunidade universitária nos atos",
+    "Protocolo de Biossegurança, Espaço Físico, Protocolos Sanitários e Monitoramento da COVID-19 na..."
+  ];
   var current = 0;
   CarouselController controller = CarouselController();
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -28,20 +36,41 @@ class _CarouselState extends State<Carousel> {
       fit: StackFit.loose,
       clipBehavior: Clip.none,
       children: [
+        Image.network(
+          'https://files.cercomp.ufg.br/weby/up/519/o/UFCAT_aerea.png',
+          height: height * (1 / 3),
+          fit: BoxFit.cover,
+        ),
+        Container(
+          color: Colors.black.withOpacity(0.50),
+        ),
+        Container(
+          alignment: Alignment.topCenter,
+          child: Image.asset(
+            'assets/images/logo_completa.png',
+            height: height * (1 / 8),
+            fit: BoxFit.contain,
+          ),
+        ),
         CarouselSlider(
-          items: imgList
+          items: titleList
               .map(
-                (item) => Center(
-                  child: Card(
-                    margin: EdgeInsets.zero,
-                    clipBehavior: Clip.antiAlias,
-                    child: InkWell(
-                      onTap: () {
+                (item) => Container(
+                  height: 50,
+                  width: double.infinity,
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 40.0,
+                    horizontal: 25.0,
+                  ),
+                  child: UnconstrainedBox(
+                    alignment: Alignment.bottomCenter,
+                    child: TextButton(
+                      onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const NewsScreen(
-                              label: "Noticia",
+                              label: "Notícia",
                               title:
                                   "Nota sobre bloqueio, corte e repasses financeiros à UFCAT e Convocação de Assembleia Universitária",
                               data: "06/12/22",
@@ -53,11 +82,21 @@ class _CarouselState extends State<Carousel> {
                           ),
                         );
                       },
-                      child: Image.network(
+                      style: TextButton.styleFrom(
+                        minimumSize: const Size(0, 0),
+                        maximumSize: Size.fromWidth(width * 0.85),
+                      ),
+                      child: Text(
                         item,
-                        fit: BoxFit.cover,
-                        width: width,
-                        height: height,
+                        softWrap: false,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 22,
+                          color: Colors.white,
+                          backgroundColor: Colors.transparent,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                   ),
@@ -86,7 +125,7 @@ class _CarouselState extends State<Carousel> {
               width: 10.0,
               height: 10.0,
               margin:
-                  const EdgeInsets.symmetric(vertical: 1.0, horizontal: 2.0),
+                  const EdgeInsets.symmetric(vertical: 5.0, horizontal: 2.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: current == index
