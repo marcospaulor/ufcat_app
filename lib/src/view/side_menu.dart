@@ -67,6 +67,7 @@ class NavigationDrawer extends StatelessWidget {
     return Drawer(
       backgroundColor: greenUfcat,
       child: ListView(
+        physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.zero,
         children: <Widget>[
           Container(

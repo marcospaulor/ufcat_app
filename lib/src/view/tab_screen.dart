@@ -1,77 +1,45 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/news_screen.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 import 'package:ufcat_app/src/view/components/app_bar.dart';
+import 'package:ufcat_app/src/model/content.dart';
 
-class TabScreen extends StatelessWidget {
+class TabScreen extends StatefulWidget {
   final int index;
 
-  const TabScreen({
-    Key? key,
-    required this.index,
-  }) : super(key: key);
+  const TabScreen({Key? key, required this.index}) : super(key: key);
+
+  @override
+  State<TabScreen> createState() => _TabScreenState();
+}
+
+class _TabScreenState extends State<TabScreen> {
+  // variable to initialize the data
+  Map<String, List<Content>> info = {
+    'noticias': [],
+    'eventos': [],
+    'editais': [],
+  };
+
+  // function to get the data from JSON file
+  Future<List<Content>> getContent() async {
+    final String response = await DefaultAssetBundle.of(context)
+        .loadString('assets/json/content.json');
+    final List<dynamic> data = await json.decode(response);
+    final List<Content> content =
+        data.map((dynamic e) => Content.fromJson(e)).toList();
+    return content;
+  }
 
   @override
   Widget build(BuildContext context) {
-    Map<String, List> info = {
-      'noticias': [
-        {
-          'imagePath':
-              'https://files.cercomp.ufg.br/weby/up/519/m/Homologa%C3%A7%C3%A3o_de_inscri%C3%A7%C3%B5es_UFCAT.png',
-          'title':
-              'Homologação final das inscrições para Eleição de Representantes nas instâncias deliberativas da UFCAT'
-        },
-        {
-          'imagePath':
-              'https://files.cercomp.ufg.br/weby/up/519/m/Curso_de_Matem%C3%A1tica_colabora_na_prepara%C3%A7%C3%A3o_de_estudantes_para_o_SAEGO_-_capa.jpg',
-          'title':
-              'Curso de Matemática colabora na preparação de estudantes para o SAEGO'
-        },
-        {
-          'imagePath':
-              'https://files.cercomp.ufg.br/weby/up/519/m/Homologa%C3%A7%C3%A3o_de_inscri%C3%A7%C3%B5es_UFCAT.png',
-          'title':
-              'Homologação final das inscrições para Eleição de Representantes nas instâncias deliberativas da UFCAT'
-        },
-        {
-          'imagePath':
-              'https://files.cercomp.ufg.br/weby/up/519/m/Curso_de_Matem%C3%A1tica_colabora_na_prepara%C3%A7%C3%A3o_de_estudantes_para_o_SAEGO_-_capa.jpg',
-          'title':
-              'Curso de Matemática colabora na preparação de estudantes para o SAEGO'
-        },
-      ],
-      'eventos': [
-        {
-          'imagePath':
-              'https://files.cercomp.ufg.br/weby/up/519/m/I_Semana_do_Livro_e_da_Biblioteca_da_UFCAT_-_capa.png',
-          'title': 'I Semana do Livro e da Biblioteca na UFCAT'
-        },
-        {
-          'imagePath':
-              'https://files.cercomp.ufg.br/weby/up/519/m/Caf%C3%A9Filos%C3%B3ficoItinerante.jpg',
-          'title':
-              'Café Filosófico Itinerante: "As dobras da docência: ver o mundo, estar no mundo e ser mundo"'
-        },
-      ],
-      'editais': [
-        {
-          'imagePath':
-              'https://files.cercomp.ufg.br/weby/up/519/m/Edital_de_Monitoria_-_Curso_de_Medicina.jpg',
-          'title':
-              'Curso de Medicina divulga edital de processo seletivo de monitoria de Habilidades Clínicas'
-        },
-        {
-          'imagePath':
-              'https://files.cercomp.ufg.br/weby/up/519/m/SiSU_2022_Not%C3%ADcia.jpg',
-          'title': 'SiSU 2022'
-        },
-      ],
-    };
-
+    print(info);
     return DefaultTabController(
       length: 3,
-      initialIndex: index,
+      initialIndex: widget.index,
       child: Scaffold(
         appBar: const MyAppBar(
           icon: FontAwesomeIcons.arrowLeft,

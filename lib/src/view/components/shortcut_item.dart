@@ -30,18 +30,19 @@ class _AtalhoIconState extends State<AtalhoIcon> {
       'Calendário': FontAwesomeIcons.solidCalendarMinus,
     };
 
-    return ListView(
-      scrollDirection: Axis.horizontal,
+    return GridView.count(
+      crossAxisCount: 3,
       padding: const EdgeInsets.symmetric(
         horizontal: 5.0,
       ),
+      shrinkWrap: true,
       children: atalhos.entries
           .map(
             (e) => Container(
-              padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).padding.top,
+              padding: const EdgeInsets.symmetric(
                 horizontal: 5.0,
               ),
+              alignment: Alignment.center,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -74,15 +75,18 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                     style: ElevatedButton.styleFrom(
                       elevation: 5,
                       shape: const CircleBorder(),
-                      padding: const EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.all(30.0),
                     ),
-                    child: Icon(e.value, size: 30),
+                    child: Icon(e.value, size: 60),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5.0),
                     child: Text(
                       e.key,
-                      style: const TextStyle(color: greenUfcat),
+                      style: const TextStyle(
+                        color: greenUfcat,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ],
