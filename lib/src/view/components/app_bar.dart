@@ -7,6 +7,7 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String? title;
   final TabBar? bottom;
   final double height;
+  final bool? isSearch;
 
   const MyAppBar({
     Key? key,
@@ -14,6 +15,7 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.title,
     this.bottom,
     this.height = kToolbarHeight,
+    this.isSearch,
   }) : super(key: key);
 
   @override
@@ -44,34 +46,37 @@ class _MyAppBarState extends State<MyAppBar> {
       title: widget.title!.contains('/')
           ? Image.asset(
               widget.title!,
-              width: width * 0.15,
+              width: width * 0.175,
             )
           : Text(
               widget.title!,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 22,
+                fontFamily: 'WorkSans-Regular',
               ),
             ),
-      actions: [
-        IconButton(
-          icon: const Icon(FontAwesomeIcons.magnifyingGlass),
-          iconSize: width * 0.04,
-          onPressed: () {
-            showSearch(
-              context: context,
-              delegate: SearchBar(
-                listExample: [
-                  'Resultado 2021',
-                  'Sisu 2021',
-                  'Calendário Acadêmico',
-                  'Bolsas',
-                  'Enacomp',
-                ],
+      actions: widget.isSearch == true
+          ? [
+              IconButton(
+                icon: const Icon(FontAwesomeIcons.magnifyingGlass),
+                iconSize: width * 0.04,
+                onPressed: () {
+                  showSearch(
+                    context: context,
+                    delegate: SearchBar(
+                      listExample: [
+                        'Resultado 2021',
+                        'Sisu 2021',
+                        'Calendário Acadêmico',
+                        'Bolsas',
+                        'Enacomp',
+                      ],
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-      ],
+            ]
+          : null,
       bottom: widget.bottom,
     );
   }

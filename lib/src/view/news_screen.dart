@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/components/app_bar.dart';
+import 'package:ufcat_app/src/view/components/bottom_bar.dart';
+import 'package:ufcat_app/src/view/side_menu.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({
@@ -25,13 +27,16 @@ class NewsScreen extends StatefulWidget {
 class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
+    GlobalKey<ScaffoldState> drawerKey = GlobalKey();
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      key: drawerKey,
       appBar: MyAppBar(
         title: widget.label,
         icon: FontAwesomeIcons.arrowLeft,
       ),
+      drawer: const NavigationDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -92,6 +97,7 @@ class _NewsScreenState extends State<NewsScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomBar(drawerKey: drawerKey),
     );
   }
 }
