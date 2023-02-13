@@ -37,10 +37,6 @@ class _AtalhoIconState extends State<AtalhoIcon> {
       padding: const EdgeInsets.symmetric(
         horizontal: 10.0,
       ),
-<<<<<<< HEAD
-=======
-      physics: const NeverScrollableScrollPhysics(),
->>>>>>> main
       shrinkWrap: true,
       children: atalhos.entries
           .map(
