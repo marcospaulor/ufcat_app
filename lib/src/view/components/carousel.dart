@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ufcat_app/src/view/news_screen.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
+import 'package:ufcat_app/src/view/style/fonts_style.dart';
 import 'package:flutter/material.dart';
 
 class Carousel extends StatefulWidget {
@@ -39,6 +40,7 @@ class _CarouselState extends State<Carousel> {
         Image.network(
           'https://files.cercomp.ufg.br/weby/up/519/o/UFCAT_aerea.png',
           height: height * (1 / 3),
+          width: width,
           fit: BoxFit.cover,
         ),
         Container(
@@ -86,18 +88,23 @@ class _CarouselState extends State<Carousel> {
                         minimumSize: const Size(0, 0),
                         maximumSize: Size.fromWidth(width * 0.85),
                       ),
-                      child: Text(
-                        item,
-                        softWrap: false,
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 22,
-                          color: Colors.white,
-                          backgroundColor: Colors.transparent,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
+                      child: Text(item,
+                          softWrap: false,
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style:
+                              Theme.of(context).textTheme.headlineLarge!.apply(
+                                    color: Colors.white,
+                                    overflow: TextOverflow.ellipsis,
+                                  )
+
+                          // const TextStyle(
+                          //   fontSize: 20,
+                          //   color: Colors.white,
+                          //   backgroundColor: Colors.transparent,
+                          //   overflow: TextOverflow.ellipsis,
+                          // ),
+                          ),
                     ),
                   ),
                 ),

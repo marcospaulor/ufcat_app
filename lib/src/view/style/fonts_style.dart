@@ -1,41 +1,69 @@
 // function that returns a texttheme
 import 'package:flutter/material.dart';
-import 'package:ufcat_app/src/view/style/const.dart';
 
 TextTheme textTheme() {
   return const TextTheme(
-    headline1: TextStyle(
-      fontSize: 72.0,
-      fontWeight: FontWeight.bold,
+    displayLarge: TextStyle(
+      fontSize: 48.0,
+      fontWeight: FontWeight.w300,
+      letterSpacing: -1.5,
     ),
-    headline2: TextStyle(
-      fontSize: 36.0,
-      fontWeight: FontWeight.bold,
+    displayMedium: TextStyle(
+      fontSize: 34.0,
+      fontWeight: FontWeight.w300,
+      letterSpacing: -0.5,
     ),
-    headline3: TextStyle(
+    displaySmall: TextStyle(
       fontSize: 24.0,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w400,
     ),
-    headline4: TextStyle(
+    headlineLarge: TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w600,
+    ),
+    headlineMedium: TextStyle(
       fontSize: 18.0,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
+      fontWeight: FontWeight.w600,
     ),
-    headline5: TextStyle(
-      fontSize: 14.0,
-      fontWeight: FontWeight.bold,
-    ),
-    headline6: TextStyle(
-      fontSize: 12.0,
-      fontWeight: FontWeight.bold,
-    ),
-    bodyText1: TextStyle(
+    headlineSmall: TextStyle(
       fontSize: 16.0,
-      fontWeight: FontWeight.normal,
+      fontWeight: FontWeight.w600,
     ),
-    bodyText2: TextStyle(
+    titleLarge: TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w500,
+    ),
+    titleMedium: TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w500,
+    ),
+    titleSmall: TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500,
+    ),
+    bodyLarge: TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.w400,
+    ),
+    bodyMedium: TextStyle(
+      fontSize: 14.0,
+      fontWeight: FontWeight.w400,
+    ),
+    bodySmall: TextStyle(
       fontSize: 12.0,
-      fontWeight: FontWeight.normal,
+      fontWeight: FontWeight.w400,
+    ),
+    labelLarge: TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500,
+    ),
+    labelMedium: TextStyle(
+      fontSize: 14.0,
+      fontWeight: FontWeight.w500,
+    ),
+    labelSmall: TextStyle(
+      fontSize: 12.0,
+      fontWeight: FontWeight.w500,
     ),
   );
 }
