@@ -51,9 +51,9 @@ class _HomeViewState extends State<HomeView> {
           Flexible(
             child: Container(
               margin: const EdgeInsets.only(top: 5.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               width: width,
               alignment: Alignment.center,
-              clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [

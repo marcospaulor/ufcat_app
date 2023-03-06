@@ -28,16 +28,17 @@ class _AtalhoIconState extends State<AtalhoIcon> {
       'RU': FontAwesomeIcons.utensils,
       'Mapa': FontAwesomeIcons.locationDot,
       'Biblioteca': FontAwesomeIcons.book,
-      'Segurança': FontAwesomeIcons.shieldHalved,
       'Calendário': FontAwesomeIcons.solidCalendarMinus,
+      'Ordem de Serviço': FontAwesomeIcons.screwdriverWrench,
+      'Segurança': FontAwesomeIcons.shieldHalved,
+      'Sobre': FontAwesomeIcons.circleInfo,
+      'Ajuda': FontAwesomeIcons.solidCircleQuestion,
     };
 
     return GridView.count(
       crossAxisCount: 2,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10.0,
-      ),
       physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.symmetric(vertical: 15.0),
       shrinkWrap: true,
       children: atalhos.entries
           .map(
@@ -87,18 +88,26 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
-                      padding: const EdgeInsets.all(30.0),
-                    ),
-                    child: Icon(item.value, size: 100),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Text(
-                      item.key,
-                      style: const TextStyle(
-                        color: greenUfcat,
-                        fontSize: 18,
+                      padding: const EdgeInsets.only(
+                        top: 30.0,
+                        left: 30.0,
+                        right: 30.0,
                       ),
+                    ),
+                    child: Column(
+                      children: [
+                        Icon(item.value, size: 125),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 15.0),
+                          child: Text(
+                            item.key,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

@@ -20,21 +20,15 @@ class SecurityScreen extends StatefulWidget {
 class _SecurityScreen extends State<SecurityScreen> {
   String? dropdownValue;
   LatLng getLocation() {
-    return const LatLng(-18.155115902394275, -47.929603666078755);
+    return const LatLng(24.003456360119625, 90.34202758271798);
   }
 
   final _formKey = GlobalKey<FormState>();
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
+  GoogleMapController? mapController;
 
   GlobalKey<ScaffoldState> drawerKey = GlobalKey();
-
-  static const String _kLocationServicesDisabledMessage =
-      'Location services are disabled.';
-  static const String _kPermissionDeniedMessage = 'Permission denied.';
-  static const String _kPermissionDeniedForeverMessage =
-      'Permission denied forever.';
-  static const String _kPermissionGrantedMessage = 'Permission granted.';
 
   final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
 
@@ -169,17 +163,23 @@ class _SecurityScreen extends State<SecurityScreen> {
                             mapType: MapType.hybrid,
                             liteModeEnabled: true,
                             initialCameraPosition: CameraPosition(
-                              target: _position,
+                              target: _position ?? getLocation(),
                               zoom: 18.25,
                             ),
                             markers: {
                               Marker(
                                 markerId: const MarkerId('marker_1'),
-                                position: _position,
+                                position: _position ?? getLocation(),
                               ),
                             },
                             onMapCreated: (GoogleMapController controller) {
-                              _controller.complete(controller);
+                              mapController = controller;
+                            },
+                            // Move the camera to the new position
+                            onCameraMove: (CameraPosition position) {
+                              setState(() {
+                                _position = position.target;
+                              });
                             },
                           ),
                         ),
@@ -311,6 +311,8 @@ class _SecurityScreen extends State<SecurityScreen> {
 
     setState(() {
       _position = LatLng(position.latitude, position.longitude);
+      mapController?.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(target: _position, zoom: 18.25)));
     });
   }
 
