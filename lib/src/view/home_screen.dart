@@ -22,11 +22,11 @@ class _HomeViewState extends State<HomeView> {
 
     return Scaffold(
       appBar: const MyAppBar(
-        icon: FontAwesomeIcons.bars,
+        // icon: FontAwesomeIcons.bars,
         title: 'Serviços UFCAT',
         isSearch: true,
       ),
-      drawer: const NavigationDrawer(),
+      // drawer: const NavigationDrawer(),
       backgroundColor: grayUfcat,
       body: ListView(
         children: [
@@ -52,9 +52,9 @@ class _HomeViewState extends State<HomeView> {
           Flexible(
             child: Container(
               margin: const EdgeInsets.only(top: 5.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               width: width,
               alignment: Alignment.center,
-              clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
