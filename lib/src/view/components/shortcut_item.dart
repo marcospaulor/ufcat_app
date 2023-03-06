@@ -38,7 +38,7 @@ class _AtalhoIconState extends State<AtalhoIcon> {
     return GridView.count(
       crossAxisCount: 2,
       physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
       shrinkWrap: true,
       children: atalhos.entries
           .map(

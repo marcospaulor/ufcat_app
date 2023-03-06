@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/components/search_bar.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
-  final IconData icon;
+  final IconData? icon;
   final String? title;
   final TabBar? bottom;
   final double height;
@@ -11,7 +11,7 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
 
   const MyAppBar({
     Key? key,
-    required this.icon,
+    this.icon,
     this.title,
     this.bottom,
     this.height = kToolbarHeight,
@@ -31,18 +31,20 @@ class _MyAppBarState extends State<MyAppBar> {
     final width = MediaQuery.of(context).size.width;
 
     return AppBar(
-      centerTitle: true,
-      leading: Builder(
-        builder: (context) {
-          return IconButton(
-            icon: Icon(widget.icon),
-            iconSize: width * 0.05,
-            onPressed: widget.icon == FontAwesomeIcons.bars
-                ? () => Scaffold.of(context).openDrawer()
-                : () => Navigator.pop(context),
-          );
-        },
-      ),
+      centerTitle: widget.icon == null ? false : true,
+      leading: widget.icon != null
+          ? Builder(
+              builder: (context) {
+                return IconButton(
+                  icon: Icon(widget.icon),
+                  iconSize: width * 0.05,
+                  onPressed: widget.icon == FontAwesomeIcons.bars
+                      ? () => Scaffold.of(context).openDrawer()
+                      : () => Navigator.pop(context),
+                );
+              },
+            )
+          : null,
       title: widget.title!.contains('/')
           ? Image.asset(
               widget.title!,

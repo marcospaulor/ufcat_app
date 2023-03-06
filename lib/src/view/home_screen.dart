@@ -21,11 +21,11 @@ class _HomeViewState extends State<HomeView> {
 
     return Scaffold(
       appBar: const MyAppBar(
-        icon: FontAwesomeIcons.bars,
+        // icon: FontAwesomeIcons.bars,
         title: 'Serviços UFCAT',
         isSearch: true,
       ),
-      drawer: const NavigationDrawer(),
+      // drawer: const NavigationDrawer(),
       backgroundColor: grayUfcat,
       body: ListView(
         children: [
