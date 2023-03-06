@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/components/app_bar.dart';
@@ -40,7 +41,9 @@ class _WebViewPageState extends State<WebViewPage> {
   void initState() {
     super.initState();
 
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    Platform.isAndroid
+        ? WebView.platform = SurfaceAndroidWebView()
+        : WebView.platform = CupertinoWebView();
   }
 
   @override
@@ -88,10 +91,12 @@ class _WebViewPageState extends State<WebViewPage> {
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   decoration: const BoxDecoration(
-                    color: grayUfcat,
+                    color: Colors.white,
                     shape: BoxShape.circle,
                   ),
-                  child: const CircularProgressIndicator(),
+                  child: Platform.isAndroid
+                      ? const CircularProgressIndicator()
+                      : const CupertinoActivityIndicator(),
                 ),
               )
             : Stack(),
