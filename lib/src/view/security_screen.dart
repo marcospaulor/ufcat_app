@@ -156,33 +156,56 @@ class _SecurityScreen extends State<SecurityScreen> {
                             ),
                           ),
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 30.0),
-                          height: 300,
-                          child: GoogleMap(
-                            mapType: MapType.hybrid,
-                            liteModeEnabled: true,
-                            initialCameraPosition: CameraPosition(
-                              target: _position ?? getLocation(),
-                              zoom: 18.25,
-                            ),
-                            markers: {
-                              Marker(
-                                markerId: const MarkerId('marker_1'),
-                                position: _position ?? getLocation(),
-                              ),
-                            },
-                            onMapCreated: (GoogleMapController controller) {
-                              mapController = controller;
-                            },
-                            // Move the camera to the new position
-                            onCameraMove: (CameraPosition position) {
-                              setState(() {
-                                _position = position.target;
-                              });
-                            },
-                          ),
-                        ),
+                        _handlePermission() == true
+                            ? Container(
+                                margin: const EdgeInsets.only(bottom: 30.0),
+                                height: 300,
+                                child: GoogleMap(
+                                  mapType: MapType.hybrid,
+                                  liteModeEnabled: true,
+                                  initialCameraPosition: CameraPosition(
+                                    target: _position ?? getLocation(),
+                                    zoom: 18.25,
+                                  ),
+                                  markers: {
+                                    Marker(
+                                      markerId: const MarkerId('marker_1'),
+                                      position: _position ?? getLocation(),
+                                    ),
+                                  },
+                                  onMapCreated:
+                                      (GoogleMapController controller) {
+                                    mapController = controller;
+                                  },
+                                  // Move the camera to the new position
+                                  onCameraMove: (CameraPosition position) {
+                                    setState(() {
+                                      _position = position.target;
+                                    });
+                                  },
+                                ),
+                              )
+                            : Container(
+                                margin: const EdgeInsets.only(bottom: 30.0),
+                                padding: const EdgeInsets.all(10.0),
+                                height: 300,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: grayUfcat,
+                                  border: Border.all(
+                                    color: grayUfcat,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                child: const Text(
+                                  'Não foi possível obter sua localização, habilite a permissão de localização no seu dispositivo.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: darkUfcat,
+                                    fontSize: 16,
+                                  ),
+                                )),
                         Center(
                           child: ElevatedButton(
                             onPressed: () {
