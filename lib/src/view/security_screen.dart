@@ -33,11 +33,14 @@ class _SecurityScreen extends State<SecurityScreen> {
   final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
 
   late LatLng _position;
+  bool _permission = false;
 
   @override
   void initState() {
-    super.initState();
+    _position = const LatLng(-18.154695973733883, -47.928891981710066);
+    _handlePermission();
     _getCurrentPosition();
+    super.initState();
   }
 
   @override
@@ -156,7 +159,7 @@ class _SecurityScreen extends State<SecurityScreen> {
                             ),
                           ),
                         ),
-                        _handlePermission() == true
+                        _permission == true
                             ? Container(
                                 margin: const EdgeInsets.only(bottom: 30.0),
                                 height: 300,
@@ -281,32 +284,6 @@ class _SecurityScreen extends State<SecurityScreen> {
                                     color: darkUfcat.withOpacity(0.75),
                                   ),
                                 ),
-                                // IconButton(
-                                //   iconSize: 12.5,
-                                //   splashRadius: 12.5,
-                                //   padding: const EdgeInsets.only(left: 5.0),
-                                //   alignment: Alignment.centerLeft,
-                                //   onPressed: () async {
-                                //     await Clipboard.setData(
-                                //             ClipboardData(text: item.value))
-                                //         .then(
-                                //       (value) => ScaffoldMessenger.of(context)
-                                //           .showSnackBar(
-                                //         const SnackBar(
-                                //           elevation: 10.0,
-                                //           behavior: SnackBarBehavior.floating,
-                                //           margin: EdgeInsets.all(30.0),
-                                //           content: Text(
-                                //               'Telefone copiado para a área de transferência'),
-                                //         ),
-                                //       ),
-                                //     );
-                                //   },
-                                //   icon: Icon(
-                                //     FontAwesomeIcons.clone,
-                                //     color: darkUfcat.withOpacity(0.75),
-                                //   ),
-                                // ),
                               ],
                             ),
                           ),
@@ -336,6 +313,7 @@ class _SecurityScreen extends State<SecurityScreen> {
       _position = LatLng(position.latitude, position.longitude);
       mapController?.animateCamera(CameraUpdate.newCameraPosition(
           CameraPosition(target: _position, zoom: 18.25)));
+      mapController?.moveCamera(CameraUpdate.newLatLng(_position));
     });
   }
 
@@ -354,6 +332,10 @@ class _SecurityScreen extends State<SecurityScreen> {
     }
 
     if (permission == LocationPermission.deniedForever) return false;
+
+    setState(() {
+      _permission = true;
+    });
 
     return true;
   }

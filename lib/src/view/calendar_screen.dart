@@ -22,6 +22,9 @@ class _CalendarScreen extends State<CalendarScreen> {
     DateTime.utc(2022, 12, 16): const [
       'Recesso de Natal',
     ],
+    DateTime.utc(2023, 3, 8): const [
+      'Dia da Mulher',
+    ],
   };
   late final ValueNotifier<List<dynamic>> _selectedEvents;
 
@@ -139,13 +142,22 @@ class _CalendarScreen extends State<CalendarScreen> {
               _focusedDay = focusedDay;
             },
             eventLoader: (day) {
-              if (day.isAfter(DateTime.utc(2022, 12, 16)) &&
-                  day.isBefore(DateTime.utc(2023, 1, 6))) {
-                _defaultDecoration = const BoxDecoration(
-                  color: Colors.transparent,
-                  shape: BoxShape.circle,
-                );
-              }
+              // if (day.isAfter(DateTime.utc(2022, 12, 16)) &&
+              //     day.isBefore(DateTime.utc(2023, 1, 6))) {
+              //   _defaultDecoration = const BoxDecoration(
+              //     color: Colors.transparent,
+              //     shape: BoxShape.circle,
+              //   );
+              // }
+
+              // if (day.isAfter(DateTime.utc(2023, 1, 1)) &&
+              //     day.isBefore(DateTime.utc(2023, 3, 8))) {
+              //   _defaultDecoration = const BoxDecoration(
+              //     color: Colors.transparent,
+              //     shape: BoxShape.circle,
+              //   );
+              // }
+
               if (_events.containsKey(day)) {
                 return _events[day]!;
               }
