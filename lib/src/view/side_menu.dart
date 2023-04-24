@@ -11,8 +11,8 @@ import 'package:ufcat_app/src/view/style/const.dart';
 
 import 'tab_screen.dart';
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({Key? key}) : super(key: key);
+class MyNavigationDrawer extends StatelessWidget {
+  const MyNavigationDrawer({Key? key}) : super(key: key);
 
   static const MaterialColor textColor = grayUfcat;
   final MaterialColor iconColor = grayUfcat;
