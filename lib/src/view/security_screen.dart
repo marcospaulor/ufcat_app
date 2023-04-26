@@ -83,7 +83,7 @@ class _SecurityScreen extends State<SecurityScreen> {
             ],
           ),
         ),
-        drawer: const NavigationDrawer(),
+        drawer: const MyNavigationDrawer(),
         body: Center(
           child: TabBarView(
             children: [

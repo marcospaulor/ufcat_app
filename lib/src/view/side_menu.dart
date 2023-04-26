@@ -10,8 +10,8 @@ import 'package:ufcat_app/src/view/style/const.dart';
 
 import 'tab_screen.dart';
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({Key? key}) : super(key: key);
+class MyNavigationDrawer extends StatelessWidget {
+  const MyNavigationDrawer({Key? key}) : super(key: key);
 
   static const MaterialColor textColor = grayUfcat;
   final MaterialColor iconColor = grayUfcat;
@@ -82,7 +82,10 @@ class NavigationDrawer extends StatelessWidget {
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             margin: const EdgeInsets.all(25.0),
             height: 125,
-            child: Image.asset('assets/images/logo_plana.png'),
+            child: Image.asset(
+              'assets/images/logo_plana.png',
+              cacheHeight: 195,
+            ),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),

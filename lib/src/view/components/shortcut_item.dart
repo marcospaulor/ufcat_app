@@ -42,7 +42,7 @@ class _AtalhoIconState extends State<AtalhoIcon> {
         horizontal: 5.0,
       ),
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      // physics: const NeverScrollableScrollPhysics(),
       children: atalhos.entries
           .map(
             (item) => Container(

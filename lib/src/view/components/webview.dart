@@ -7,6 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/components/app_bar.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
 
 class WebViewPage extends StatefulWidget {
   final String url;
@@ -23,13 +25,13 @@ class WebViewPage extends StatefulWidget {
 class _WebViewPageState extends State<WebViewPage> {
   final _key = UniqueKey();
   bool isLoading = true;
-  WebViewController? _controller;
+  late final WebViewController _controller;
   final Completer<WebViewController> _controllerCompleter =
       Completer<WebViewController>();
 
   Future<bool> _goBack(BuildContext context) async {
-    if (await _controller!.canGoBack()) {
-      _controller!.goBack();
+    if (await _controller.canGoBack()) {
+      _controller.goBack();
       return Future.value(false);
     } else {
       Navigator.of(context).pop();
@@ -41,9 +43,43 @@ class _WebViewPageState extends State<WebViewPage> {
   void initState() {
     super.initState();
 
-    Platform.isAndroid
-        ? WebView.platform = SurfaceAndroidWebView()
-        : WebView.platform = CupertinoWebView();
+    late final PlatformWebViewControllerCreationParams params;
+    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
+      params = WebKitWebViewControllerCreationParams(
+        allowsInlineMediaPlayback: true,
+        mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
+      );
+    } else {
+      params = const PlatformWebViewControllerCreationParams();
+    }
+
+    final WebViewController controller =
+        WebViewController.fromPlatformCreationParams(params);
+
+    controller
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(NavigationDelegate(
+        onProgress: (int progress) {
+          print('WebView is loading (progress : $progress%)');
+        },
+        onPageStarted: (finish) {
+          setState(
+            () {
+              isLoading = true;
+            },
+          );
+        },
+        onPageFinished: (finish) {
+          setState(
+            () {
+              isLoading = false;
+            },
+          );
+        },
+      ))
+      ..loadRequest(Uri.parse(widget.url));
+
+    _controller = controller;
   }
 
   @override
@@ -57,32 +93,33 @@ class _WebViewPageState extends State<WebViewPage> {
               icon: FontAwesomeIcons.arrowLeft,
               title: 'Biblioteca',
             ),
-            body: WebView(
+            body: WebViewWidget(
               key: _key,
-              initialUrl: widget.url,
-              javascriptMode: JavascriptMode.unrestricted,
-              onPageStarted: (finish) {
-                setState(
-                  () {
-                    isLoading = true;
-                  },
-                );
-              },
-              onProgress: (int progress) {
-                print('WebView is loading (progress : $progress%)');
-              },
-              onPageFinished: (finish) {
-                setState(
-                  () {
-                    isLoading = false;
-                  },
-                );
-              },
-              onWebViewCreated: (WebViewController webViewController) {
-                _controllerCompleter.future
-                    .then((value) => _controller = value);
-                _controllerCompleter.complete(webViewController);
-              },
+              controller: _controller,
+              // initialUrl: widget.url,
+              // javascriptMode: JavascriptMode.unrestricted,
+              // onPageStarted: (finish) {
+              //   setState(
+              //     () {
+              //       isLoading = true;
+              //     },
+              //   );
+              //   // },
+              //   onProgress: (int progress) {
+              //     print('WebView is loading (progress : $progress%)');
+              //   },
+              //   onPageFinished: (finish) {
+              //     setState(
+              //       () {
+              //         isLoading = false;
+              //       },
+              //     );
+              //   },
+              //   onWebViewCreated: (WebViewController webViewController) {
+              //     _controllerCompleter.future
+              //         .then((value) => _controller = value);
+              //     _controllerCompleter.complete(webViewController);
+              //   },
             ),
           ),
         ),
