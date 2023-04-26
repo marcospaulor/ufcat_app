@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/components/search_bar.dart';
-import 'package:ufcat_app/src/view/home_screen.dart';
+import 'package:ufcat_app/src/view/screens/home_screen.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 
 class BottomBar extends StatefulWidget {

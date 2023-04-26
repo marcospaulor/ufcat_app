@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:ufcat_app/src/view/components/app_bar.dart';
 import 'package:ufcat_app/src/view/components/bottom_bar.dart';
-import 'package:ufcat_app/src/view/side_menu.dart';
+import 'package:ufcat_app/src/view/components/side_menu.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 
 class CalendarScreen extends StatefulWidget {

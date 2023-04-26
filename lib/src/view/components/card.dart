@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ufcat_app/src/view/news_screen.dart';
+import 'package:ufcat_app/src/view/screens/news_screen.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
-import 'package:ufcat_app/src/view/tab_screen.dart';
+import 'package:ufcat_app/src/view/screens/tab_screen.dart';
 
 class CardButton extends StatelessWidget {
   final String label;

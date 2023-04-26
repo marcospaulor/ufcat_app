@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ufcat_app/src/view/calendar_screen.dart';
-import 'package:ufcat_app/src/view/components/about.dart';
+import 'package:ufcat_app/src/view/screens/calendar_screen.dart';
+import 'package:ufcat_app/src/view/screens/about.dart';
 import 'package:ufcat_app/src/view/components/webview.dart';
-import 'package:ufcat_app/src/view/home_screen.dart';
-import 'package:ufcat_app/src/view/mapa_screen.dart';
-import 'package:ufcat_app/src/view/ru_screen.dart';
-import 'package:ufcat_app/src/view/security_screen.dart';
+import 'package:ufcat_app/src/view/screens/home_screen.dart';
+import 'package:ufcat_app/src/view/screens/mapa_screen.dart';
+import 'package:ufcat_app/src/view/screens/ru_screen.dart';
+import 'package:ufcat_app/src/view/screens/security_screen.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 
-import 'tab_screen.dart';
+import '../screens/tab_screen.dart';
 
 class MyNavigationDrawer extends StatelessWidget {
   const MyNavigationDrawer({Key? key}) : super(key: key);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/components/bottom_bar.dart';
-import 'package:ufcat_app/src/view/rating_screen.dart';
-import 'package:ufcat_app/src/view/side_menu.dart';
+import 'package:ufcat_app/src/view/screens/rating_screen.dart';
+import 'package:ufcat_app/src/view/components/side_menu.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 import 'package:ufcat_app/src/view/components/app_bar.dart';
 import 'package:ufcat_app/src/view/components/star_rating.dart';
