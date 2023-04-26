@@ -35,11 +35,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^10.2.1
   carousel_slider: ^4.1.1 # image slider depence package
-  webview_flutter: ^3.0.4
+  webview_flutter: ^4.2.0
   photo_view: ^0.14.0
   flutter_rating_bar: ^4.0.1
   page_transition: ^2.0.9
-  intl: ^0.17.0
+  intl: ^0.18.1
   table_calendar: ^3.0.8
   google_maps_flutter: ^2.2.2
   geolocator: ^9.0.2
@@ -53,7 +53,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.10.0
+  flutter_launcher_icons: ^0.13.1
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

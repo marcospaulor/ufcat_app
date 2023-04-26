@@ -9,6 +9,7 @@ import 'package:ufcat_app/src/view/style/const.dart';
 import 'package:ufcat_app/src/view/components/app_bar.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:ufcat_app/src/view/components/news_event_notice.dart';
 
 class TabScreen extends StatefulWidget {
   final int index;
@@ -23,6 +24,7 @@ class TabScreen extends StatefulWidget {
 
 class _TabScreenState extends State<TabScreen> {
   List _items = [];
+  List infos = [];
 
   @override
   void initState() {
@@ -32,6 +34,10 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    NewsEventNotice noticias = NewsEventNotice('noticias', infos);
+    NewsEventNotice eventos = NewsEventNotice('eventos', infos);
+    NewsEventNotice editais = NewsEventNotice('editais', infos);
+
     Map<String, List> info = {
       'noticias': [
         {
@@ -118,15 +124,15 @@ class _TabScreenState extends State<TabScreen> {
         body: TabBarView(
           children: [
             buildLista(
-              lista: info['noticias']!,
+              lista: noticias,
               context: context,
             ),
             buildLista(
-              lista: info['eventos']!,
+              lista: eventos,
               context: context,
             ),
             buildLista(
-              lista: info['editais']!,
+              lista: editais,
               context: context,
             ),
           ],
@@ -137,15 +143,11 @@ class _TabScreenState extends State<TabScreen> {
   }
 
   RefreshIndicator buildLista(
-      {required List lista, required BuildContext context}) {
+      {required NewsEventNotice lista, required BuildContext context}) {
     return RefreshIndicator(
       onRefresh: () async {
-        await Future.delayed(
-          const Duration(seconds: 1),
-          () {
-            readJson;
-          },
-        );
+        await Future.delayed(const Duration(seconds: 1));
+        await readJson();
       },
       // child: ListView(
       //   padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -213,9 +215,9 @@ class _TabScreenState extends State<TabScreen> {
       //       )
       //       .toList(),
       // ),
-      child: _items.isNotEmpty
+      child: infos.isNotEmpty
           ? ListView.builder(
-              itemCount: _items.length,
+              itemCount: lista.length(),
               itemBuilder: (context, index) {
                 return Card(
                   clipBehavior: Clip.antiAlias,
@@ -260,7 +262,7 @@ class _TabScreenState extends State<TabScreen> {
                           height:
                               MediaQuery.of(context).size.height * 0.25 * 0.35,
                           child: Text(
-                            _items[index]["attributes"]["Titulo"],
+                            lista.title[index],
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 16,
@@ -287,6 +289,7 @@ class _TabScreenState extends State<TabScreen> {
 
     setState(() {
       _items = data["data"];
+      infos = data['data'];
     });
   }
 }

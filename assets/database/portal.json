@@ -316,7 +316,7 @@
                     "data": {
                         "id": 2,
                         "attributes": {
-                            "name": "noticias",
+                            "name": "editais",
                             "createdAt": "2022-12-01T16:31:39.737Z",
                             "updatedAt": "2022-12-01T16:32:20.566Z",
                             "publishedAt": "2022-12-01T16:32:20.564Z"
@@ -345,7 +345,7 @@
                     "data": {
                         "id": 2,
                         "attributes": {
-                            "name": "noticias",
+                            "name": "eventos",
                             "createdAt": "2022-12-01T16:31:39.737Z",
                             "updatedAt": "2022-12-01T16:32:20.566Z",
                             "publishedAt": "2022-12-01T16:32:20.564Z"
@@ -374,7 +374,7 @@
                     "data": {
                         "id": 2,
                         "attributes": {
-                            "name": "noticias",
+                            "name": "eventos",
                             "createdAt": "2022-12-01T16:31:39.737Z",
                             "updatedAt": "2022-12-01T16:32:20.566Z",
                             "publishedAt": "2022-12-01T16:32:20.564Z"
@@ -403,7 +403,7 @@
                     "data": {
                         "id": 2,
                         "attributes": {
-                            "name": "noticias",
+                            "name": "editais",
                             "createdAt": "2022-12-01T16:31:39.737Z",
                             "updatedAt": "2022-12-01T16:32:20.566Z",
                             "publishedAt": "2022-12-01T16:32:20.564Z"

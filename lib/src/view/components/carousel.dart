@@ -51,6 +51,7 @@ class _CarouselState extends State<Carousel> {
           child: Image.asset(
             'assets/images/logo_completa.png',
             height: height * (1 / 8),
+            cacheHeight: 300,
             fit: BoxFit.contain,
           ),
         ),
