@@ -127,8 +127,8 @@ class _CarouselState extends State<Carousel> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: imgList.map((url) {
-            int index = imgList.indexOf(url);
+          children: titleList.map((url) {
+            int index = titleList.indexOf(url);
             return Container(
               width: 10.0,
               height: 10.0,

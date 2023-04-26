@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/src/view/calendar_screen.dart';
+import 'package:ufcat_app/src/view/components/about.dart';
 import 'package:ufcat_app/src/view/components/webview.dart';
 import 'package:ufcat_app/src/view/home_screen.dart';
 import 'package:ufcat_app/src/view/mapa_screen.dart';
@@ -19,10 +20,6 @@ class MyNavigationDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map> items = [
-      {
-        'title': 'Home',
-        'icon': FontAwesomeIcons.house,
-      },
       {
         'title': 'Notícias',
         'icon': FontAwesomeIcons.solidNewspaper,
@@ -149,6 +146,8 @@ class MyNavigationDrawer extends StatelessWidget {
                                           return const TabScreen(index: 1);
                                         case 'Editais':
                                           return const TabScreen(index: 2);
+                                        case 'Sobre':
+                                          return const About();
                                         default:
                                           return const HomeView();
                                       }
