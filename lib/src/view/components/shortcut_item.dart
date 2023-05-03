@@ -35,7 +35,7 @@ class _AtalhoIconState extends State<AtalhoIcon> {
       'Sobre': FontAwesomeIcons.circleInfo,
       'Ajuda': FontAwesomeIcons.solidCircleQuestion,
     };
-    const double iconSize = 125;
+    const double iconSize = 100;
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
@@ -45,7 +45,7 @@ class _AtalhoIconState extends State<AtalhoIcon> {
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
         physics: const NeverScrollableScrollPhysics(),
-        childAspectRatio: width / (height / (1 / (iconSize / 100) + 1.25)),
+        // childAspectRatio: width / (height / (1 / (iconSize / 100) + 1.25)),
         padding: const EdgeInsets.symmetric(
           horizontal: 5.0,
         ),
@@ -53,10 +53,10 @@ class _AtalhoIconState extends State<AtalhoIcon> {
         children: atalhos.entries
             .map(
               (item) => Container(
-                height: 2000,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 5.0,
-                ),
+                // height: 2000,
+                // padding: const EdgeInsets.symmetric(
+                //   horizontal: 10.0,
+                // ),
                 alignment: Alignment.center,
                 child: ElevatedButton(
                   onPressed: () {
@@ -98,10 +98,9 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    padding: const EdgeInsets.only(
-                      top: 30.0,
-                      left: 30.0,
-                      right: 30.0,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40.0,
+                      vertical: 30.0,
                     ),
                   ),
                   child: Column(
@@ -109,18 +108,16 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(item.value, size: iconSize),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15.0),
-                        child: Text(
-                          item.key,
-                          // maxLines: 1,
-                          textAlign: TextAlign.center,
-                          softWrap: true,
-                          overflow: TextOverflow.fade,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
+                      SizedBox(height: height * 0.01),
+                      Text(
+                        item.key,
+                        // maxLines: 1,
+                        textAlign: TextAlign.center,
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
                         ),
                       ),
                     ],
