@@ -5,8 +5,6 @@ import 'package:ufcat_app/src/view/components/app_bar.dart';
 import 'package:ufcat_app/src/view/style/const.dart';
 import 'package:ufcat_app/src/view/components/carousel.dart';
 import 'package:ufcat_app/src/view/components/shortcut_item.dart';
-import 'package:ufcat_app/src/view/components/side_menu.dart';
-import 'package:ufcat_app/src/view/components/card.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
