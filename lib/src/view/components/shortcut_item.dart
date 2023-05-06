@@ -39,94 +39,92 @@ class _AtalhoIconState extends State<AtalhoIcon> {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
-    return Expanded(
-      child: GridView.count(
-        crossAxisCount: 2,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-        physics: const NeverScrollableScrollPhysics(),
-        // childAspectRatio: width / (height / (1 / (iconSize / 100) + 1.25)),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 5.0,
-        ),
-        shrinkWrap: true,
-        children: atalhos.entries
-            .map(
-              (item) => Container(
-                // height: 2000,
-                // padding: const EdgeInsets.symmetric(
-                //   horizontal: 10.0,
-                // ),
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          switch (item.key) {
-                            case 'Mapa':
-                              return const MapScreen();
-                            case 'RU':
-                              return const RUScreen();
-                            case 'Biblioteca':
-                              return const WebViewPage(
-                                url:
-                                    'https://biblioteca.sophia.com.br/terminal/9396/',
-                              );
-                            case 'Calendário':
-                              return const CalendarScreen();
-                            case 'Segurança':
-                              return const SecurityScreen();
-                            case 'Notícias':
-                              return const TabScreen(index: 0);
-                            case 'Eventos':
-                              return const TabScreen(index: 1);
-                            case 'Editais':
-                              return const TabScreen(index: 2);
-                            case 'Sobre':
-                              return const About();
-                            default:
-                              return const HomeView();
-                          }
-                        },
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+    return GridView.count(
+      crossAxisCount: 2,
+      mainAxisSpacing: 10,
+      crossAxisSpacing: 10,
+      physics: const NeverScrollableScrollPhysics(),
+      // childAspectRatio: width / (height / (1 / (iconSize / 100) + 1.25)),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 5.0,
+      ),
+      shrinkWrap: true,
+      children: atalhos.entries
+          .map(
+            (item) => Container(
+              // height: 2000,
+              // padding: const EdgeInsets.symmetric(
+              //   horizontal: 10.0,
+              // ),
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        switch (item.key) {
+                          case 'Mapa':
+                            return const MapScreen();
+                          case 'RU':
+                            return const RUScreen();
+                          case 'Biblioteca':
+                            return const WebViewPage(
+                              url:
+                                  'https://biblioteca.sophia.com.br/terminal/9396/',
+                            );
+                          case 'Calendário':
+                            return const CalendarScreen();
+                          case 'Segurança':
+                            return const SecurityScreen();
+                          case 'Notícias':
+                            return const TabScreen(index: 0);
+                          case 'Eventos':
+                            return const TabScreen(index: 1);
+                          case 'Editais':
+                            return const TabScreen(index: 2);
+                          case 'Sobre':
+                            return const About();
+                          default:
+                            return const HomeView();
+                        }
+                      },
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40.0,
-                      vertical: 30.0,
-                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(item.value, size: iconSize),
-                      SizedBox(height: height * 0.01),
-                      Text(
-                        item.key,
-                        // maxLines: 1,
-                        textAlign: TextAlign.center,
-                        softWrap: true,
-                        overflow: TextOverflow.fade,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40.0,
+                    vertical: 30.0,
                   ),
                 ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(item.value, size: iconSize),
+                    SizedBox(height: height * 0.01),
+                    Text(
+                      item.key,
+                      // maxLines: 1,
+                      textAlign: TextAlign.center,
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )
-            .toList(),
-      ),
+            ),
+          )
+          .toList(),
     );
   }
 }

@@ -47,83 +47,24 @@ class _HomeViewState extends State<HomeView> {
             ),
             child: const Carousel(),
           ),
-          Flexible(
-            child: Container(
-              margin: const EdgeInsets.only(top: 5.0),
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              width: width,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    spreadRadius: 0,
-                    blurRadius: 4,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: const AtalhoIcon(),
+          Container(
+            margin: const EdgeInsets.only(top: 5.0),
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            width: width,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.25),
+                  spreadRadius: 0,
+                  blurRadius: 4,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
+            child: const AtalhoIcon(),
           ),
-          // Container(
-          //   margin: const EdgeInsets.symmetric(vertical: 10.0),
-          //   alignment: Alignment.center,
-          //   height: 245.0,
-          //   width: width,
-          //   decoration: BoxDecoration(
-          //     color: Colors.white,
-          //     boxShadow: [
-          //       BoxShadow(
-          //         color: Colors.black.withOpacity(0.25),
-          //         spreadRadius: 0,
-          //         blurRadius: 4,
-          //         offset: const Offset(0, 4),
-          //       ),
-          //     ],
-          //   ),
-          //   child: const CardButton(
-          //     label: 'noticias',
-          //   ),
-          // ),
-          // Container(
-          //     margin: const EdgeInsets.symmetric(vertical: 10.0),
-          //     height: 245.0,
-          //     width: width,
-          //     decoration: BoxDecoration(
-          //       color: Colors.white,
-          //       boxShadow: [
-          //         BoxShadow(
-          //           color: Colors.black.withOpacity(0.25),
-          //           spreadRadius: 0,
-          //           blurRadius: 4,
-          //           offset: const Offset(0, 4),
-          //         ),
-          //       ],
-          //     ),
-          //     child: const CardButton(
-          //       label: 'eventos',
-          //     )),
-          // Container(
-          //   margin: const EdgeInsets.only(top: 10.0),
-          //   height: 245.0,
-          //   width: width, // Largura total da tela
-          //   decoration: BoxDecoration(
-          //     color: Colors.white,
-          //     boxShadow: [
-          //       BoxShadow(
-          //         color: Colors.black.withOpacity(0.25),
-          //         spreadRadius: 0,
-          //         blurRadius: 4,
-          //         offset: const Offset(0, 4),
-          //       ),
-          //     ],
-          //   ),
-          //   child: const CardButton(
-          //     label: 'editais',
-          //   ),
-          // ),
         ],
       ),
     );
