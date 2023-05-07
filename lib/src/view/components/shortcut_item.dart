@@ -30,19 +30,18 @@ class _AtalhoIconState extends State<AtalhoIcon> {
       'Mapa': FontAwesomeIcons.locationDot,
       'Biblioteca': FontAwesomeIcons.book,
       'Calendário': FontAwesomeIcons.solidCalendarMinus,
-      'Ord. Serviço': FontAwesomeIcons.screwdriverWrench,
+      'OS': FontAwesomeIcons.screwdriverWrench,
       'Segurança': FontAwesomeIcons.shieldHalved,
       'Sobre': FontAwesomeIcons.circleInfo,
       'Ajuda': FontAwesomeIcons.solidCircleQuestion,
     };
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    double iconSize = (width * 0.017) * (height * 0.017);
+    double iconSize = (width * (1 / 60)) * (height * (1 / 60));
 
     return GridView.count(
       crossAxisCount: 2,
-      mainAxisSpacing: 10,
-      crossAxisSpacing: 10,
+
       physics: const NeverScrollableScrollPhysics(),
       // childAspectRatio: width / (height / (1 / (iconSize / 100) + 1.25)),
       padding: const EdgeInsets.symmetric(
@@ -97,33 +96,36 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: width * 0.09,
-                    vertical: height * 0.04,
-                  ),
+                  // padding: EdgeInsets.symmetric(
+                  //   horizontal: width * 0.09,
+                  //   vertical: height * 0.03,
+                  // ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(item.value, size: iconSize),
-                    SizedBox(height: height * 0.015),
-                    Text(
-                      item.key,
-                      // maxLines: 1,
-                      textAlign: TextAlign.center,
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
-                      // style: const TextStyle(
-                      //   color: Colors.white,
-                      //   fontSize: 20,
-                      // ),
-                      style:
-                          Theme.of(context).textTheme.headlineLarge!.copyWith(
-                                color: Colors.white,
-                              ),
-                    ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(item.value, size: iconSize),
+                      SizedBox(height: height * 0.01),
+                      Text(
+                        item.key,
+                        // maxLines: 1,
+                        textAlign: TextAlign.center,
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
+                        // style: const TextStyle(
+                        //   color: Colors.white,
+                        //   fontSize: 20,
+                        // ),
+                        style:
+                            Theme.of(context).textTheme.headlineLarge!.copyWith(
+                                  color: Colors.white,
+                                ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
