@@ -35,9 +35,9 @@ class _AtalhoIconState extends State<AtalhoIcon> {
       'Sobre': FontAwesomeIcons.circleInfo,
       'Ajuda': FontAwesomeIcons.solidCircleQuestion,
     };
-    const double iconSize = 100;
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    double iconSize = (width * 0.017) * (height * 0.017);
 
     return GridView.count(
       crossAxisCount: 2,
@@ -97,9 +97,9 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 30.0,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.09,
+                    vertical: height * 0.04,
                   ),
                 ),
                 child: Column(
@@ -107,17 +107,21 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(item.value, size: iconSize),
-                    SizedBox(height: height * 0.01),
+                    SizedBox(height: height * 0.015),
                     Text(
                       item.key,
                       // maxLines: 1,
                       textAlign: TextAlign.center,
                       softWrap: true,
                       overflow: TextOverflow.fade,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
+                      // style: const TextStyle(
+                      //   color: Colors.white,
+                      //   fontSize: 20,
+                      // ),
+                      style:
+                          Theme.of(context).textTheme.headlineLarge!.copyWith(
+                                color: Colors.white,
+                              ),
                     ),
                   ],
                 ),
