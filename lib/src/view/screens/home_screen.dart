@@ -49,7 +49,8 @@ class _HomeViewState extends State<HomeView> {
           ),
           Container(
             margin: const EdgeInsets.only(top: 5.0),
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
             width: width,
             alignment: Alignment.center,
             decoration: BoxDecoration(
