@@ -31,15 +31,15 @@ TextTheme textTheme() {
     ),
     titleLarge: TextStyle(
       fontSize: 20.0,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w800,
     ),
     titleMedium: TextStyle(
       fontSize: 18.0,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w800,
     ),
     titleSmall: TextStyle(
       fontSize: 16.0,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w800,
     ),
     bodyLarge: TextStyle(
       fontSize: 16.0,

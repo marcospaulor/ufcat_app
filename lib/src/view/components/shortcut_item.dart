@@ -39,20 +39,15 @@ class _AtalhoIconState extends State<AtalhoIcon> {
     };
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    double iconSize = (width * (1 / 70)) * (height * (1 / 70));
+    double iconSize = (width * (1 / 65)) * (height * (1 / 65));
 
     return DynamicHeightGridView(
         itemCount: atalhos.length,
         crossAxisCount: 2,
         physics: const NeverScrollableScrollPhysics(),
-        // childAspectRatio: width / (height / (1 / (iconSize / 100) + 1.25)),
-        // padding: const EdgeInsets.symmetric(
-        //   horizontal: 5.0,
-        // ),
         shrinkWrap: true,
         builder: (context, index) {
           return Container(
-            // height: 2000,
             padding: const EdgeInsets.symmetric(
               vertical: 10.0,
               horizontal: 5.0,
@@ -87,16 +82,6 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                         case 'Sobre':
                           return const About();
                         default:
-                          // return Container(
-                          //   decoration: const BoxDecoration(
-                          //     color: Colors.white,
-                          //   ),
-                          //   alignment: Alignment.center,
-                          //   child: const Text(
-                          //     'Em breve...',
-                          //     style: TextStyle(color: Colors.black),
-                          //   ),
-                          // );
                           return const Scaffold(
                             appBar: MyAppBar(title: 'Em breve...'),
                             body: Center(
@@ -107,10 +92,6 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                               ),
                             ),
                           );
-                        // return ScaffoldMessenger.of(context).showSnackBar(
-                        //     child: SnackBar(
-                        //   content: Text('Em breve...'),
-                        // ));
                       }
                     },
                   ),
@@ -121,34 +102,24 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),
-                // padding: EdgeInsets.symmetric(
-                //   horizontal: width * 0.09,
-                //   vertical: height * 0.03,
-                // ),
                 visualDensity: VisualDensity.compact,
               ),
               child: Padding(
-                padding: const EdgeInsets.all(25.0),
+                padding: const EdgeInsets.all(30.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(atalhos.values.toList()[index], size: iconSize),
-                    SizedBox(height: height * 0.02),
+                    SizedBox(height: height * 0.03),
                     Text(
                       atalhos.keys.toList()[index],
-                      // maxLines: 1,
                       textAlign: TextAlign.center,
                       softWrap: true,
                       overflow: TextOverflow.fade,
-                      // style: const TextStyle(
-                      //   color: Colors.white,
-                      //   fontSize: 20,
-                      // ),
-                      style:
-                          Theme.of(context).textTheme.headlineLarge!.copyWith(
-                                color: Colors.white,
-                              ),
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            color: Colors.white,
+                          ),
                     ),
                   ],
                 ),
