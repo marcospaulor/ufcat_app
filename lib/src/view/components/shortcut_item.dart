@@ -37,7 +37,7 @@ class _AtalhoIconState extends State<AtalhoIcon> {
     };
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    double iconSize = (width * (1 / 60)) * (height * (1 / 60));
+    double iconSize = (width * (1 / 70)) * (height * (1 / 70));
 
     return GridView.count(
       crossAxisCount: 2,
@@ -51,10 +51,6 @@ class _AtalhoIconState extends State<AtalhoIcon> {
       children: atalhos.entries
           .map(
             (item) => Container(
-              // height: 2000,
-              // padding: const EdgeInsets.symmetric(
-              //   horizontal: 10.0,
-              // ),
               alignment: Alignment.center,
               child: ElevatedButton(
                 onPressed: () {
@@ -96,10 +92,6 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),
-                  // padding: EdgeInsets.symmetric(
-                  //   horizontal: width * 0.09,
-                  //   vertical: height * 0.03,
-                  // ),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(25.0),
@@ -111,14 +103,9 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                       SizedBox(height: height * 0.01),
                       Text(
                         item.key,
-                        // maxLines: 1,
                         textAlign: TextAlign.center,
                         softWrap: true,
                         overflow: TextOverflow.fade,
-                        // style: const TextStyle(
-                        //   color: Colors.white,
-                        //   fontSize: 20,
-                        // ),
                         style:
                             Theme.of(context).textTheme.headlineLarge!.copyWith(
                                   color: Colors.white,
