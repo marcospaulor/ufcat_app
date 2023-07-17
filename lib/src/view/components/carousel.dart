@@ -37,8 +37,8 @@ class _CarouselState extends State<Carousel> {
       fit: StackFit.loose,
       clipBehavior: Clip.none,
       children: [
-        Image.network(
-          'https://files.cercomp.ufg.br/weby/up/519/o/UFCAT_aerea.png',
+        Image.asset(
+          'assets/images/UFCAT_aerea.png',
           height: height * (1 / 3),
           width: width,
           fit: BoxFit.cover,
