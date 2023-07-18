@@ -58,7 +58,7 @@ class _BottomBarState extends State<BottomBar> {
             );
             break;
           case 2:
-            widget.drawerKey.currentState!.openDrawer();
+            widget.drawerKey.currentState!.openEndDrawer();
             break;
         }
       },

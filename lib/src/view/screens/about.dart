@@ -17,7 +17,7 @@ class About extends StatelessWidget {
         icon: FontAwesomeIcons.arrowLeft,
         title: 'Sobre',
       ),
-      drawer: const MyNavigationDrawer(),
+      endDrawer: const MyNavigationDrawer(),
       body: const Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 50),

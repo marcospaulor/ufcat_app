@@ -129,7 +129,7 @@ class _RUScreenState extends State<RUScreen> {
             ],
           ),
         ),
-        drawer: const MyNavigationDrawer(),
+        endDrawer: const MyNavigationDrawer(),
         body: Stack(children: [
           TabBarView(
             children: [

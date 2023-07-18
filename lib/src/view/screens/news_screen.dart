@@ -36,7 +36,7 @@ class _NewsScreenState extends State<NewsScreen> {
         title: widget.label,
         icon: FontAwesomeIcons.arrowLeft,
       ),
-      drawer: const MyNavigationDrawer(),
+      endDrawer: const MyNavigationDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
