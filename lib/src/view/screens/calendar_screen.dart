@@ -50,7 +50,7 @@ class _CalendarScreen extends State<CalendarScreen> {
         icon: FontAwesomeIcons.arrowLeft,
         title: 'Calendário',
       ),
-      drawer: const MyNavigationDrawer(),
+      endDrawer: const MyNavigationDrawer(),
       body: Column(
         children: [
           TableCalendar(

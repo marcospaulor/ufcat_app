@@ -18,7 +18,7 @@ class MapScreen extends StatelessWidget {
         icon: FontAwesomeIcons.arrowLeft,
         title: 'Mapa',
       ),
-      drawer: const MyNavigationDrawer(),
+      endDrawer: const MyNavigationDrawer(),
       body: Center(
         child: PhotoView(
           enablePanAlways: true,

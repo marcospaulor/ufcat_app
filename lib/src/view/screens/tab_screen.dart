@@ -120,7 +120,7 @@ class _TabScreenState extends State<TabScreen> {
             ],
           ),
         ),
-        drawer: const MyNavigationDrawer(),
+        endDrawer: const MyNavigationDrawer(),
         body: TabBarView(
           children: [
             buildLista(

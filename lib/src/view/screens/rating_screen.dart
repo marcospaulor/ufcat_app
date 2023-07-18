@@ -26,7 +26,7 @@ class _RatingScreenState extends State<RatingScreen> {
         title: 'Avaliação',
         icon: FontAwesomeIcons.arrowLeft,
       ),
-      drawer: const MyNavigationDrawer(),
+      endDrawer: const MyNavigationDrawer(),
       body: ListView(
         children: [
           SizedBox(
