@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:ufcat_app/src/view/components/splash.dart';
-import 'package:ufcat_app/src/view/style/const.dart';
-import 'package:ufcat_app/src/view/style/fonts_style.dart';
+import 'package:ufcat_app/shared/splash.dart';
+import 'package:ufcat_app/theme/theme.dart';
 
 void main() {
   initializeDateFormatting().then((_) => runApp(const MyApp()));
