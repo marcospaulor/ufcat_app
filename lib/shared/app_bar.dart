@@ -78,7 +78,7 @@ class _MyAppBarState extends State<MyAppBar> {
                 },
               ),
             ]
-          : null,
+          : <Widget>[Container()],
       bottom: widget.bottom,
     );
   }
