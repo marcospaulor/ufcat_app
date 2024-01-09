@@ -27,7 +27,7 @@ class _StarRatingState extends State<StarRating> {
       maxRating: 5,
       direction: Axis.horizontal,
       ignoreGestures: widget.size == 20.0 ? true : false,
-      allowHalfRating: true,
+      allowHalfRating: false,
       itemCount: 5,
       itemSize: widget.size,
       itemPadding: EdgeInsets.symmetric(horizontal: widget.padding),

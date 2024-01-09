@@ -46,7 +46,7 @@ class _BottomBarState extends State<BottomBar> {
           case 1:
             showSearch(
               context: context,
-              delegate: SearchBar(
+              delegate: Search_Bar(
                 listExample: [
                   'Resultado 2021',
                   'Sisu 2021',
