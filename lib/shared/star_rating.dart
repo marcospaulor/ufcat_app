@@ -6,19 +6,21 @@ import 'package:ufcat_app/theme/src/app_colors.dart';
 class StarRating extends StatefulWidget {
   final double padding;
   final double size;
-  int _rating = 0;
+  int rating = 3;
+  final ValueChanged<int>? onRatingChanged;
 
   StarRating({
     Key? key,
     required this.padding,
     required this.size,
+    this.onRatingChanged,
   }) : super(key: key);
 
   @override
-  State<StarRating> createState() => _StarRatingState();
+  State<StarRating> createState() => StarRatingState();
 }
 
-class _StarRatingState extends State<StarRating> {
+class StarRatingState extends State<StarRating> {
   @override
   Widget build(BuildContext context) {
     return RatingBar(
@@ -26,8 +28,8 @@ class _StarRatingState extends State<StarRating> {
       minRating: 1,
       maxRating: 5,
       direction: Axis.horizontal,
-      ignoreGestures: widget.size == 20.0 ? true : false,
-      allowHalfRating: true,
+      ignoreGestures: false,
+      allowHalfRating: false,
       itemCount: 5,
       itemSize: widget.size,
       itemPadding: EdgeInsets.symmetric(horizontal: widget.padding),
@@ -47,8 +49,11 @@ class _StarRatingState extends State<StarRating> {
       ),
       onRatingUpdate: (rating) {
         setState(() {
-          widget._rating = rating.toInt();
+          widget.rating = rating.toInt();
         });
+        if (widget.onRatingChanged != null) {
+          widget.onRatingChanged!(rating.toInt());
+        }
       },
     );
   }

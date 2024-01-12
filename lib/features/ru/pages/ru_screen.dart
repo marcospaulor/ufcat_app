@@ -171,7 +171,9 @@ class _RUScreenState extends State<RUScreen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const RatingScreen(),
+                                    builder: (context) => RatingScreen(
+                                      dataRefeicao: _cardapio,
+                                    ),
                                   ),
                                 );
                               },
@@ -251,7 +253,9 @@ class _RUScreenState extends State<RUScreen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const RatingScreen(),
+                                    builder: (context) => RatingScreen(
+                                      dataRefeicao: _cardapio,
+                                    ),
                                   ),
                                 );
                               },

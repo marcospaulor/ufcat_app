@@ -65,7 +65,7 @@ class _MyAppBarState extends State<MyAppBar> {
                 onPressed: () {
                   showSearch(
                     context: context,
-                    delegate: SearchBar(
+                    delegate: Search_Bar(
                       listExample: [
                         'Resultado 2021',
                         'Sisu 2021',
