@@ -26,7 +26,7 @@ class ContainerRu extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 title,
-                style: Theme.of(context).textTheme.headline3,
+                style: Theme.of(context).textTheme.displaySmall,
               ),
             ),
             Container(
@@ -34,7 +34,7 @@ class ContainerRu extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 content,
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
           ],

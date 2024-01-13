@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
 import 'package:ufcat_app/features/home/widgets/carousel.dart';

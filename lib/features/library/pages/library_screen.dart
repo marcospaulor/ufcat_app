@@ -5,10 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
-import 'package:ufcat_app/theme/src/app_colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
-import 'package:webview_flutter_android/webview_flutter_android.dart';
 
 class LibraryScreen extends StatefulWidget {
   final String url;
@@ -136,7 +134,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       : const CupertinoActivityIndicator(),
                 ),
               )
-            : Stack(),
+            : const Stack(),
       ],
     );
   }
