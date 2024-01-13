@@ -103,21 +103,25 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                 visualDensity: VisualDensity.compact,
               ),
               child: Padding(
-                padding: const EdgeInsets.all(30.0),
+                padding: const EdgeInsets.symmetric(vertical: 40.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(atalhos.values.toList()[index], size: iconSize),
                     SizedBox(height: height * 0.03),
-                    Text(
-                      atalhos.keys.toList()[index],
-                      textAlign: TextAlign.center,
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            color: Colors.white,
-                          ),
+                    SizedBox(
+                      width: width,
+                      height: height * 0.05,
+                      child: Text(
+                        atalhos.keys.toList()[index],
+                        textAlign: TextAlign.center,
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
                     ),
                   ],
                 ),
