@@ -82,6 +82,7 @@ class _RatingScreenState extends State<RatingScreen> {
                   child: StarRating(
                     padding: 10.0,
                     size: 30.0,
+                    allowRating: true,
                     onRatingChanged: (rating) {
                       setState(() {
                         currentRating = rating;

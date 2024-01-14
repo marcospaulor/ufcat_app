@@ -162,6 +162,7 @@ class _RUScreenState extends State<RUScreen> {
                               child: StarRating(
                                 padding: 6.0,
                                 size: 20.0,
+                                allowRating: false,
                               ),
                             ),
                           ),
@@ -244,6 +245,7 @@ class _RUScreenState extends State<RUScreen> {
                               child: StarRating(
                                 padding: 6.0,
                                 size: 20.0,
+                                allowRating: false,
                               ),
                             ),
                           ),
