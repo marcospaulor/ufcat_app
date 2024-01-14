@@ -8,33 +8,51 @@ import 'package:ufcat_app/theme/src/app_colors.dart';
 
 class RatingScreen extends StatefulWidget {
   final Map<String, dynamic>? dataRefeicao;
+  final int selectedMeal;
+  final String currentDay;
 
-  const RatingScreen({super.key, required this.dataRefeicao});
+  const RatingScreen(
+      {super.key,
+      required this.dataRefeicao,
+      required this.selectedMeal,
+      required this.currentDay});
 
   @override
   State<RatingScreen> createState() => _RatingScreenState();
 }
 
 class _RatingScreenState extends State<RatingScreen> {
-  final _formKey = GlobalKey<FormState>();
-  String? dropDownRefeicao;
-  String? dropDownSemana;
-  int? currentRating;
   GlobalKey<ScaffoldState> drawerKey = GlobalKey();
+  final _formKey = GlobalKey<FormState>();
+  late bool selected;
+  String? meal;
+  late String? dropDownWeek;
+  int? currentRating = 3;
+  late TextEditingController controller = TextEditingController();
+
+  List<String> diasDaSemana = [
+    'Segunda-feira',
+    'Terça-feira',
+    'Quarta-feira',
+    'Quinta-feira',
+    'Sexta-feira'
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    selected = widget.selectedMeal == 0 ? true : false;
+    meal = widget.selectedMeal == 0 ? 'Almoço' : 'Jantar';
+    assert(diasDaSemana.any((day) => day.startsWith(widget.currentDay)));
+    String matchingDay =
+        diasDaSemana.firstWhere((day) => day.startsWith(widget.currentDay));
+    dropDownWeek = matchingDay;
+  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-
-    List<String> refeicao = ['Almoço', 'Jantar'];
-    List<String> diasDaSemana = [
-      'Segunda-feira',
-      'Terça-feira',
-      'Quarta-feira',
-      'Quinta-feira',
-      'Sexta-feira'
-    ];
 
     return Scaffold(
       key: drawerKey,
@@ -68,6 +86,7 @@ class _RatingScreenState extends State<RatingScreen> {
                         .copyWith(color: primaryBlack),
                   ),
                 ),
+                // rating bar
                 Container(
                   width: width * 0.8,
                   height: height * 0.075,
@@ -90,50 +109,54 @@ class _RatingScreenState extends State<RatingScreen> {
                     },
                   ),
                 ),
-                // dropdown
+                // toggle buttons
                 Container(
-                  margin: const EdgeInsets.only(top: 30),
                   width: width * 0.8,
                   height: height * 0.075,
+                  margin: const EdgeInsets.only(top: 30),
                   alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    color: grayUfcat,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(30),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: DropdownButtonFormField<String>(
-                      decoration: const InputDecoration(
-                        // remove border
-                        border: InputBorder.none,
-                        // aumentando o tamanho
-                        contentPadding: EdgeInsets.all(0),
+                  child: ToggleButtons(
+                    isSelected: [
+                      selected,
+                      !selected,
+                    ],
+                    direction: Axis.horizontal,
+                    borderRadius: BorderRadius.circular(30),
+                    fillColor: orangeUfcat, // Cor de fundo quando selecionado
+                    selectedColor:
+                        Colors.white, // Cor do texto quando selecionado
+                    onPressed: (int index) {
+                      setState(() {
+                        selected = !selected;
+                      });
+                      if (widget.selectedMeal == 0) {
+                        meal = 'Almoço';
+                      } else {
+                        meal = 'Jantar';
+                      }
+                    },
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: width * 0.14),
+                        child: Text(
+                          'Almoço',
+                          style: TextStyle(
+                            color: selected ? Colors.white : Colors.black,
+                          ),
+                        ),
                       ),
-                      value: dropDownRefeicao,
-                      hint: const Text('Selecione a refeição'),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Por favor, selecione uma refeição';
-                        }
-                        return null;
-                      },
-                      items: refeicao.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String? value) {
-                        setState(() {
-                          dropDownRefeicao = value;
-                        });
-                      },
-                    ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: width * 0.14),
+                        child: Text(
+                          'Jantar',
+                          style: TextStyle(
+                            color: selected ? Colors.black : Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-
                 // dropdown
                 Container(
                   margin: const EdgeInsets.only(top: 30),
@@ -155,7 +178,7 @@ class _RatingScreenState extends State<RatingScreen> {
                         // aumentando o tamanho
                         contentPadding: EdgeInsets.all(0),
                       ),
-                      value: dropDownSemana,
+                      value: dropDownWeek,
                       hint: const Text('Selecione um dia da semana'),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
@@ -171,7 +194,7 @@ class _RatingScreenState extends State<RatingScreen> {
                       }).toList(),
                       onChanged: (String? value) {
                         setState(() {
-                          dropDownSemana = value;
+                          dropDownWeek = value;
                         });
                       },
                     ),
@@ -181,9 +204,10 @@ class _RatingScreenState extends State<RatingScreen> {
                 Container(
                   margin: const EdgeInsets.only(top: 30),
                   width: width * 0.8,
-                  child: const TextField(
+                  child: TextField(
+                    controller: controller,
                     maxLines: 8,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.all(
@@ -201,6 +225,9 @@ class _RatingScreenState extends State<RatingScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       print(currentRating);
+                      print(meal);
+                      print(dropDownWeek);
+                      print(controller.text);
                       SnackBar snackBar = const SnackBar(
                         content: Text('Avaliação enviada com sucesso!'),
                       );

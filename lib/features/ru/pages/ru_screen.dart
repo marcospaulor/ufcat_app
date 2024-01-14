@@ -174,6 +174,8 @@ class _RUScreenState extends State<RUScreen> {
                                   MaterialPageRoute(
                                     builder: (context) => RatingScreen(
                                       dataRefeicao: _cardapio,
+                                      selectedMeal: 0,
+                                      currentDay: _day,
                                     ),
                                   ),
                                 );
@@ -257,6 +259,8 @@ class _RUScreenState extends State<RUScreen> {
                                   MaterialPageRoute(
                                     builder: (context) => RatingScreen(
                                       dataRefeicao: _cardapio,
+                                      selectedMeal: 1,
+                                      currentDay: _day,
                                     ),
                                   ),
                                 );
