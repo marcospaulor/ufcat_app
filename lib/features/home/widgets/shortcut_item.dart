@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
 import 'package:ufcat_app/features/calendar/pages/calendar_screen.dart';
 import 'package:ufcat_app/features/about/pages/about.dart';
-import 'package:ufcat_app/features/home/pages/home_screen.dart';
 import 'package:ufcat_app/features/ru/pages/ru_screen.dart';
 import 'package:ufcat_app/features/library/pages/library_screen.dart';
 import 'package:ufcat_app/features/security/pages/security_screen.dart';
-import 'package:ufcat_app/theme/src/app_colors.dart';
 import 'package:ufcat_app/features/map/pages/mapa_screen.dart';
 import 'package:ufcat_app/features/tabs/pages/tab_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -105,21 +103,25 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                 visualDensity: VisualDensity.compact,
               ),
               child: Padding(
-                padding: const EdgeInsets.all(30.0),
+                padding: const EdgeInsets.symmetric(vertical: 40.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(atalhos.values.toList()[index], size: iconSize),
                     SizedBox(height: height * 0.03),
-                    Text(
-                      atalhos.keys.toList()[index],
-                      textAlign: TextAlign.center,
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            color: Colors.white,
-                          ),
+                    SizedBox(
+                      width: width,
+                      height: height * 0.05,
+                      child: Text(
+                        atalhos.keys.toList()[index],
+                        textAlign: TextAlign.center,
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
                     ),
                   ],
                 ),

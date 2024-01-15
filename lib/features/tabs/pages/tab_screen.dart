@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/shared/bottom_bar.dart';
-import 'package:ufcat_app/shared/search_bar.dart';
-import 'package:ufcat_app/features/home/pages/home_screen.dart';
 import 'package:ufcat_app/features/news/pages/news_screen.dart';
 import 'package:ufcat_app/shared/side_menu.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
@@ -19,6 +17,7 @@ class TabScreen extends StatefulWidget {
     required this.index,
   }) : super(key: key);
 
+  @override
   State<TabScreen> createState() => _TabScreenState();
 }
 
