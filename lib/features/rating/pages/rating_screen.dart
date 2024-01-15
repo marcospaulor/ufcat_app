@@ -93,7 +93,11 @@ class _RatingScreenState extends State<RatingScreen> {
                   margin: const EdgeInsets.only(top: 30),
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(
-                    color: grayUfcat,
+                    border: Border.fromBorderSide(
+                      BorderSide(
+                        color: grayUfcat,
+                      ),
+                    ),
                     borderRadius: BorderRadius.all(
                       Radius.circular(50),
                     ),
@@ -164,9 +168,13 @@ class _RatingScreenState extends State<RatingScreen> {
                   height: height * 0.075,
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(
-                    color: grayUfcat,
                     borderRadius: BorderRadius.all(
                       Radius.circular(30),
+                    ),
+                    border: Border.fromBorderSide(
+                      BorderSide(
+                        color: grayUfcat,
+                      ),
                     ),
                   ),
                   child: Padding(
@@ -189,7 +197,8 @@ class _RatingScreenState extends State<RatingScreen> {
                       items: diasDaSemana.map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(value),
+                          child: Text(value,
+                              style: Theme.of(context).textTheme.bodyLarge!),
                         );
                       }).toList(),
                       onChanged: (String? value) {
@@ -204,19 +213,26 @@ class _RatingScreenState extends State<RatingScreen> {
                 Container(
                   margin: const EdgeInsets.only(top: 30),
                   width: width * 0.8,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30),
+                    ),
+                    border: Border.fromBorderSide(
+                      BorderSide(
+                        color: grayUfcat,
+                      ),
+                    ),
+                  ),
                   child: TextField(
                     controller: controller,
                     maxLines: 8,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
                       ),
                       hintText: 'Digite seu comentário aqui...',
-                      filled: true,
-                      fillColor: grayUfcat,
+                      // filled: true,
+                      // fillColor: grayUfcat,
                     ),
                   ),
                 ),
@@ -243,6 +259,9 @@ class _RatingScreenState extends State<RatingScreen> {
                     ),
                     child: const Text('ENVIAR'),
                   ),
+                ),
+                SizedBox(
+                  height: height * 0.1,
                 ),
               ],
             ),

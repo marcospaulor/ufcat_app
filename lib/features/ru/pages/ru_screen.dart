@@ -16,7 +16,8 @@ class RUScreen extends StatefulWidget {
   State<RUScreen> createState() => _RUScreenState();
 }
 
-class _RUScreenState extends State<RUScreen> {
+class _RUScreenState extends State<RUScreen>
+    with SingleTickerProviderStateMixin {
   final Map<String, dynamic> _cardapio = {
     'Segunda': {
       'almoco': {
@@ -35,7 +36,7 @@ class _RUScreenState extends State<RUScreen> {
         'Salada': 'Alface, Tomate, Cenoura, Pepino',
       },
     },
-    'Terca': {
+    'Terça': {
       'almoco': {
         'Principal': 'Arroz',
         'Guarnicao': 'Batata Frita, Mandioca Frita',
@@ -103,6 +104,31 @@ class _RUScreenState extends State<RUScreen> {
   String _day = 'Segunda';
   GlobalKey<ScaffoldState> drawerKey = GlobalKey();
 
+  // tab controller
+  late TabController _tabController;
+  int tabIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(_handleTabSelection);
+  }
+
+  void _handleTabSelection() {
+    if (_tabController.indexIsChanging) {
+      setState(() {
+        tabIndex = _tabController.index;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -111,15 +137,16 @@ class _RUScreenState extends State<RUScreen> {
       length: 2,
       child: Scaffold(
         key: drawerKey,
-        appBar: const MyAppBar(
+        appBar: MyAppBar(
           icon: FontAwesomeIcons.arrowLeft,
           height: 2 * kToolbarHeight,
           title: 'R.U.',
           bottom: TabBar(
+            controller: _tabController,
             labelColor: orangeUfcat,
             unselectedLabelColor: grayUfcat,
             indicatorColor: orangeUfcat,
-            tabs: [
+            tabs: const [
               Tab(
                 text: 'ALMOÇO',
               ),
@@ -132,6 +159,7 @@ class _RUScreenState extends State<RUScreen> {
         endDrawer: const MyNavigationDrawer(),
         body: Stack(children: [
           TabBarView(
+            controller: _tabController,
             children: [
               // Tab Almoço
               Container(
@@ -174,7 +202,7 @@ class _RUScreenState extends State<RUScreen> {
                                   MaterialPageRoute(
                                     builder: (context) => RatingScreen(
                                       dataRefeicao: _cardapio,
-                                      selectedMeal: 0,
+                                      selectedMeal: tabIndex,
                                       currentDay: _day,
                                     ),
                                   ),
@@ -259,7 +287,7 @@ class _RUScreenState extends State<RUScreen> {
                                   MaterialPageRoute(
                                     builder: (context) => RatingScreen(
                                       dataRefeicao: _cardapio,
-                                      selectedMeal: 1,
+                                      selectedMeal: tabIndex,
                                       currentDay: _day,
                                     ),
                                   ),
