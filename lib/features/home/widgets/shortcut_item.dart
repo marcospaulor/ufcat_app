@@ -109,19 +109,15 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(atalhos.values.toList()[index], size: iconSize),
-                    SizedBox(height: height * 0.03),
-                    SizedBox(
-                      width: width,
-                      height: height * 0.05,
-                      child: Text(
-                        atalhos.keys.toList()[index],
-                        textAlign: TextAlign.center,
-                        softWrap: true,
-                        overflow: TextOverflow.fade,
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              color: Colors.white,
-                            ),
-                      ),
+                    SizedBox(height: height * (1 / 75) * 2),
+                    Text(
+                      atalhos.keys.toList()[index],
+                      textAlign: TextAlign.center,
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            color: Colors.white,
+                          ),
                     ),
                   ],
                 ),
