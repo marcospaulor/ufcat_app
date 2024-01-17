@@ -121,14 +121,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
-  dynamic_height_grid_view:
-    dependency: "direct main"
-    description:
-      name: dynamic_height_grid_view
-      sha256: "618d9f529a00fd68238e03fa9c6cc29a2fc9ad6fae1248505fc86972f2e0f716"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.3"
   equatable:
     dependency: "direct main"
     description:
@@ -158,14 +150,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "8.1.2"
-  flutter_hooks:
-    dependency: transitive
-    description:
-      name: flutter_hooks
-      sha256: "6a126f703b89499818d73305e4ce1e3de33b4ae1c5512e3b8eab4b986f46774c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.18.6"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -198,6 +182,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.1"
+  flutter_staggered_grid_view:
+    dependency: "direct main"
+    description:
+      name: flutter_staggered_grid_view
+      sha256: "19e7abb550c96fbfeb546b23f3ff356ee7c59a019a651f8f102a4ba9b7349395"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -639,4 +631,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=2.19.0 <3.0.0"
-  flutter: ">=3.3.0"
+  flutter: ">=3.7.0"

@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
 import 'package:ufcat_app/features/calendar/pages/calendar_screen.dart';
 import 'package:ufcat_app/features/about/pages/about.dart';
-import 'package:ufcat_app/features/home/pages/home_screen.dart';
 import 'package:ufcat_app/features/ru/pages/ru_screen.dart';
 import 'package:ufcat_app/features/library/pages/library_screen.dart';
 import 'package:ufcat_app/features/security/pages/security_screen.dart';
-import 'package:ufcat_app/theme/src/app_colors.dart';
 import 'package:ufcat_app/features/map/pages/mapa_screen.dart';
 import 'package:ufcat_app/features/tabs/pages/tab_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class AtalhoIcon extends StatefulWidget {
   const AtalhoIcon({
@@ -39,20 +37,20 @@ class _AtalhoIconState extends State<AtalhoIcon> {
     };
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    double iconSize = (width * (1 / 65)) * (height * (1 / 65));
+    double iconSize = (width * (1 / 75)) * (height * (1 / 75));
 
-    return DynamicHeightGridView(
+    return AlignedGridView.count(
         itemCount: atalhos.length,
         crossAxisCount: 2,
+        mainAxisSpacing: 25,
+        crossAxisSpacing: 25,
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        builder: (context, index) {
-          return Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10.0,
-              horizontal: 5.0,
-            ),
-            alignment: Alignment.center,
+        itemBuilder: (context, index) {
+          return StaggeredGridTile.extent(
+            crossAxisCellCount: 1,
+            mainAxisExtent: (index % 7 + 1) * 30,
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -105,7 +103,7 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                 visualDensity: VisualDensity.compact,
               ),
               child: Padding(
-                padding: const EdgeInsets.all(30.0),
+                padding: const EdgeInsets.symmetric(vertical: 30.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
