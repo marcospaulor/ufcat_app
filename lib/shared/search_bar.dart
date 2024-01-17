@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
 
-class SearchBar extends SearchDelegate {
+class Search_Bar extends SearchDelegate {
   final List<String> listExample;
-  SearchBar({required this.listExample});
+  Search_Bar({required this.listExample});
 
   // change search textfield hint text
   @override

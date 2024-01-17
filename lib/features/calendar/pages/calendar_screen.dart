@@ -28,7 +28,7 @@ class _CalendarScreen extends State<CalendarScreen> {
   };
   late final ValueNotifier<List<dynamic>> _selectedEvents;
 
-  BoxDecoration _defaultDecoration = const BoxDecoration(
+  final BoxDecoration _defaultDecoration = const BoxDecoration(
     color: Colors.transparent,
     shape: BoxShape.circle,
   );

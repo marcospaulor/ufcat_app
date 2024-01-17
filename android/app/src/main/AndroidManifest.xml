@@ -2,7 +2,7 @@
     package="br.edu.ufcat.ufcat_app">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <application
-        android:label="UFCAT"
+        android:label="Serviços UFCAT"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
