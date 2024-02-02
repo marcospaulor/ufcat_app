@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
 import 'package:ufcat_app/shared/bottom_bar.dart';
+import 'package:ufcat_app/shared/form/custom_textarea.dart';
+import 'package:ufcat_app/shared/form/custom_textfield.dart';
 import 'package:ufcat_app/shared/side_menu.dart';
+import 'package:ufcat_app/shared/form/dropdown_selector.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -22,6 +25,11 @@ class _SecurityScreen extends State<SecurityScreen> {
   LatLng getLocation() {
     return const LatLng(24.003456360119625, 90.34202758271798);
   }
+
+  // inputfield controller
+  final TextEditingController inputTextController = TextEditingController();
+  // textarea controller
+  final TextEditingController textAreaController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   final Completer<GoogleMapController> _controller =
@@ -91,101 +99,88 @@ class _SecurityScreen extends State<SecurityScreen> {
           child: TabBarView(
             children: [
               SingleChildScrollView(
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.all(20),
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
                   child: Form(
                     key: _formKey,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        DropdownButtonFormField<String>(
-                          value: dropdownValue,
-                          hint: const Text('Categoria'),
-                          validator: (String? value) {
-                            if (value == null) {
-                              return 'Selecione uma categoria';
-                            }
-                            return null;
-                          },
-                          items: categories.map(
-                            (String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            },
-                          ).toList(),
+                        DropdownSelector(
+                          label: 'Categoria',
+                          hintText: 'Escolha uma categoria',
+                          items: categories,
+                          selectedValue: dropdownValue,
                           onChanged: (String? value) {
                             setState(() {
                               dropdownValue = value;
                             });
                           },
-                          borderRadius: BorderRadius.circular(20.0),
-                          style: const TextStyle(
-                            color: darkUfcat,
-                            fontSize: 16,
-                          ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            maxLength: 15,
-                            inputFormatters: [
-                              MaskTextInputFormatter(
-                                  mask: '(##) #####-####',
-                                  type: MaskAutoCompletionType.lazy),
-                            ],
-                            style: const TextStyle(
-                              color: darkUfcat,
-                              fontSize: 16,
-                            ),
-                            decoration: const InputDecoration(
-                              hintText: 'Telefone de contato (com DDD)',
-                            ),
-                          ),
+                        const SizedBox(height: 20),
+                        CustomTextField(
+                          controller: inputTextController,
+                          label: 'Telefone de contato',
+                          hintText: '(##) #####-####',
+                          isPassword:
+                              false, // ou false, dependendo se é uma senha ou não
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            MaskTextInputFormatter(
+                                mask: '(##) #####-####',
+                                type: MaskAutoCompletionType.lazy),
+                          ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: TextFormField(
-                            maxLines: 5,
-                            style: const TextStyle(
-                              color: darkUfcat,
-                              fontSize: 16,
-                            ),
-                            decoration: const InputDecoration(
-                              hintText: 'Descrição',
-                            ),
-                          ),
+                        const SizedBox(height: 20),
+                        // Text Area
+                        CustomTextArea(
+                          controller: textAreaController,
+                          label: 'Descrição da ocorrência',
+                          hintText:
+                              'Digite sua descrição da ocorrência aqui...',
                         ),
+                        const SizedBox(height: 20),
                         _permission == true
                             ? Container(
                                 margin: const EdgeInsets.only(bottom: 30.0),
-                                height: 300,
-                                child: GoogleMap(
-                                  mapType: MapType.hybrid,
-                                  liteModeEnabled: true,
-                                  initialCameraPosition: CameraPosition(
-                                    target: _position ?? getLocation(),
-                                    zoom: 18.25,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.44,
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  color: grayUfcat,
+                                  border: Border.all(
+                                    color: grayUfcat,
+                                    width: 1,
                                   ),
-                                  markers: {
-                                    Marker(
-                                      markerId: const MarkerId('marker_1'),
-                                      position: _position ?? getLocation(),
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  child: GoogleMap(
+                                    mapType: MapType.hybrid,
+                                    liteModeEnabled: true,
+                                    initialCameraPosition: CameraPosition(
+                                      target: _position ?? getLocation(),
+                                      zoom: 18.25,
                                     ),
-                                  },
-                                  onMapCreated:
-                                      (GoogleMapController controller) {
-                                    mapController = controller;
-                                  },
-                                  // Move the camera to the new position
-                                  onCameraMove: (CameraPosition position) {
-                                    setState(() {
-                                      _position = position.target;
-                                    });
-                                  },
+                                    markers: {
+                                      Marker(
+                                        markerId: const MarkerId('marker_1'),
+                                        position: _position ?? getLocation(),
+                                      ),
+                                    },
+                                    onMapCreated:
+                                        (GoogleMapController controller) {
+                                      mapController = controller;
+                                    },
+                                    // Move the camera to the new position
+                                    onCameraMove: (CameraPosition position) {
+                                      setState(() {
+                                        _position = position.target;
+                                      });
+                                    },
+                                  ),
                                 ),
                               )
                             : Container(
@@ -218,6 +213,18 @@ class _SecurityScreen extends State<SecurityScreen> {
                                     content: Text('Enviando...'),
                                   ),
                                 );
+                                // limpar campos após envio
+                                inputTextController.clear();
+                                textAreaController.clear();
+                                setState(() {
+                                  dropdownValue = null;
+                                });
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Preencha todos os campos'),
+                                  ),
+                                );
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -236,61 +243,66 @@ class _SecurityScreen extends State<SecurityScreen> {
                   ),
                 ),
               ),
-              Column(
-                children: contact.entries
-                    .map(
-                      (item) => Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 20,
-                        ),
-                        margin: const EdgeInsets.only(top: 10),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: grayUfcat,
-                              width: 1,
+              ListView(
+                scrollDirection: Axis.vertical,
+                children: [
+                  Column(
+                    children: contact.entries
+                        .map(
+                          (item) => Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10,
+                              horizontal: 20,
                             ),
-                          ),
-                        ),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await launchUrl(Uri.parse('tel:${item.value}'));
-                          },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(0, 0),
-                            backgroundColor: Colors.white,
-                            elevation: 0,
-                            padding: const EdgeInsets.all(0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                          ),
-                          child: ListTile(
-                            title: Text(item.key),
-                            subtitle: Row(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(right: 10.0),
-                                  child: Icon(
-                                      size: 15,
-                                      FontAwesomeIcons.phone,
-                                      color: redUfcat),
+                            margin: const EdgeInsets.only(top: 10),
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: grayUfcat,
+                                  width: 1,
                                 ),
-                                Text(
-                                  item.value,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: darkUfcat.withOpacity(0.75),
-                                  ),
+                              ),
+                            ),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                await launchUrl(Uri.parse('tel:${item.value}'));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: const Size(0, 0),
+                                backgroundColor: Colors.white,
+                                elevation: 0,
+                                padding: const EdgeInsets.all(0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
                                 ),
-                              ],
+                              ),
+                              child: ListTile(
+                                title: Text(item.key),
+                                subtitle: Row(
+                                  children: [
+                                    const Padding(
+                                      padding: EdgeInsets.only(right: 10.0),
+                                      child: Icon(
+                                          size: 15,
+                                          FontAwesomeIcons.phone,
+                                          color: redUfcat),
+                                    ),
+                                    Text(
+                                      item.value,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: darkUfcat.withOpacity(0.75),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    )
-                    .toList(),
+                        )
+                        .toList(),
+                  ),
+                ],
               ),
             ],
           ),

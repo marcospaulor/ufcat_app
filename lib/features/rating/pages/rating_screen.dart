@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
 import 'package:ufcat_app/shared/bottom_bar.dart';
+import 'package:ufcat_app/shared/form/custom_textarea.dart';
 import 'package:ufcat_app/shared/star_rating.dart';
 import 'package:ufcat_app/shared/side_menu.dart';
+import 'package:ufcat_app/shared/form/dropdown_selector.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
 
 class RatingScreen extends StatefulWidget {
@@ -61,211 +63,177 @@ class _RatingScreenState extends State<RatingScreen> {
         icon: FontAwesomeIcons.arrowLeft,
       ),
       endDrawer: const MyNavigationDrawer(),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                    margin: const EdgeInsets.only(top: 20),
-                    child: const Icon(
-                      FontAwesomeIcons.heartCircleCheck,
-                      color: greenUfcat,
-                      size: 120,
-                    )),
-                Container(
-                  margin: const EdgeInsets.only(top: 30),
-                  child: Text(
-                    'Avalie a refeição!',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall!
-                        .copyWith(color: primaryBlack),
-                  ),
-                ),
-                // rating bar
-                Container(
-                  width: width * 0.8,
-                  height: height * 0.075,
-                  margin: const EdgeInsets.only(top: 30),
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    border: Border.fromBorderSide(
-                      BorderSide(
-                        color: grayUfcat,
-                      ),
-                    ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      child: const Icon(
+                        FontAwesomeIcons.heartCircleCheck,
+                        color: greenUfcat,
+                        size: 120,
+                      )),
+                  Container(
+                    margin: const EdgeInsets.only(top: 30),
+                    child: Text(
+                      'Avalie a refeição!',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall!
+                          .copyWith(color: primaryBlack),
                     ),
                   ),
-                  child: StarRating(
-                    padding: 10.0,
-                    size: 30.0,
-                    allowRating: true,
-                    onRatingChanged: (rating) {
-                      setState(() {
-                        currentRating = rating;
-                      });
-                    },
-                  ),
-                ),
-                // toggle buttons
-                Container(
-                  width: width * 0.8,
-                  height: height * 0.075,
-                  margin: const EdgeInsets.only(top: 30),
-                  alignment: Alignment.center,
-                  child: ToggleButtons(
-                    isSelected: [
-                      selected,
-                      !selected,
-                    ],
-                    direction: Axis.horizontal,
-                    borderRadius: BorderRadius.circular(30),
-                    fillColor: orangeUfcat, // Cor de fundo quando selecionado
-                    selectedColor:
-                        Colors.white, // Cor do texto quando selecionado
-                    onPressed: (int index) {
-                      setState(() {
-                        selected = !selected;
-                      });
-                      if (widget.selectedMeal == 0) {
-                        meal = 'Almoço';
-                      } else {
-                        meal = 'Jantar';
-                      }
-                    },
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: width * 0.14),
-                        child: Text(
-                          'Almoço',
-                          style: TextStyle(
-                            color: selected ? Colors.white : Colors.black,
-                          ),
+                  // rating bar
+                  Container(
+                    width: width,
+                    height: height * 0.075,
+                    margin: const EdgeInsets.only(top: 30),
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      border: Border.fromBorderSide(
+                        BorderSide(
+                          color: grayUfcat,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: width * 0.14),
-                        child: Text(
-                          'Jantar',
-                          style: TextStyle(
-                            color: selected ? Colors.black : Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // dropdown
-                Container(
-                  margin: const EdgeInsets.only(top: 30),
-                  width: width * 0.8,
-                  height: height * 0.075,
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(30),
-                    ),
-                    border: Border.fromBorderSide(
-                      BorderSide(
-                        color: grayUfcat,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
                       ),
                     ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: DropdownButtonFormField<String>(
-                      decoration: const InputDecoration(
-                        // remove border
-                        border: InputBorder.none,
-                        // aumentando o tamanho
-                        contentPadding: EdgeInsets.all(0),
-                      ),
-                      value: dropDownWeek,
-                      hint: const Text('Selecione um dia da semana'),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Por favor, selecione um dia da semana';
-                        }
-                        return null;
-                      },
-                      items: diasDaSemana.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value,
-                              style: Theme.of(context).textTheme.bodyLarge!),
-                        );
-                      }).toList(),
-                      onChanged: (String? value) {
+                    child: StarRating(
+                      padding: 10.0,
+                      size: 30.0,
+                      allowRating: true,
+                      onRatingChanged: (rating) {
                         setState(() {
-                          dropDownWeek = value;
+                          currentRating = rating;
                         });
                       },
                     ),
                   ),
-                ),
-                // input area
-                Container(
-                  margin: const EdgeInsets.only(top: 30),
-                  width: width * 0.8,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(30),
-                    ),
-                    border: Border.fromBorderSide(
-                      BorderSide(
-                        color: grayUfcat,
-                      ),
+                  // toggle buttons
+                  Container(
+                    width: width,
+                    height: height * 0.075,
+                    margin: const EdgeInsets.only(top: 30),
+                    alignment: Alignment.center,
+                    child: ToggleButtons(
+                      isSelected: [
+                        selected,
+                        !selected,
+                      ],
+                      direction: Axis.horizontal,
+                      borderRadius: BorderRadius.circular(30),
+                      fillColor: orangeUfcat, // Cor de fundo quando selecionado
+                      selectedColor:
+                          Colors.white, // Cor do texto quando selecionado
+                      borderWidth: 2,
+                      onPressed: (int index) {
+                        setState(() {
+                          selected = !selected;
+                        });
+                        if (widget.selectedMeal == 0) {
+                          meal = 'Almoço';
+                        } else {
+                          meal = 'Jantar';
+                        }
+                      },
+                      children: [
+                        // widget para tornar a largura do botão do mesmo tamanho do widget pai
+                        SizedBox(
+                          width: width * 0.4,
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Almoço',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color:
+                                        selected ? Colors.white : Colors.black,
+                                  ),
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(
+                          width: width * 0.4,
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Jantar',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color:
+                                        selected ? Colors.black : Colors.white,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: TextField(
-                    controller: controller,
-                    maxLines: 8,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: 'Digite seu comentário aqui...',
-                      // filled: true,
-                      // fillColor: grayUfcat,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 30),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      print(currentRating);
-                      print(meal);
-                      print(dropDownWeek);
-                      print(controller.text);
-                      SnackBar snackBar = const SnackBar(
-                        content: Text('Avaliação enviada com sucesso!'),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      Navigator.pop(context);
+                  const SizedBox(height: 20),
+                  // dropdown
+                  DropdownSelector(
+                    label: "Dia da semana",
+                    hintText: 'Selecione um dia da semana',
+                    items: diasDaSemana,
+                    selectedValue: dropDownWeek,
+                    onChanged: (String? value) {
+                      setState(() {
+                        dropDownWeek = value;
+                      });
                     },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(width * 0.4, height * 0.05),
-                      backgroundColor: orangeUfcat,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: const Text('ENVIAR'),
                   ),
-                ),
-                SizedBox(
-                  height: height * 0.1,
-                ),
-              ],
-            ),
-          ],
+                  const SizedBox(height: 20),
+                  // input area
+                  CustomTextArea(
+                    label: 'Comentário',
+                    hintText: 'Digite seu comentário aqui...',
+                    controller: controller,
+                  ),
+
+                  Container(
+                    margin: const EdgeInsets.only(top: 30),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        print(currentRating);
+                        print(meal);
+                        print(dropDownWeek);
+                        print(controller.text);
+                        SnackBar snackBar = const SnackBar(
+                          content: Text('Avaliação enviada com sucesso!'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(width * 0.4, height * 0.05),
+                        backgroundColor: orangeUfcat,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: const Text('ENVIAR'),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * 0.1,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomBar(drawerKey: drawerKey),
