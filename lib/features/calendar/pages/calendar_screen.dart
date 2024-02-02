@@ -107,7 +107,7 @@ class _CalendarScreen extends State<CalendarScreen> {
             ),
             locale: 'PT_BR',
             firstDay: DateTime.utc(2022, 1, 1),
-            lastDay: DateTime.utc(2023, 12, 31),
+            lastDay: DateTime.utc(2100, 12, 31),
             focusedDay: _focusedDay,
             calendarFormat: _calendarFormat,
             availableCalendarFormats: const {

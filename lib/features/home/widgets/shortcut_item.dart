@@ -111,8 +111,8 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                     Icon(atalhos.values.toList()[index], size: iconSize),
                     SizedBox(height: height * 0.03),
                     SizedBox(
-                      width: width,
-                      height: height * 0.05,
+                      width: width * 0.5,
+                      height: height * 0.06,
                       child: Text(
                         atalhos.keys.toList()[index],
                         textAlign: TextAlign.center,
