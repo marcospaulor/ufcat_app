@@ -32,6 +32,7 @@ class _MyAppBarState extends State<MyAppBar> {
 
     return AppBar(
       centerTitle: widget.icon == null ? false : true,
+      automaticallyImplyLeading: false,
       leading: widget.icon != null
           ? Builder(
               builder: (context) {

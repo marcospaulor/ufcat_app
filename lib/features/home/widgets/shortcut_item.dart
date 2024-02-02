@@ -8,7 +8,7 @@ import 'package:ufcat_app/features/security/pages/security_screen.dart';
 import 'package:ufcat_app/features/map/pages/mapa_screen.dart';
 import 'package:ufcat_app/features/tabs/pages/tab_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class AtalhoIcon extends StatefulWidget {
   const AtalhoIcon({
@@ -37,20 +37,20 @@ class _AtalhoIconState extends State<AtalhoIcon> {
     };
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    double iconSize = (width * (1 / 65)) * (height * (1 / 65));
+    double iconSize = (width * (1 / 75)) * (height * (1 / 75));
 
-    return DynamicHeightGridView(
+    return AlignedGridView.count(
         itemCount: atalhos.length,
         crossAxisCount: 2,
+        mainAxisSpacing: 25,
+        crossAxisSpacing: 25,
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        builder: (context, index) {
-          return Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10.0,
-              horizontal: 5.0,
-            ),
-            alignment: Alignment.center,
+        itemBuilder: (context, index) {
+          return StaggeredGridTile.extent(
+            crossAxisCellCount: 1,
+            mainAxisExtent: (index % 7 + 1) * 30,
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -103,25 +103,21 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                 visualDensity: VisualDensity.compact,
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40.0),
+                padding: const EdgeInsets.symmetric(vertical: 30.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(atalhos.values.toList()[index], size: iconSize),
-                    SizedBox(height: height * 0.03),
-                    SizedBox(
-                      width: width * 0.5,
-                      height: height * 0.06,
-                      child: Text(
-                        atalhos.keys.toList()[index],
-                        textAlign: TextAlign.center,
-                        softWrap: true,
-                        overflow: TextOverflow.fade,
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              color: Colors.white,
-                            ),
-                      ),
+                    SizedBox(height: height * (1 / 75) * 2),
+                    Text(
+                      atalhos.keys.toList()[index],
+                      textAlign: TextAlign.center,
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            color: Colors.white,
+                          ),
                     ),
                   ],
                 ),

@@ -134,7 +134,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       : const CupertinoActivityIndicator(),
                 ),
               )
-            : const Stack(),
+            : Stack(),
       ],
     );
   }
