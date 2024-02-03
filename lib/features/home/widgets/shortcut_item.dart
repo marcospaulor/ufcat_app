@@ -39,88 +39,86 @@ class _AtalhoIconState extends State<AtalhoIcon> {
     final height = MediaQuery.of(context).size.height;
     double iconSize = (width * (1 / 75)) * (height * (1 / 75));
 
-    return AlignedGridView.count(
+    return GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 25,
+          crossAxisSpacing: 25,
+        ),
         itemCount: atalhos.length,
-        crossAxisCount: 2,
-        mainAxisSpacing: 25,
-        crossAxisSpacing: 25,
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          return StaggeredGridTile.extent(
-            crossAxisCellCount: 1,
-            mainAxisExtent: (index % 7 + 1) * 30,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      switch (atalhos.keys.toList()[index]) {
-                        case 'Mapa':
-                          return const MapScreen();
-                        case 'RU':
-                          return const RUScreen();
-                        case 'Biblioteca':
-                          return const LibraryScreen(
-                            url:
-                                'https://biblioteca.sophia.com.br/terminal/9396/',
-                          );
-                        case 'Calendário':
-                          return const CalendarScreen();
-                        case 'Segurança':
-                          return const SecurityScreen();
-                        case 'Notícias':
-                          return const TabScreen(index: 0);
-                        case 'Eventos':
-                          return const TabScreen(index: 1);
-                        case 'Editais':
-                          return const TabScreen(index: 2);
-                        case 'Sobre':
-                          return const About();
-                        default:
-                          return const Scaffold(
-                            appBar: MyAppBar(title: 'Em breve...'),
-                            body: Center(
-                              child: Text(
-                                'Em breve...',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 30),
-                              ),
+          return ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    switch (atalhos.keys.toList()[index]) {
+                      case 'Mapa':
+                        return const MapScreen();
+                      case 'RU':
+                        return const RUScreen();
+                      case 'Biblioteca':
+                        return const LibraryScreen(
+                          url:
+                              'https://biblioteca.sophia.com.br/terminal/9396/',
+                        );
+                      case 'Calendário':
+                        return const CalendarScreen();
+                      case 'Segurança':
+                        return const SecurityScreen();
+                      case 'Notícias':
+                        return const TabScreen(index: 0);
+                      case 'Eventos':
+                        return const TabScreen(index: 1);
+                      case 'Editais':
+                        return const TabScreen(index: 2);
+                      case 'Sobre':
+                        return const About();
+                      default:
+                        return const Scaffold(
+                          appBar: MyAppBar(title: 'Em breve...'),
+                          body: Center(
+                            child: Text(
+                              'Em breve...',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 30),
                             ),
-                          );
-                      }
-                    },
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                visualDensity: VisualDensity.compact,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(atalhos.values.toList()[index], size: iconSize),
-                    SizedBox(height: height * (1 / 75) * 2),
-                    Text(
-                      atalhos.keys.toList()[index],
-                      textAlign: TextAlign.center,
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            color: Colors.white,
                           ),
-                    ),
-                  ],
+                        );
+                    }
+                  },
                 ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              visualDensity: VisualDensity.compact,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(atalhos.values.toList()[index], size: iconSize),
+                  SizedBox(height: height * (1 / 75) * 2),
+                  Text(
+                    atalhos.keys.toList()[index],
+                    textAlign: TextAlign.center,
+                    softWrap: true,
+                    overflow: TextOverflow.fade,
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
+                ],
               ),
             ),
           );
