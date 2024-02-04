@@ -1,11 +1,30 @@
 // anim_search_bar statefull widget
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
 
 class Search_Bar extends SearchDelegate {
-  final List<String> listExample;
-  Search_Bar({required this.listExample});
+  // Search_Bar({required this.listExample});
+  SearchScreen() {
+    loadSearchHistory();
+  }
+
+  List<String> searchHistory = [];
+
+  Future<void> loadSearchHistory() async {
+    final prefs = await SharedPreferences.getInstance();
+    searchHistory = prefs.getStringList('searchHistory') ?? [];
+  }
+
+  Future<void> saveSearchHistory(String query) async {
+    searchHistory.insert(0, query);
+    if (searchHistory.length > 5) {
+      searchHistory.removeRange(5, searchHistory.length);
+    }
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('searchHistory', searchHistory);
+  }
 
   // change search textfield hint text
   @override
@@ -69,6 +88,7 @@ class Search_Bar extends SearchDelegate {
   // TODO: change search result list
   @override
   Widget buildResults(BuildContext context) {
+    saveSearchHistory(query);
     return Container(
       color: grayUfcat,
     );
@@ -77,8 +97,8 @@ class Search_Bar extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     final suggestionList = query.isEmpty
-        ? listExample
-        : listExample
+        ? searchHistory
+        : searchHistory
             .where((element) => element.toLowerCase().startsWith(query))
             .toList();
 
@@ -95,14 +115,18 @@ class Search_Bar extends SearchDelegate {
         ),
         title: RichText(
           text: TextSpan(
-            text: suggestionList[index].substring(0, query.length),
+            text: suggestionList.length > index
+                ? suggestionList[index].substring(0, query.length)
+                : '',
             style: TextStyle(
               color: Colors.black.withOpacity(0.15),
               fontSize: 16,
             ),
             children: [
               TextSpan(
-                text: suggestionList[index].substring(query.length),
+                text: suggestionList.length > index
+                    ? suggestionList[index].substring(query.length)
+                    : '',
                 style: const TextStyle(color: Colors.grey),
               ),
             ],
