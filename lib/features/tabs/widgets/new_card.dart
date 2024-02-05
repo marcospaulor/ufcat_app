@@ -30,7 +30,7 @@ class NewsCard extends StatelessWidget {
   }
 
   Widget buildImage(BuildContext context) {
-    bool hasImageUrl = imageUrl != null && imageUrl.isNotEmpty;
+    bool hasImageUrl = imageUrl.isNotEmpty;
 
     if (category.toLowerCase() == "eventos") {
       return SizedBox(

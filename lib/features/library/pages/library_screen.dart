@@ -24,8 +24,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
   final _key = UniqueKey();
   bool isLoading = true;
   late final WebViewController _controller;
-  final Completer<WebViewController> _controllerCompleter =
-      Completer<WebViewController>();
 
   Future<bool> _goBack(BuildContext context) async {
     if (await _controller.canGoBack()) {
