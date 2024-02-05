@@ -94,30 +94,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
             body: WebViewWidget(
               key: _key,
               controller: _controller,
-              // initialUrl: widget.url,
-              // javascriptMode: JavascriptMode.unrestricted,
-              // onPageStarted: (finish) {
-              //   setState(
-              //     () {
-              //       isLoading = true;
-              //     },
-              //   );
-              //   // },
-              //   onProgress: (int progress) {
-              //     print('WebView is loading (progress : $progress%)');
-              //   },
-              //   onPageFinished: (finish) {
-              //     setState(
-              //       () {
-              //         isLoading = false;
-              //       },
-              //     );
-              //   },
-              //   onWebViewCreated: (WebViewController webViewController) {
-              //     _controllerCompleter.future
-              //         .then((value) => _controller = value);
-              //     _controllerCompleter.complete(webViewController);
-              //   },
             ),
           ),
         ),
