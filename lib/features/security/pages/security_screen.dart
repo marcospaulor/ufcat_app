@@ -32,8 +32,7 @@ class _SecurityScreen extends State<SecurityScreen> {
   final TextEditingController textAreaController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+
   GoogleMapController? mapController;
 
   GlobalKey<ScaffoldState> drawerKey = GlobalKey();

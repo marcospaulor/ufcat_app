@@ -8,7 +8,6 @@ import 'package:ufcat_app/features/security/pages/security_screen.dart';
 import 'package:ufcat_app/features/map/pages/mapa_screen.dart';
 import 'package:ufcat_app/features/tabs/pages/tab_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class AtalhoIcon extends StatefulWidget {
   const AtalhoIcon({

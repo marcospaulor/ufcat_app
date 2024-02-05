@@ -1,21 +1,21 @@
 class NewsEventNotice {
-  final List newsEventNotice;
+  final List<Map<String, dynamic>> newsEventNotice;
   final String category;
-  List title = [];
-  List description = [];
+  List<String> link = [];
+  List<String> title = [];
+  List<String> date = [];
+  List<String> imageUrl = [];
 
   NewsEventNotice(this.category, this.newsEventNotice) {
-    for (var i = 0; i < newsEventNotice.length; i++) {
-      if (newsEventNotice[i]['attributes']['category']['data']['attributes']
-              ['name'] ==
-          category) {
-        title += [newsEventNotice[i]['attributes']['Titulo']];
-        description += [newsEventNotice[i]['attributes']['Descricao']];
-      }
-    }
+    newsEventNotice
+        .where((element) => element['type'] == category)
+        .forEach((element) {
+      link.add(element['link'] ?? '');
+      title.add(element['title'] ?? '');
+      date.add(element['date'] ?? '');
+      imageUrl.add(element['image_url'] ?? '');
+    });
   }
 
-  int length() {
-    return title.length;
-  }
+  int get length => title.length;
 }
