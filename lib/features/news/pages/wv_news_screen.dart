@@ -10,9 +10,10 @@ import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 class NewsWebView extends StatefulWidget {
   final String url;
-  late final String titleAppBar;
+  final String titleAppBar;
 
-  NewsWebView({super.key, required this.url, this.titleAppBar = 'Tipo'});
+  NewsWebView({Key? key, required this.url, required this.titleAppBar})
+      : super(key: key);
 
   @override
   _NewsWebViewState createState() => _NewsWebViewState();
@@ -48,7 +49,7 @@ class _NewsWebViewState extends State<NewsWebView> {
   @override
   void initState() {
     super.initState();
-    widget.titleAppBar = handleTitle(widget.titleAppBar);
+
     late final PlatformWebViewControllerCreationParams params;
     if (WebViewPlatform.instance is WebKitWebViewPlatform) {
       params = WebKitWebViewControllerCreationParams(
@@ -101,7 +102,7 @@ class _NewsWebViewState extends State<NewsWebView> {
           child: Scaffold(
             appBar: MyAppBar(
               icon: FontAwesomeIcons.arrowLeft,
-              title: widget.titleAppBar,
+              title: handleTitle(widget.titleAppBar),
             ),
             body: WebViewWidget(
               key: _key,
