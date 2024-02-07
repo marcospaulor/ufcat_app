@@ -79,7 +79,9 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                         return const About();
                       default:
                         return const Scaffold(
-                          appBar: MyAppBar(title: 'Em breve...'),
+                          appBar: MyAppBar(
+                              title: 'Em breve...',
+                              icon: FontAwesomeIcons.arrowLeft),
                           body: Center(
                             child: Text(
                               'Em breve...',
@@ -112,9 +114,10 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                     atalhos.keys.toList()[index],
                     textAlign: TextAlign.center,
                     softWrap: true,
-                    overflow: TextOverflow.fade,
+                    overflow: TextOverflow.clip,
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Colors.white,
+                          fontSize: 14, // Defina um tamanho de fonte fixo aqui
                         ),
                   ),
                 ],
