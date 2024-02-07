@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ufcat_app/features/tabs/widgets/new_card.dart';
+import 'package:ufcat_app/features/tabs/widgets/news_card.dart';
 
 class NewsList extends StatefulWidget {
   final Future<List<Map<String, dynamic>>> futureInfos;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ufcat_app/features/tabs/widgets/new_list.dart';
+import 'package:ufcat_app/features/tabs/widgets/news_list.dart';
 import 'package:ufcat_app/shared/bottom_bar.dart';
 import 'package:ufcat_app/shared/side_menu.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';

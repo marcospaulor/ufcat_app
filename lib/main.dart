@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         //   cardColor: greenUfcat,
         // ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        // useMaterial3: true,
+        useMaterial3: false,
         fontFamily: 'Rawline', // fontstyle
         textTheme: textTheme(),
       ),

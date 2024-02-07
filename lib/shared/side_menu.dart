@@ -72,7 +72,7 @@ class MyNavigationDrawer extends StatelessWidget {
     return Drawer(
       backgroundColor: greenUfcat,
       child: ListView(
-        physics: const NeverScrollableScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.zero,
         children: <Widget>[
           Container(
