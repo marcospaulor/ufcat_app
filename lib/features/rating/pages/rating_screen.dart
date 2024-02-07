@@ -9,13 +9,13 @@ import 'package:ufcat_app/shared/form/dropdown_selector.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
 
 class RatingScreen extends StatefulWidget {
-  final Map<String, dynamic>? dataRefeicao;
+  final Map<String, dynamic> dataMeal;
   final int selectedMeal;
   final String currentDay;
 
   const RatingScreen(
       {super.key,
-      required this.dataRefeicao,
+      required this.dataMeal,
       required this.selectedMeal,
       required this.currentDay});
 
@@ -49,6 +49,7 @@ class _RatingScreenState extends State<RatingScreen> {
     String matchingDay =
         diasDaSemana.firstWhere((day) => day.startsWith(widget.currentDay));
     dropDownWeek = matchingDay;
+    // TODO: Print(dataMeal)
   }
 
   @override
