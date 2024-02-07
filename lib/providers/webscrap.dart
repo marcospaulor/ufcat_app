@@ -21,14 +21,9 @@ class WebScraping {
     await Future.forEach(_urls.entries, (MapEntry<String, String> entry) async {
       final data = await _extractData(entry.value, entry.key);
       allData.addAll(data);
-
-      print("Data for ${entry.key}:");
-      print(data);
-      print("\n");
     });
 
     await File(_jsonFilePath).writeAsString(jsonEncode(allData), flush: true);
-    print("Data saved to: $_jsonFilePath");
   }
 
   Future<List<Map<String, dynamic>>> _extractData(
