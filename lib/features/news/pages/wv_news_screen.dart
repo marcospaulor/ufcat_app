@@ -8,22 +8,33 @@ import 'package:ufcat_app/shared/app_bar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
-class LibraryScreen extends StatefulWidget {
+class NewsWebView extends StatefulWidget {
   final String url;
+  final String titleAppBar;
 
-  const LibraryScreen({
-    Key? key,
-    required this.url,
-  }) : super(key: key);
+  NewsWebView({Key? key, required this.url, required this.titleAppBar})
+      : super(key: key);
 
   @override
-  State<LibraryScreen> createState() => _LibraryScreenState();
+  _NewsWebViewState createState() => _NewsWebViewState();
 }
 
-class _LibraryScreenState extends State<LibraryScreen> {
+class _NewsWebViewState extends State<NewsWebView> {
   final _key = UniqueKey();
   bool isLoading = true;
   late final WebViewController _controller;
+
+  String handleTitle(String title) {
+    // Mapa para mapear títulos para categorias correspondentes
+    Map<String, String> titleMapping = {
+      "noticia": "Notícia",
+      "evento": "Evento",
+      "edital": "Edital",
+    };
+
+    // Obtém a categoria correspondente ou retorna uma string vazia se não encontrada
+    return titleMapping[title.toLowerCase()] ?? '';
+  }
 
   Future<bool> _goBack(BuildContext context) async {
     if (await _controller.canGoBack()) {
@@ -57,20 +68,24 @@ class _LibraryScreenState extends State<LibraryScreen> {
       ..setNavigationDelegate(NavigationDelegate(
         onProgress: (int progress) {
           print('WebView is loading (progress : $progress%)');
+          print(widget.url);
         },
         onPageStarted: (finish) {
-          setState(
-            () {
-              isLoading = true;
-            },
-          );
+          setState(() {
+            isLoading = true;
+          });
         },
-        onPageFinished: (finish) {
-          setState(
-            () {
-              isLoading = false;
-            },
-          );
+        onPageFinished: (finish) async {
+          setState(() {
+            isLoading = false;
+          });
+          await controller.runJavaScript('''
+            var mainContent = document.querySelector('main');
+            if (mainContent) {
+              document.body.innerHTML = '';
+              document.body.appendChild(mainContent);
+            }
+          ''');
         },
       ))
       ..loadRequest(Uri.parse(widget.url));
@@ -85,9 +100,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
         WillPopScope(
           onWillPop: () => _goBack(context),
           child: Scaffold(
-            appBar: const MyAppBar(
+            appBar: MyAppBar(
               icon: FontAwesomeIcons.arrowLeft,
-              title: 'Biblioteca',
+              title: handleTitle(widget.titleAppBar),
             ),
             body: WebViewWidget(
               key: _key,

@@ -1,0 +1,102 @@
+{
+  "Segunda": {
+    "almoco": {
+      "Prato Principal": "Escondidinho de carne",
+      "Prato Vegano": "Escondidinho de proteína de soja",
+      "Acompanhamento": "Arroz Branco / Integral",
+      "Feijão": "Feijão Carioca",
+      "Guarnição": "Legumes Sauté",
+      "Salada": "Chicória, Repolho com Cenoura e Passas, beterraba palha",
+      "Sobremesa": "Laranja",
+      "Avaliação": 5
+    },
+    "jantar": {
+      "Prato Principal": "Arroz, feijão, carne moída",
+      "Prato Vegano": "Proteína de soja com legumes",
+      "Guarnição": "Batata Frita, Mandioca Frita",
+      "Salada": "Alface, Tomate, Cenoura, Pepino",
+      "Sobremesa": "Pudim",
+      "Avaliação": 4
+    }
+  },
+
+  "Terça": {
+    "almoco": {
+      "Prato Principal": "Frango grelhado com legumes",
+      "Prato Vegano": "Tofu com abobrinha e berinjela",
+      "Acompanhamento": "Arroz Integral",
+      "Feijão": "Feijão Preto",
+      "Guarnição": "Purê de batata-doce",
+      "Salada": "Rúcula, Tomate-cereja, Cebola-roxa",
+      "Sobremesa": "Maçã",
+      "Avaliação": 4
+    },
+    "jantar": {
+      "Prato Principal": "Peixe assado com ervas",
+      "Prato Vegano": "Grão-de-bico com abóbora",
+      "Guarnição": "Couve-flor gratinada",
+      "Salada": "Agrião, Pepino, Pimentão amarelo",
+      "Sobremesa": "Gelatina de frutas vermelhas",
+      "Avaliação": 3
+    }
+  },
+
+  "Quarta": {
+    "almoco": {
+      "Prato Principal": "Strogonoff de frango",
+      "Prato Vegano": "Cogumelos salteados com quinoa",
+      "Acompanhamento": "Batata palha",
+      "Feijão": "Feijão Mulatinho",
+      "Guarnição": "Abobrinha refogada",
+      "Salada": "Alface, Cenoura ralada, Beterraba",
+      "Sobremesa": "Banana",
+      "Avaliação": 4
+    },
+    "jantar": {
+      "Prato Principal": "Omelete de espinafre e queijo",
+      "Prato Vegano": "Tofu mexido com cogumelos",
+      "Guarnição": "Brócolis cozido",
+      "Salada": "Tomate, Cebola, Azeitonas pretas",
+      "Sobremesa": "Iogurte com mel",
+      "Avaliação": 3
+    }
+  },
+  "Quinta": {
+    "almoco": {
+      "Prato Principal": "Risoto de cogumelos",
+      "Prato Vegano": "Quinoa com abobrinha e pimentão",
+      "Acompanhamento": "Purê de batata",
+      "Feijão": "Feijão Preto",
+      "Guarnição": "Couve refogada",
+      "Salada": "Agrião, Tomate-cereja, Cebola-roxa",
+      "Sobremesa": "Kiwi",
+      "Avaliação": 4
+    },
+    "jantar": {
+      "Prato Principal": "Peito de frango grelhado com molho de laranja",
+      "Prato Vegano": "Grão-de-bico com espinafre",
+      "Guarnição": "Abóbora assada",
+      "Salada": "Alface, Pepino, Pimentão vermelho",
+      "Sobremesa": "Gelatina de limão",
+      "Avaliação": 3
+    }
+  },
+  "Sexta": {
+    "almoco": {
+      "Prato Principal": "Feijoada completa",
+      "Prato Vegano": "Feijão-preto com legumes e tofu defumado",
+      "Acompanhamento": "Arroz Branco",
+      "Guarnição": "Farofa de couve",
+      "Salada": "Rúcula, Tomate, Cenoura ralada",
+      "Sobremesa": "Manga",
+      "Avaliação": 5
+    },
+    "jantar": {
+      "Prato Principal": "Pizza de margherita",
+      "Prato Vegano": "Pizza de cogumelos e azeitonas",
+      "Guarnição": "Salada de rúcula com tomate-cereja",
+      "Sobremesa": "Sorvete de chocolate",
+      "Avaliação": 4
+    }
+  }
+}
