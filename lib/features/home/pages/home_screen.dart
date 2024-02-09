@@ -15,7 +15,6 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: const MyAppBar(
         // icon: FontAwesomeIcons.bars,
