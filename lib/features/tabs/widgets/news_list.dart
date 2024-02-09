@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:ufcat_app/features/tabs/widgets/news_card.dart';
+import 'package:ufcat_app/providers/read_json.dart';
+import 'package:ufcat_app/providers/webscrap.dart';
 
 class NewsList extends StatefulWidget {
   final Future<List<Map<String, dynamic>>> futureInfos;
   final String category;
-  final Future<List<Map<String, dynamic>>> Function() readJson;
 
   const NewsList({
     Key? key,
     required this.futureInfos,
     required this.category,
-    required this.readJson,
   }) : super(key: key);
 
   @override
@@ -60,8 +60,9 @@ class _NewsListState extends State<NewsList> {
           return RefreshIndicator(
             onRefresh: () async {
               await Future.delayed(const Duration(seconds: 1));
+              WebScrap().checkAndScrapeData();
               setState(() {
-                _futureInfos = widget.readJson();
+                _futureInfos = ReadJson().getJson();
               });
             },
             child: ListView.builder(

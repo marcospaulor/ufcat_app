@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:ufcat_app/features/home/pages/home_screen.dart';
+import 'package:ufcat_app/providers/webscrap.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -11,7 +12,6 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-// TODO: Thread splash screen
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
@@ -24,6 +24,12 @@ class _SplashScreenState extends State<SplashScreen>
     parent: _controller,
     curve: Curves.easeInOutCubic,
   );
+
+  @override
+  void initState() {
+    super.initState();
+    WebScrap().checkAndScrapeData();
+  }
 
   @override
   void dispose() {

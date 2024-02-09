@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/features/tabs/widgets/news_list.dart';
+import 'package:ufcat_app/providers/read_json.dart';
 import 'package:ufcat_app/shared/bottom_bar.dart';
 import 'package:ufcat_app/shared/side_menu.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart';
-import 'package:ufcat_app/providers/webscrap.dart';
 
 class TabScreen extends StatefulWidget {
   final int index;
@@ -27,25 +25,7 @@ class _TabScreenState extends State<TabScreen> {
   @override
   void initState() {
     super.initState();
-
-    _futureInfos = readJson();
-  }
-
-  Future<List<Map<String, dynamic>>> readJson() async {
-    // Do a webScraping to get the data
-    List<dynamic> data = <dynamic>[];
-    try {
-      final webScraping = WebScraping();
-      await webScraping.scrapeData();
-    } catch (e) {
-      // If the webScraping fails, load the data from the JSON file
-      // Load the data from the JSON file
-      final String response =
-          await rootBundle.loadString('assets/database/data.json');
-      data = await json.decode(response);
-    }
-
-    return List<Map<String, dynamic>>.from(data);
+    _futureInfos = ReadJson().getJson();
   }
 
   @override
@@ -81,25 +61,31 @@ class _TabScreenState extends State<TabScreen> {
         endDrawer: const MyNavigationDrawer(),
         body: TabBarView(
           children: [
-            NewsList(
-              futureInfos: _futureInfos,
-              category: 'noticia',
-              readJson: readJson,
-            ),
-            NewsList(
-              futureInfos: _futureInfos,
-              category: 'evento',
-              readJson: readJson,
-            ),
-            NewsList(
-              futureInfos: _futureInfos,
-              category: 'edital',
-              readJson: readJson,
-            ),
+            _buildNewsList('noticia'),
+            _buildNewsList('evento'),
+            _buildNewsList('edital'),
           ],
         ),
         bottomNavigationBar: BottomBar(drawerKey: drawerKey),
       ),
+    );
+  }
+
+  Widget _buildNewsList(String category) {
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: _futureInfos,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else {
+          return NewsList(
+            futureInfos: Future.value(snapshot.data),
+            category: category,
+          );
+        }
+      },
     );
   }
 }
