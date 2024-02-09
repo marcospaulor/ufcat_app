@@ -4,6 +4,7 @@ import 'package:ufcat_app/shared/splash.dart';
 import 'package:ufcat_app/theme/theme.dart';
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting().then((_) => runApp(const MyApp()));
 }
 

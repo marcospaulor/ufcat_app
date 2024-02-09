@@ -67,14 +67,14 @@ class _MyAppBarState extends State<MyAppBar> {
                   showSearch(
                     context: context,
                     delegate: Search_Bar(
-                      listExample: [
-                        'Resultado 2021',
-                        'Sisu 2021',
-                        'Calendário Acadêmico',
-                        'Bolsas',
-                        'Enacomp',
-                      ],
-                    ),
+                        // listExample: [
+                        //   'Resultado 2021',
+                        //   'Sisu 2021',
+                        //   'Calendário Acadêmico',
+                        //   'Bolsas',
+                        //   'Enacomp',
+                        // ],
+                        ),
                   );
                 },
               ),
