@@ -80,10 +80,14 @@ class _NewsWebViewState extends State<NewsWebView> {
             isLoading = false;
           });
           await controller.runJavaScript('''
-            var mainContent = document.querySelector('main');
+            var mainContent = document.querySelector('.main-content');
             if (mainContent) {
               document.body.innerHTML = '';
               document.body.appendChild(mainContent);
+            }
+            var shareGroup = document.querySelector('.sharegroup-horizontal');
+            if (shareGroup) {
+              shareGroup.remove();
             }
           ''');
         },
@@ -104,9 +108,12 @@ class _NewsWebViewState extends State<NewsWebView> {
               icon: FontAwesomeIcons.arrowLeft,
               title: handleTitle(widget.titleAppBar),
             ),
-            body: WebViewWidget(
-              key: _key,
-              controller: _controller,
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: WebViewWidget(
+                key: _key,
+                controller: _controller,
+              ),
             ),
           ),
         ),
