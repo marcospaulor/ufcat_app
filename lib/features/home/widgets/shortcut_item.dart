@@ -32,8 +32,6 @@ class _AtalhoIconState extends State<AtalhoIcon> {
       'Calendário': FontAwesomeIcons.solidCalendarMinus,
       'OS': FontAwesomeIcons.screwdriverWrench,
       'Segurança': FontAwesomeIcons.shieldHalved,
-      'Sobre': FontAwesomeIcons.circleInfo,
-      'Ajuda': FontAwesomeIcons.solidCircleQuestion,
     };
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
