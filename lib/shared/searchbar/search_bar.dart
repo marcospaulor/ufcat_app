@@ -124,7 +124,7 @@ class MySearchBar extends SearchDelegate {
               query = recentQueries[index];
               showResults(context);
             },
-            leading: const Icon(FontAwesomeIcons.clock),
+            leading: const Icon(FontAwesomeIcons.clockRotateLeft),
             title: Text(
               recentQueries[index],
               style: Theme.of(context).textTheme.labelLarge,
@@ -139,7 +139,7 @@ class MySearchBar extends SearchDelegate {
               query = titles[databaseIndex];
               showResults(context);
             },
-            leading: const Icon(FontAwesomeIcons.link),
+            leading: const Icon(FontAwesomeIcons.magnifyingGlass),
             title: Text(
               titles[databaseIndex],
               style: Theme.of(context).textTheme.labelLarge,
