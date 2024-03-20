@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ufcat_app/shared/searchbar/search_bar.dart';
+import 'package:ufcat_app/shared/search_bar.dart';
+import 'package:ufcat_app/shared/popup_menu.dart';
+
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   final IconData? icon;
@@ -58,9 +60,9 @@ class _MyAppBarState extends State<MyAppBar> {
                 fontFamily: 'WorkSans-Regular',
               ),
             ),
-      actions: widget.isSearch == true
-          ? [
-              IconButton(
+      actions: [
+        widget.isSearch == true
+            ? IconButton(
                 icon: const Icon(FontAwesomeIcons.magnifyingGlass),
                 iconSize: width * 0.04,
                 onPressed: () {
@@ -69,9 +71,13 @@ class _MyAppBarState extends State<MyAppBar> {
                     delegate: MySearchBar(context: context),
                   );
                 },
-              ),
-            ]
-          : <Widget>[Container()],
+              )
+            : Container(),
+        const PopupMenu(),
+      ],
+      // IconButton(
+      //         icon: const Icon(FontAwesomeIcons.ellipsisVertical),
+      //         onPressed: () {})
       bottom: widget.bottom,
     );
   }
