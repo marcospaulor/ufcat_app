@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/features/tabs/widgets/news_list.dart';
-import 'package:ufcat_app/providers/read_json.dart';
+import 'package:ufcat_app/providers/firebase_api.dart';
 import 'package:ufcat_app/shared/bottom_bar.dart';
 import 'package:ufcat_app/shared/side_menu.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
@@ -25,7 +25,11 @@ class _TabScreenState extends State<TabScreen> {
   @override
   void initState() {
     super.initState();
-    _futureInfos = ReadJson().getJson();
+    _futureInfos = _loadDataFromFirebase();
+  }
+
+  Future<List<Map<String, dynamic>>> _loadDataFromFirebase() async {
+    return FirebaseApi().getData();
   }
 
   @override

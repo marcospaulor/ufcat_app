@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:ufcat_app/features/home/pages/home_screen.dart';
-import 'package:ufcat_app/providers/webscrap.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -28,7 +27,6 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    WebScrap().checkAndScrapeData();
   }
 
   @override

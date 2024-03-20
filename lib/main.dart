@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:ufcat_app/shared/splash.dart';
 import 'package:ufcat_app/theme/theme.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  CachedNetworkImage.logLevel = CacheManagerLogLevel.debug;
   initializeDateFormatting().then((_) => runApp(const MyApp()));
 }
 
@@ -23,12 +31,6 @@ class MyApp extends StatelessWidget {
           },
         ),
         primarySwatch: greenUfcat,
-        // colorScheme: ColorScheme.fromSwatch(
-        //   primarySwatch: greenUfcat,
-        //   backgroundColor: greenUfcat,
-        //   accentColor: greenUfcat,
-        //   cardColor: greenUfcat,
-        // ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         useMaterial3: false,
         fontFamily: 'Rawline', // fontstyle

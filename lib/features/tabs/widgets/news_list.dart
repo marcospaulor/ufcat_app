@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
 import 'package:ufcat_app/features/tabs/widgets/news_card.dart';
-import 'package:ufcat_app/providers/read_json.dart';
-import 'package:ufcat_app/providers/webscrap.dart';
+import 'package:ufcat_app/providers/firebase_api.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
 
 class NewsList extends StatefulWidget {
@@ -33,13 +32,16 @@ class _NewsListState extends State<NewsList> {
     _futureInfos = widget.futureInfos;
   }
 
+  Future<List<Map<String, dynamic>>> _loadDataFromFirebase() async {
+    return FirebaseApi().getData();
+  }
+
   Future<void> _handleRefresh() async {
     await Future.delayed(const Duration(seconds: 1));
-    WebScrap().checkAndScrapeData();
     if (mounted) {
       // Verifica se o widget está montado antes de chamar setState
       setState(() {
-        _futureInfos = ReadJson().getJson();
+        _futureInfos = _loadDataFromFirebase();
       });
     }
   }

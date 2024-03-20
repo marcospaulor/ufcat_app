@@ -3,7 +3,6 @@ import 'package:skeleton_text/skeleton_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ufcat_app/features/news/pages/wv_news_screen.dart';
-import 'package:ufcat_app/providers/api.dart';
 
 class NewsCard extends StatelessWidget {
   final String imageUrl;
@@ -31,49 +30,40 @@ class NewsCard extends StatelessWidget {
   }
 
   Widget buildImage(BuildContext context) {
-    bool hasImageUrl = imageUrl.isNotEmpty;
-
-    return hasImageUrl
-        ? FutureBuilder<bool>(
-            future: isValidUrl(imageUrl),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return SkeletonAnimation(
-                  shimmerDuration: 1000,
-                  child: Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.25,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                    ),
-                  ),
-                );
-              } else if (snapshot.hasError || !(snapshot.data ?? false)) {
-                return Image.asset(
-                  'assets/images/placeholder.png',
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.25,
-                );
-              } else {
-                return SizedBox(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.25,
-                  child: CachedNetworkImage(
-                    imageUrl: imageUrl,
-                    fit: BoxFit.cover,
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                  ),
-                );
-              }
-            },
-          )
-        : Image.asset(
+    return FutureBuilder<bool>(
+      future: isValidUrl(imageUrl),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SkeletonAnimation(
+            shimmerDuration: 1000,
+            child: Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.25,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+              ),
+            ),
+          );
+        } else if (snapshot.hasError || !(snapshot.data ?? false)) {
+          return Image.asset(
             'assets/images/placeholder.png',
             fit: BoxFit.cover,
             width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.25 * 0.65,
+            height: MediaQuery.of(context).size.height * 0.25,
           );
+        } else {
+          return SizedBox(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.25,
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              fit: BoxFit.cover,
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
+          );
+        }
+      },
+    );
   }
 
   Widget buildTitle(BuildContext context) {
@@ -141,7 +131,7 @@ class NewsCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => NewsWebView(
-                url: Api(link, category).url,
+                url: link,
                 titleAppBar: category,
               ),
             ),
