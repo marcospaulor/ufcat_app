@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/shared/search_bar.dart';
 import 'package:ufcat_app/shared/popup_menu.dart';
 
+
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   final IconData? icon;
   final String? title;
@@ -67,15 +68,7 @@ class _MyAppBarState extends State<MyAppBar> {
                 onPressed: () {
                   showSearch(
                     context: context,
-                    delegate: Search_Bar(
-                      listExample: [
-                        'Resultado 2021',
-                        'Sisu 2021',
-                        'Calendário Acadêmico',
-                        'Bolsas',
-                        'Enacomp',
-                      ],
-                    ),
+                    delegate: MySearchBar(context: context),
                   );
                 },
               )
