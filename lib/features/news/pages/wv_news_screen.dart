@@ -72,7 +72,7 @@ class _NewsWebViewState extends State<NewsWebView> {
       ..setNavigationDelegate(NavigationDelegate(
         onProgress: (int progress) {
           print('WebView is loading (progress : $progress%)');
-          print("-----------------$handleUrl---------------------------");
+          print("-----------------$handleUrl");
         },
         onPageStarted: (finish) {
           if (mounted) {
@@ -112,8 +112,16 @@ class _NewsWebViewState extends State<NewsWebView> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        WillPopScope(
-          onWillPop: () => _goBack(context),
+        PopScope(
+          onPopInvoked: (pop) async {
+            if (pop) {
+              if (await _controller.canGoBack()) {
+                _controller.goBack();
+              } else {
+                Navigator.of(context).pop();
+              }
+            }
+          },
           child: Scaffold(
             appBar: MyAppBar(
               icon: FontAwesomeIcons.arrowLeft,
