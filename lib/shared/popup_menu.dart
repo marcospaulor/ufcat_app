@@ -50,7 +50,7 @@ class _PopupMenuState extends State<PopupMenu> {
           return menuItems.map((String item) {
             return PopupMenuItem(
               value: item,
-              child: Text(item),
+              child: Text(item, style: Theme.of(context).textTheme.labelLarge),
             );
           }).toList();
         });
