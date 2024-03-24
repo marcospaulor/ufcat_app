@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -38,16 +36,6 @@ class _NewsWebViewState extends State<NewsWebView> {
     return titleMapping[title.toLowerCase()] ?? '';
   }
 
-  Future<bool> _goBack(BuildContext context) async {
-    if (await _controller.canGoBack()) {
-      _controller.goBack();
-      return false;
-    } else {
-      Navigator.of(context).pop();
-      return true;
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -68,6 +56,7 @@ class _NewsWebViewState extends State<NewsWebView> {
         WebViewController.fromPlatformCreationParams(params);
 
     controller
+      ..clearCache()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(NavigationDelegate(
         onProgress: (int progress) {
@@ -113,13 +102,16 @@ class _NewsWebViewState extends State<NewsWebView> {
     return Stack(
       children: <Widget>[
         PopScope(
-          onPopInvoked: (pop) async {
+          onPopInvoked: (pop) {
             if (pop) {
-              if (await _controller.canGoBack()) {
-                _controller.goBack();
-              } else {
-                Navigator.of(context).pop();
+              if (mounted) {
+                setState(() {
+                  isLoading = true;
+                });
               }
+              _controller.goBack();
+            } else {
+              Navigator.pop(context);
             }
           },
           child: Scaffold(
