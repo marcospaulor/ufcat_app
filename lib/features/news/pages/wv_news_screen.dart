@@ -58,25 +58,26 @@ class _NewsWebViewState extends State<NewsWebView> {
     controller
       ..clearCache()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setNavigationDelegate(NavigationDelegate(
-        onProgress: (int progress) {
-          print('WebView is loading (progress : $progress%)');
-          print("-----------------$handleUrl");
-        },
-        onPageStarted: (finish) {
-          if (mounted) {
-            setState(() {
-              isLoading = true;
-            });
-          }
-        },
-        onPageFinished: (finish) async {
-          if (mounted) {
-            setState(() {
-              isLoading = false;
-            });
-          }
-          await controller.runJavaScript('''
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            print('WebView is loading (progress : $progress%)');
+            print("-----------------$handleUrl");
+          },
+          onPageStarted: (finish) {
+            if (mounted) {
+              setState(() {
+                isLoading = true;
+              });
+            }
+          },
+          onPageFinished: (finish) async {
+            if (mounted) {
+              setState(() {
+                isLoading = false;
+              });
+            }
+            await controller.runJavaScript('''
             var mainContent = document.querySelector('.main-content');
             if (mainContent) {
               document.body.innerHTML = '';
@@ -87,11 +88,25 @@ class _NewsWebViewState extends State<NewsWebView> {
               shareGroup.remove();
             }
           ''');
-        },
-        onWebResourceError: (error) {
-          print('Error: ${error.description}');
-        },
-      ))
+          },
+          onWebResourceError: (error) {
+            print('Error: ${error.description}');
+          },
+          onNavigationRequest: (request) {
+            final String host = Uri.parse(request.url).host;
+            if (host == 'www.ufcat.edu.br') {
+              return NavigationDecision.navigate;
+            }
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Não é possível abrir links externos.'),
+                duration: Duration(seconds: 3),
+              ),
+            );
+            return NavigationDecision.prevent;
+          },
+        ),
+      )
       ..loadRequest(Uri.parse(handleUrl));
 
     _controller = controller;
