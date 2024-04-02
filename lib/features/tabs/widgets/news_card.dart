@@ -52,23 +52,30 @@ class NewsCard extends StatelessWidget {
               ),
             ),
           );
-        } else if (snapshot.hasError || !(snapshot.data ?? false)) {
-          return Image.asset(
-            'assets/images/placeholder.png',
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.25,
-          );
         } else {
-          return SizedBox(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.25,
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
+          if (snapshot.hasData && snapshot.data == true) {
+            return SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.25,
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
+                errorWidget: (context, url, error) => Image.asset(
+                  'assets/images/placeholder.png',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.25,
+                ),
+              ),
+            );
+          } else {
+            return Image.asset(
+              'assets/images/placeholder.png',
               fit: BoxFit.cover,
-              errorWidget: (context, url, error) => Icon(Icons.error),
-            ),
-          );
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.25,
+            );
+          }
         }
       },
     );

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/providers/handle_url.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
@@ -55,14 +56,20 @@ class _NewsWebViewState extends State<NewsWebView> {
     final WebViewController controller =
         WebViewController.fromPlatformCreationParams(params);
 
+    if (controller.platform is AndroidWebViewController) {
+      AndroidWebViewController.enableDebugging(true);
+      (controller.platform as AndroidWebViewController)
+          .setMediaPlaybackRequiresUserGesture(false);
+    }
+
     controller
       ..clearCache()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(Colors.transparent)
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
             print('WebView is loading (progress : $progress%)');
-            print("-----------------$handleUrl");
           },
           onPageStarted: (finish) {
             if (mounted) {
@@ -78,23 +85,26 @@ class _NewsWebViewState extends State<NewsWebView> {
               });
             }
             await controller.runJavaScript('''
-            var mainContent = document.querySelector('.main-content');
-            if (mainContent) {
-              document.body.innerHTML = '';
-              document.body.appendChild(mainContent);
-            }
-            var shareGroup = document.querySelector('.sharegroup-horizontal');
-            if (shareGroup) {
-              shareGroup.remove();
-            }
-          ''');
+              var mainContent = document.querySelector('.main-content');
+              if (mainContent) {
+                document.body.innerHTML = '';
+                document.body.appendChild(mainContent);
+              }
+              var shareGroup = document.querySelector('.sharegroup-horizontal');
+              if (shareGroup) {
+                shareGroup.remove();
+              }
+            ''');
           },
           onWebResourceError: (error) {
-            print('Error: ${error.description}');
+            setState(() {
+              isLoading = false;
+            });
           },
           onNavigationRequest: (request) {
             final String host = Uri.parse(request.url).host;
-            if (host == 'www.ufcat.edu.br') {
+            print('host: $host');
+            if (host == 'ufcat.edu.br') {
               return NavigationDecision.navigate;
             }
             ScaffoldMessenger.of(context).showSnackBar(
@@ -107,7 +117,14 @@ class _NewsWebViewState extends State<NewsWebView> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(handleUrl));
+      ..loadRequest(
+        Uri.parse(handleUrl),
+        headers: {
+          'User-Agent':
+              'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Mobile Safari/537.36',
+        },
+        method: LoadRequestMethod.get,
+      );
 
     _controller = controller;
   }
@@ -135,7 +152,7 @@ class _NewsWebViewState extends State<NewsWebView> {
               title: handleTitle(widget.titleAppBar),
             ),
             body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: WebViewWidget(
                 key: _key,
                 controller: _controller,
