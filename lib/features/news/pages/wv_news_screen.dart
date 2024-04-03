@@ -1,12 +1,11 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/providers/handle_url.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
-import 'package:webview_flutter_android/webview_flutter_android.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class NewsWebView extends StatefulWidget {
   final String url;
@@ -21,9 +20,24 @@ class NewsWebView extends StatefulWidget {
 
 class _NewsWebViewState extends State<NewsWebView> {
   String handleUrl = '';
-  final _key = UniqueKey();
   bool isLoading = true;
-  late final WebViewController _controller;
+  // final _key = UniqueKey();
+  // late final WebViewController _controller;
+  final GlobalKey webViewKey = GlobalKey();
+
+  InAppWebViewController? _controller;
+  InAppWebViewSettings settings = InAppWebViewSettings(
+    isInspectable: true,
+    javaScriptEnabled: true,
+    javaScriptCanOpenWindowsAutomatically: true,
+    mediaPlaybackRequiresUserGesture: false,
+    userAgent:
+        'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Mobile Safari/537.36',
+  );
+
+  PullToRefreshController? pullToRefreshController;
+  double progress = 0;
+  final urlController = TextEditingController();
 
   String handleTitle(String title) {
     // Mapa para mapear títulos para categorias correspondentes
@@ -43,90 +57,22 @@ class _NewsWebViewState extends State<NewsWebView> {
 
     handleUrl = HandleUrl(widget.url).url;
 
-    late final PlatformWebViewControllerCreationParams params;
-    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
-      params = WebKitWebViewControllerCreationParams(
-        allowsInlineMediaPlayback: true,
-        mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
-      );
-    } else {
-      params = const PlatformWebViewControllerCreationParams();
-    }
-
-    final WebViewController controller =
-        WebViewController.fromPlatformCreationParams(params);
-
-    if (controller.platform is AndroidWebViewController) {
-      AndroidWebViewController.enableDebugging(true);
-      (controller.platform as AndroidWebViewController)
-          .setMediaPlaybackRequiresUserGesture(false);
-    }
-
-    controller
-      ..clearCache()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(Colors.transparent)
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            print('WebView is loading (progress : $progress%)');
-          },
-          onPageStarted: (finish) {
-            if (mounted) {
-              setState(() {
-                isLoading = true;
-              });
-            }
-          },
-          onPageFinished: (finish) async {
-            if (mounted) {
-              setState(() {
-                isLoading = false;
-              });
-            }
-            await controller.runJavaScript('''
-              var mainContent = document.querySelector('.main-content');
-              if (mainContent) {
-                document.body.innerHTML = '';
-                document.body.appendChild(mainContent);
-              }
-              var shareGroup = document.querySelector('.sharegroup-horizontal');
-              if (shareGroup) {
-                shareGroup.remove();
-              }
-            ''');
-          },
-          onWebResourceError: (error) {
-            setState(() {
-              isLoading = false;
-            });
-          },
-          onNavigationRequest: (request) {
-            final String host = Uri.parse(request.url).host;
-            print('host: $host');
-            if (host == 'ufcat.edu.br') {
-              return NavigationDecision.navigate;
-            }
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Não é possível abrir links externos.'),
-                duration: Duration(seconds: 3),
-              ),
-            );
-            return NavigationDecision.prevent;
-          },
-        ),
-      )
-      ..loadRequest(
-        Uri.parse(handleUrl),
-        headers: {
-          'User-Agent':
-              'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Mobile Safari/537.36',
-        },
-        method: LoadRequestMethod.get,
-      );
-
-    _controller = controller;
+    pullToRefreshController = PullToRefreshController(
+      settings: PullToRefreshSettings(
+        color: Colors.blue,
+      ),
+      onRefresh: () async {
+        if (defaultTargetPlatform == TargetPlatform.android) {
+          await _controller?.reload();
+        } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+          await _controller?.loadUrl(
+            urlRequest: URLRequest(
+              url: await _controller?.getUrl(),
+            ),
+          );
+        }
+      },
+    );
   }
 
   @override
@@ -141,7 +87,7 @@ class _NewsWebViewState extends State<NewsWebView> {
                   isLoading = true;
                 });
               }
-              _controller.goBack();
+              _controller?.goBack();
             } else {
               Navigator.pop(context);
             }
@@ -153,10 +99,71 @@ class _NewsWebViewState extends State<NewsWebView> {
             ),
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: WebViewWidget(
-                key: _key,
-                controller: _controller,
+              child: InAppWebView(
+                initialUrlRequest: URLRequest(url: WebUri(handleUrl)),
+                initialSettings: settings,
+                onWebViewCreated: (controller) {
+                  _controller = controller;
+                },
+                onReceivedServerTrustAuthRequest:
+                    (controller, challenge) async {
+                  return ServerTrustAuthResponse(
+                    action: ServerTrustAuthResponseAction.PROCEED,
+                  );
+                },
+                onReceivedHttpError: ((controller, request, errorResponse) =>
+                    print('http error: $errorResponse')),
+                onLoadStart: (controller, url) {
+                  if (mounted) {
+                    setState(() {
+                      isLoading = true;
+                    });
+                  }
+                },
+                onLoadStop: (controller, url) async {
+                  if (mounted) {
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }
+                  await controller.evaluateJavascript(source: '''
+                    var mainContent = document.querySelector('.main-content');
+                    if (mainContent) {
+                      document.body.innerHTML = '';
+                      document.body.appendChild(mainContent);
+                    }
+                    var shareGroup = document.querySelector('.sharegroup-horizontal');
+                    if (shareGroup) {
+                      shareGroup.remove();
+                    }
+                  ''');
+                },
+                onProgressChanged: (controller, progress) {
+                  print('WebView is loading (progress : $progress%)');
+                },
+                onConsoleMessage: (controller, consoleMessage) {
+                  print('console message: ${consoleMessage.message}');
+                },
+                onDownloadStartRequest: (controller, url) {
+                  print('download url: $url');
+                },
+                shouldOverrideUrlLoading: (controller, navigationAction) async {
+                  final String host =
+                      Uri.parse(navigationAction.request.url as String).host;
+                  print('host: $host');
+                  if (host == 'ufcat.edu.br') {
+                    return NavigationActionPolicy.ALLOW;
+                  }
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Não é possível abrir links externos.'),
+                  ));
+                  return NavigationActionPolicy.CANCEL;
+                },
               ),
+              // WebViewWidget(
+              //   key: _key,
+              //   controller: _controller,
+              // ),
             ),
           ),
         ),

@@ -58,6 +58,7 @@ dependencies:
   puppeteer: ^3.2.0
   firebase_core: ^2.24.2
   firebase_database: ^10.4.0
+  flutter_inappwebview: ^6.0.0
 
 dev_dependencies:
   flutter_test:
