@@ -10,6 +10,8 @@ class HandleUrl {
 
   // Método privado para tratar a URL de acordo com a categoria
   String _handleUrl(String url) {
+    // elimina espaços em branco no início e no final da string
+    url = url.trim();
     // Verifica se a categoria está mapeada e retorna a URL correspondente
     if (url.startsWith('http') || url.startsWith('https')) {
       return url;

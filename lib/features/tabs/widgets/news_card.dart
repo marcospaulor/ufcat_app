@@ -29,6 +29,14 @@ class NewsCard extends StatelessWidget {
     }
   }
 
+  bool _isDocumentUrl(String url) {
+    // Lista de extensões de arquivo que você quer considerar como documentos
+    final documentExtensions = ['.pdf', '.docx', '.pptx', '.xlsx'];
+
+    // Verifique se o URL termina com uma extensão de arquivo conhecida
+    return documentExtensions.any((extension) => url.endsWith(extension));
+  }
+
   Widget buildImage(BuildContext context) {
     return FutureBuilder<bool>(
       future: isValidUrl(imageUrl),
@@ -44,23 +52,30 @@ class NewsCard extends StatelessWidget {
               ),
             ),
           );
-        } else if (snapshot.hasError || !(snapshot.data ?? false)) {
-          return Image.asset(
-            'assets/images/placeholder.png',
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.25,
-          );
         } else {
-          return SizedBox(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.25,
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
+          if (snapshot.hasData && snapshot.data == true) {
+            return SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.25,
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
+                errorWidget: (context, url, error) => Image.asset(
+                  'assets/images/placeholder.png',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.25,
+                ),
+              ),
+            );
+          } else {
+            return Image.asset(
+              'assets/images/placeholder.png',
               fit: BoxFit.cover,
-              errorWidget: (context, url, error) => Icon(Icons.error),
-            ),
-          );
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.25,
+            );
+          }
         }
       },
     );
@@ -127,6 +142,11 @@ class NewsCard extends StatelessWidget {
       elevation: 5.0,
       child: InkWell(
         onTap: () {
+          if (_isDocumentUrl(link)) {
+            var uri = Uri.parse(link);
+            launchUrl(uri);
+            return;
+          }
           Navigator.push(
             context,
             MaterialPageRoute(
