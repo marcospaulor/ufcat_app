@@ -19,12 +19,12 @@ class MealRating extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<double>(
-      future: _calculateAverageRatingForDay(day),
+      future: _calculateAverageRatingForDay(day), // Convertendo o dia para minúsculas
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         } else if (snapshot.hasError) {
-          return Text('Erro ao calcular a média de avaliação');
+          return Text('Error calculating average rating');
         } else {
           final double rating = snapshot.data ?? 3.0;
 
@@ -93,16 +93,28 @@ class MealRating extends StatelessWidget {
   }
 
   Future<double> _calculateAverageRatingForDay(String day) async {
+    // transform first letter in Uppercase
+    final handleDay = day.substring(0, 1).toUpperCase() + day.substring(1);
+    final handleMeal = mealType == 0 ? 'Almoço' : 'Jantar';
+
     double totalRating = 0.0;
     int numberOfRatings = 0;
 
-    final ratingsRef = FirebaseFirestore.instance.collection('ru').doc('rating').collection('avaliacoes');
-    final querySnapshot = await ratingsRef.where('day', isEqualTo: day.toUpperCase()).get();
+    final ratingsRef = FirebaseFirestore.instance
+      .collection('ru')
+      .doc('rating')
+      .collection('avaliacoes');
+
+
+    final querySnapshot = await ratingsRef
+      .where('day', isEqualTo: handleDay)
+      .where('meal', isEqualTo: handleMeal)
+      .get();
+
 
     for (final doc in querySnapshot.docs) {
       final data = doc.data();
       final rating = data['rating'] ?? 0.0;
-      
       totalRating += rating;
       numberOfRatings++;
     }
