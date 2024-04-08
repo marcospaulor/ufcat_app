@@ -53,7 +53,8 @@
             android:value="2" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC_7bKm-0plK1CjQRVDs914zccAiF17MlY" />
+            android:value="${googleMapsKey}"
+            />
     </application>
     <!-- Removed duplicate declaration of ACCESS_FINE_LOCATION here. -->
     <!-- Provide required visibility configuration for API level 30 and above -->
