@@ -7,6 +7,7 @@ import 'package:ufcat_app/shared/side_menu.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RUScreen extends StatefulWidget {
   const RUScreen({Key? key}) : super(key: key);
@@ -20,11 +21,12 @@ class _RUScreenState extends State<RUScreen> {
   String _day = 'Segunda';
   GlobalKey<ScaffoldState> drawerKey = GlobalKey();
 
+  final db = FirebaseFirestore.instance;
+
   @override
   void initState() {
     super.initState();
     _cardapio = readJson();
-    print(_cardapio);
   }
 
   Future<Map<String, dynamic>> readJson() async {
@@ -40,7 +42,6 @@ class _RUScreenState extends State<RUScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return DefaultTabController(
       length: 2,

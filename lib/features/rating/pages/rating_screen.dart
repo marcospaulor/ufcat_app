@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
@@ -32,6 +35,8 @@ class _RatingScreenState extends State<RatingScreen> {
   int? currentRating = 3;
   late TextEditingController controller = TextEditingController();
 
+  final db = FirebaseFirestore.instance;
+
   List<String> diasDaSemana = [
     'Segunda-feira',
     'Terça-feira',
@@ -49,7 +54,6 @@ class _RatingScreenState extends State<RatingScreen> {
     String matchingDay =
         diasDaSemana.firstWhere((day) => day.startsWith(widget.currentDay));
     dropDownWeek = matchingDay;
-    // TODO: Print(dataMeal)
   }
 
   @override
@@ -207,16 +211,35 @@ class _RatingScreenState extends State<RatingScreen> {
                   Container(
                     margin: const EdgeInsets.only(top: 30),
                     child: ElevatedButton(
-                      onPressed: () {
-                        print(currentRating);
-                        print(meal);
-                        print(dropDownWeek);
-                        print(controller.text);
-                        SnackBar snackBar = const SnackBar(
-                          content: Text('Avaliação enviada com sucesso!'),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        Navigator.pop(context);
+                      onPressed: () async {
+                        Map<String, dynamic> data = {
+                          'rating': currentRating,
+                          'meal': meal,
+                          'day': dropDownWeek,
+                          'comment': controller.text,
+                          'actual_date': DateTime.now().toString(),
+                          'dataMeal': widget.dataMeal,
+                        };
+
+                        // using firestore
+                        await db
+                            .collection('ru')
+                            .doc('rating')
+                            .set(data)
+                            .then((_) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Avaliação enviada com sucesso!'),
+                            ),
+                          );
+                          Navigator.pop(context);
+                        }).catchError((onError) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Erro ao enviar avaliação!'),
+                            ),
+                          );
+                        });
                       },
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(width * 0.4, height * 0.05),
