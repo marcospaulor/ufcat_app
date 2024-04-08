@@ -4,7 +4,20 @@ import 'package:ufcat_app/features/ru/widgets/container_ru.dart';
 class MealList extends StatelessWidget {
   final Map<String, dynamic> filteredInfos;
 
-  const MealList({
+  final Map<String, String> texts = {
+    'prato_principal': 'Prato Principal',
+    'prato_vegano': 'Prato Vegano',
+    'acompanhamento': "Acompanhamento",
+    'guarnicao': 'Guarnição',
+    'sobremesa': 'Sobremesa',
+    'salada': 'Salada'
+  };
+
+  String title(String text) {
+    return texts[text] ?? ''; 
+  }
+
+  MealList({
     Key? key,
     required this.filteredInfos,
   }) : super(key: key);
@@ -16,14 +29,16 @@ class MealList extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 4.0),
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        children: List<Widget>.from(
-          filteredInfos.entries
-              .where((e) => e.key != "Avaliação")
-              .map((e) => ContainerRu(
-                    title: e.key,
-                    content: e.value,
-                  )),
-        ),
+        children: texts.entries.map((entry) {
+          if (filteredInfos.containsKey(entry.key)) {
+            return ContainerRu(
+              title: entry.value,
+              content: filteredInfos[entry.key],
+            );
+          } else {
+            return SizedBox.shrink();
+          }
+        }).toList(),
       ),
     );
   }

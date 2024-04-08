@@ -6,7 +6,6 @@ import 'package:ufcat_app/shared/bottom_bar.dart';
 import 'package:ufcat_app/shared/side_menu.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RUScreen extends StatefulWidget {
@@ -30,14 +29,10 @@ class _RUScreenState extends State<RUScreen> {
   }
 
   Future<Map<String, dynamic>> readJson() async {
-    Map<String, dynamic> data = <String, dynamic>{};
-
-    // Load the data from the JSON file
-    String response = await DefaultAssetBundle.of(context)
-        .loadString('assets/database/ruData.json');
-    data = await json.decode(response);
-
-    return Map<String, dynamic>.from(data);
+    DocumentSnapshot<Map<String, dynamic>> querySnapshot =
+        await db.collection('ru').doc('menu').get();
+    Map<String, dynamic> data = querySnapshot.data()!;
+    return data;
   }
 
   @override
@@ -68,24 +63,34 @@ class _RUScreenState extends State<RUScreen> {
         endDrawer: const MyNavigationDrawer(),
         body: Stack(
           children: [
-            TabBarView(
-              children: [
-                // Tab Almoço
-                MealTab(
-                  menu: _cardapio,
-                  day: _day,
-                  mealType: 'almoco',
-                ),
-                // Tab Jantar
-                MealTab(
-                  menu: _cardapio,
-                  day: _day,
-                  mealType: 'jantar',
-                ),
-              ],
+            FutureBuilder<Map<String, dynamic>>(
+              future: _cardapio,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return const Center(child: Text('Erro ao carregar dados'));
+                } else {
+                  return TabBarView(
+                    children: [
+                      // Tab Almoço
+                      MealTab(
+                        menu: snapshot.data!,
+                        day: _day,
+                        mealType: 'almoco',
+                      ),
+                      // Tab Jantar
+                      MealTab(
+                        menu: snapshot.data!,
+                        day: _day,
+                        mealType: 'janta',
+                      ),
+                    ],
+                  );
+                }
+              },
             ),
             DaySelector(
-              cardapio: _cardapio,
               day: _day,
               height: height,
               onDaySelected: (day) {

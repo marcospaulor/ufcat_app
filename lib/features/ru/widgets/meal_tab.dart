@@ -3,7 +3,7 @@ import 'package:ufcat_app/features/ru/widgets/meal_list.dart';
 import 'package:ufcat_app/features/ru/widgets/meal_rating.dart';
 
 class MealTab extends StatelessWidget {
-  final Future<Map<String, dynamic>> menu;
+  final Map<String, dynamic> menu;
   final String day;
   final String mealType;
 
@@ -16,8 +16,10 @@ class MealTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formattedDay = _formatDay(day);
+
     return FutureBuilder<Map<String, dynamic>>(
-      future: menu,
+      future: Future<Map<String, dynamic>>.value(menu),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -27,13 +29,13 @@ class MealTab extends StatelessWidget {
           return const Text('No data available.');
         } else {
           final Map<String, dynamic> cardapio = snapshot.data!;
-          final filteredInfos = cardapio[day][mealType];
+          final filteredInfos = cardapio[formattedDay][mealType];
 
           return Column(
             children: [
               MealRating(
                 filteredInfos: filteredInfos,
-                day: day,
+                day: formattedDay,
                 mealType: mealType.contains("almoco") ? 0 : 1,
               ),
               MealList(filteredInfos: filteredInfos),
@@ -42,5 +44,9 @@ class MealTab extends StatelessWidget {
         }
       },
     );
+  }
+
+  String _formatDay(String day) {
+    return day.toLowerCase() + "-feira";
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -39,21 +37,33 @@ class _RatingScreenState extends State<RatingScreen> {
 
   List<String> diasDaSemana = [
     'Segunda-feira',
-    'Terça-feira',
+    'Terca-feira',
     'Quarta-feira',
     'Quinta-feira',
     'Sexta-feira'
   ];
 
-  @override
+    @override
   void initState() {
     super.initState();
+    assert(widget.currentDay.isNotEmpty);
+
+    if (diasDaSemana.isNotEmpty) {
+      String matchingDay = diasDaSemana.firstWhere(
+        (day) => day.toUpperCase().startsWith(widget.currentDay.toUpperCase()),
+        orElse: () => '',
+      );
+      if (matchingDay.isNotEmpty) {
+        dropDownWeek = matchingDay;
+      } else {
+        dropDownWeek = diasDaSemana.first;
+      }
+    } else {
+      dropDownWeek = '';
+    }
+
     selected = widget.selectedMeal == 0 ? true : false;
     meal = widget.selectedMeal == 0 ? 'Almoço' : 'Jantar';
-    assert(diasDaSemana.any((day) => day.startsWith(widget.currentDay)));
-    String matchingDay =
-        diasDaSemana.firstWhere((day) => day.startsWith(widget.currentDay));
-    dropDownWeek = matchingDay;
   }
 
   @override
@@ -204,6 +214,7 @@ class _RatingScreenState extends State<RatingScreen> {
                   // input area
                   CustomTextArea(
                     label: 'Comentário',
+                    maxLength: 100,
                     hintText: 'Digite seu comentário aqui...',
                     controller: controller,
                   ),
@@ -225,7 +236,8 @@ class _RatingScreenState extends State<RatingScreen> {
                         await db
                             .collection('ru')
                             .doc('rating')
-                            .set(data)
+                            .collection('avaliacoes') // Subcoleção onde as avaliações serão armazenadas
+                            .add(data) // Usando add() para gerar um ID único para cada avaliação
                             .then((_) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
