@@ -31,6 +31,7 @@ class _NewsWebViewState extends State<NewsWebView> {
     javaScriptEnabled: true,
     javaScriptCanOpenWindowsAutomatically: true,
     mediaPlaybackRequiresUserGesture: false,
+    transparentBackground: true,
     userAgent:
         'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Mobile Safari/537.36',
   );
