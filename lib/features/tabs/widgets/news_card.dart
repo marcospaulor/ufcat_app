@@ -92,7 +92,7 @@ class NewsCard extends StatelessWidget {
               child: Text(
                 title.trim(),
                 textAlign: TextAlign.justify,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             )
           : SkeletonAnimation(
