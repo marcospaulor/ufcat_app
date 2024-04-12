@@ -11,7 +11,7 @@ class NewsWebView extends StatefulWidget {
   final String url;
   final String titleAppBar;
 
-  NewsWebView({Key? key, required this.url, required this.titleAppBar})
+  const NewsWebView({Key? key, required this.url, required this.titleAppBar})
       : super(key: key);
 
   @override

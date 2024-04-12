@@ -63,7 +63,7 @@ class _ResultListState extends State<ResultList> {
     if (_isLoadingMore) return false; // Se já estiver carregando, não faça nada
 
     _isLoadingMore = true; // Marque que estamos carregando
-    await Future.delayed(Duration(seconds: 2)); // Simule uma carga assíncrona
+    await Future.delayed(const Duration(seconds: 2)); // Simule uma carga assíncrona
 
     if (mounted) {
       // Verifique se o estado do widget ainda está montado

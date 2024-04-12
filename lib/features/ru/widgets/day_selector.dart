@@ -28,7 +28,7 @@ class DaySelector extends StatelessWidget {
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const SizedBox.shrink();
         } else {
-          final _cardapio = snapshot.data!;
+          final cardapio = snapshot.data!;
           return Positioned(
             left: 0,
             top: height * (1 / 3) - kToolbarHeight - kTextTabBarHeight,
@@ -36,7 +36,7 @@ class DaySelector extends StatelessWidget {
               height: height * 0.5,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: _cardapio.entries
+                children: cardapio.entries
                     .map(
                       (e) => StickyButton(
                         label: e.key[0],
