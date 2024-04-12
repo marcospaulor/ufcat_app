@@ -8,11 +8,11 @@ class MealTab extends StatelessWidget {
   final String mealType;
 
   const MealTab({
-    Key? key,
+    super.key,
     required this.menu,
     required this.day,
     required this.mealType,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +47,6 @@ class MealTab extends StatelessWidget {
   }
 
   String _formatDay(String day) {
-    return day.toLowerCase() + "-feira";
+    return "${day.toLowerCase()}-feira";
   }
 }
