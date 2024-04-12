@@ -14,13 +14,13 @@ class MealList extends StatelessWidget {
   };
 
   String title(String text) {
-    return texts[text] ?? ''; 
+    return texts[text] ?? '';
   }
 
   MealList({
-    Key? key,
+    super.key,
     required this.filteredInfos,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class MealList extends StatelessWidget {
               content: filteredInfos[entry.key],
             );
           } else {
-            return SizedBox.shrink();
+            return const SizedBox.shrink();
           }
         }).toList(),
       ),

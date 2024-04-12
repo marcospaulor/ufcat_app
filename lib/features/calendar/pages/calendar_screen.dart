@@ -12,7 +12,7 @@ import 'package:ufcat_app/providers/api_key.dart';
 import 'package:http/http.dart' as http;
 
 class CalendarScreen extends StatefulWidget {
-  const CalendarScreen({Key? key}) : super(key: key);
+  const CalendarScreen({super.key});
 
   @override
   State<CalendarScreen> createState() => _CalendarScreenState();

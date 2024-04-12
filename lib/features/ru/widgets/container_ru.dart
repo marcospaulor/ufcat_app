@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class ContainerRu extends StatelessWidget {
   const ContainerRu({
-    Key? key,
+    super.key,
     required this.title,
     required this.content,
-  }) : super(key: key);
+  });
 
   final String title;
   final String content;

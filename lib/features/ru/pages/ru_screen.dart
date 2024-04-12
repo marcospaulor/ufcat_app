@@ -9,7 +9,7 @@ import 'package:ufcat_app/shared/app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RUScreen extends StatefulWidget {
-  const RUScreen({Key? key}) : super(key: key);
+  const RUScreen({super.key});
 
   @override
   State<RUScreen> createState() => _RUScreenState();

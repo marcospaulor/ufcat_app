@@ -14,7 +14,7 @@ import 'package:ufcat_app/shared/side_menu.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
 
 class SecurityScreen extends StatefulWidget {
-  const SecurityScreen({Key? key}) : super(key: key);
+  const SecurityScreen({super.key});
 
   @override
   State<SecurityScreen> createState() => _SecurityScreenState();
@@ -120,17 +120,20 @@ class _SecurityScreenState extends State<SecurityScreen> {
                           controller: textAreaController,
                           maxLength: 100,
                           label: 'Descrição da ocorrência',
-                          hintText: 'Digite sua descrição da ocorrência aqui...',
+                          hintText:
+                              'Digite sua descrição da ocorrência aqui...',
                         ),
                         const SizedBox(height: 20),
                         _permission == true
                             ? Container(
                                 margin: const EdgeInsets.only(bottom: 30.0),
-                                height: MediaQuery.of(context).size.height * 0.44,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.44,
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
                                   color: grayUfcat,
-                                  border: Border.all(color: grayUfcat, width: 1),
+                                  border:
+                                      Border.all(color: grayUfcat, width: 1),
                                   borderRadius: BorderRadius.circular(20.0),
                                 ),
                                 child: ClipRRect(
@@ -148,7 +151,8 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                         position: _position,
                                       ),
                                     },
-                                    onMapCreated: (GoogleMapController controller) {
+                                    onMapCreated:
+                                        (GoogleMapController controller) {
                                       mapController = controller;
                                     },
                                     onCameraMove: (CameraPosition position) {
@@ -166,13 +170,15 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                   color: grayUfcat,
-                                  border: Border.all(color: grayUfcat, width: 1),
+                                  border:
+                                      Border.all(color: grayUfcat, width: 1),
                                   borderRadius: BorderRadius.circular(20.0),
                                 ),
                                 child: const Text(
                                   'Não foi possível obter sua localização, habilite a permissão de localização no seu dispositivo.',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(color: darkUfcat, fontSize: 16),
+                                  style:
+                                      TextStyle(color: darkUfcat, fontSize: 16),
                                 ),
                               ),
                         Center(
@@ -182,7 +188,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(content: Text('Enviando...')),
                                 );
-                                _saveDataToFirestore();
+                                _saveDataToFirestore(context);
                                 inputTextController.clear();
                                 textAreaController.clear();
                                 setState(() {
@@ -190,7 +196,9 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                 });
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Preencha todos os campos')),
+                                  const SnackBar(
+                                      content:
+                                          Text('Preencha todos os campos')),
                                 );
                               }
                             },
@@ -201,7 +209,8 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
                             ),
-                            child: const Text('ENVIAR', style: TextStyle(fontSize: 18)),
+                            child: const Text('ENVIAR',
+                                style: TextStyle(fontSize: 18)),
                           ),
                         ),
                       ],
@@ -216,10 +225,13 @@ class _SecurityScreenState extends State<SecurityScreen> {
                     children: contact.entries
                         .map(
                           (item) => Container(
-                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
                             margin: const EdgeInsets.only(top: 10),
                             decoration: const BoxDecoration(
-                              border: Border(bottom: BorderSide(color: grayUfcat, width: 1)),
+                              border: Border(
+                                  bottom:
+                                      BorderSide(color: grayUfcat, width: 1)),
                             ),
                             child: ElevatedButton(
                               onPressed: () async {
@@ -240,11 +252,14 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                   children: [
                                     const Padding(
                                       padding: EdgeInsets.only(right: 10.0),
-                                      child: Icon(FontAwesomeIcons.phone, size: 15, color: redUfcat),
+                                      child: Icon(FontAwesomeIcons.phone,
+                                          size: 15, color: redUfcat),
                                     ),
                                     Text(
                                       item.value,
-                                      style: TextStyle(fontSize: 14, color: darkUfcat.withOpacity(0.75)),
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: darkUfcat.withOpacity(0.75)),
                                     ),
                                   ],
                                 ),
@@ -275,7 +290,8 @@ class _SecurityScreenState extends State<SecurityScreen> {
 
     setState(() {
       _position = LatLng(position.latitude, position.longitude);
-      mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: _position, zoom: 18.25)));
+      mapController?.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(target: _position, zoom: 18.25)));
       mapController?.moveCamera(CameraUpdate.newLatLng(_position));
     });
   }
@@ -303,7 +319,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
     return true;
   }
 
-  Future<void> _saveDataToFirestore() async {
+  Future<void> _saveDataToFirestore(BuildContext context) async {
     Map<String, dynamic> data = {
       'category': dropdownValue,
       'contact': inputTextController.text,
@@ -313,15 +329,17 @@ class _SecurityScreenState extends State<SecurityScreen> {
       'timestamp': FieldValue.serverTimestamp(),
     };
 
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
     try {
       await FirebaseFirestore.instance.collection('security').add(data);
-      ScaffoldMessenger.of(context).showSnackBar(
+      scaffoldMessenger.showSnackBar(
         const SnackBar(
           content: Text('Dados enviados com sucesso!'),
         ),
       );
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      scaffoldMessenger.showSnackBar(
         const SnackBar(
           content: Text('Erro ao enviar dados!'),
         ),

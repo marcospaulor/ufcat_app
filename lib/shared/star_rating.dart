@@ -11,13 +11,13 @@ class StarRating extends StatefulWidget {
   final bool allowRating;
 
   const StarRating({
-    Key? key,
+    super.key,
     required this.padding,
     required this.size,
     required this.allowRating,
     this.rating = 5,
     this.onRatingChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<StarRating> createState() => StarRatingState();

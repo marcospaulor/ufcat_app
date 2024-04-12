@@ -10,19 +10,19 @@ class CustomTextArea extends StatefulWidget {
   final void Function(String)? onChanged;
 
   const CustomTextArea({
-    Key? key,
+    super.key,
     required this.controller,
     required this.label,
     required this.hintText,
     required this.maxLength, // Adicione esta propriedade
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
-  _CustomTextAreaState createState() => _CustomTextAreaState();
+  CustomTextAreaState createState() => CustomTextAreaState();
 }
 
-class _CustomTextAreaState extends State<CustomTextArea> {
+class CustomTextAreaState extends State<CustomTextArea> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(

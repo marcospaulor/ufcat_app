@@ -12,13 +12,13 @@ class NewsCard extends StatelessWidget {
   final String category;
 
   const NewsCard({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.date,
     required this.link,
     required this.category,
-  }) : super(key: key);
+  });
 
   Future<bool> isValidUrl(String url) async {
     try {

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/features/about/pages/about.dart';
+import 'package:ufcat_app/features/help/pages/help.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
 
 class PopupMenu extends StatefulWidget {
-  const PopupMenu({Key? key}) : super(key: key);
+  const PopupMenu({super.key});
 
   @override
   State<PopupMenu> createState() => _PopupMenuState();
@@ -28,6 +29,8 @@ class _PopupMenuState extends State<PopupMenu> {
                 switch (value) {
                   case 'Sobre':
                     return const About();
+                  case 'Ajuda':
+                    return const Help();
                   default:
                     return const Scaffold(
                       appBar: MyAppBar(

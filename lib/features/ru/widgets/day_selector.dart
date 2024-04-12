@@ -8,11 +8,11 @@ class DaySelector extends StatelessWidget {
   final void Function(String) onDaySelected;
 
   const DaySelector({
-    Key? key,
+    super.key,
     required this.day,
     required this.height,
     required this.onDaySelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
