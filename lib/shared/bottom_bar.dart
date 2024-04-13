@@ -7,9 +7,9 @@ class BottomBar extends StatefulWidget {
   final GlobalKey<ScaffoldState> drawerKey;
 
   const BottomBar({
-    Key? key,
+    super.key,
     required this.drawerKey,
-  }) : super(key: key);
+  });
 
   @override
   State<BottomBar> createState() => _BottomBarState();

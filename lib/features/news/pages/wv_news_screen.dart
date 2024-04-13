@@ -6,19 +6,19 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/providers/handle_url.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsWebView extends StatefulWidget {
   final String url;
   final String titleAppBar;
 
-  NewsWebView({Key? key, required this.url, required this.titleAppBar})
-      : super(key: key);
+  const NewsWebView({super.key, required this.url, required this.titleAppBar});
 
   @override
-  _NewsWebViewState createState() => _NewsWebViewState();
+  NewsWebViewState createState() => NewsWebViewState();
 }
 
-class _NewsWebViewState extends State<NewsWebView> {
+class NewsWebViewState extends State<NewsWebView> {
   String handleUrl = '';
   bool isLoading = true;
   // final _key = UniqueKey();
@@ -31,6 +31,7 @@ class _NewsWebViewState extends State<NewsWebView> {
     javaScriptEnabled: true,
     javaScriptCanOpenWindowsAutomatically: true,
     mediaPlaybackRequiresUserGesture: false,
+    transparentBackground: true,
     userAgent:
         'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Mobile Safari/537.36',
   );
@@ -48,7 +49,7 @@ class _NewsWebViewState extends State<NewsWebView> {
     };
 
     // Obtém a categoria correspondente ou retorna uma string vazia se não encontrada
-    return titleMapping[title.toLowerCase()] ?? '';
+    return titleMapping[title.toLowerCase()] ?? title;
   }
 
   @override
@@ -111,8 +112,6 @@ class _NewsWebViewState extends State<NewsWebView> {
                     action: ServerTrustAuthResponseAction.PROCEED,
                   );
                 },
-                onReceivedHttpError: ((controller, request, errorResponse) =>
-                    print('http error: $errorResponse')),
                 onLoadStart: (controller, url) {
                   if (mounted) {
                     setState(() {
@@ -139,31 +138,61 @@ class _NewsWebViewState extends State<NewsWebView> {
                   ''');
                 },
                 onProgressChanged: (controller, progress) {
-                  print('WebView is loading (progress : $progress%)');
+                  if (mounted) {
+                    setState(() {
+                      this.progress = progress / 100;
+                    });
+                  }
                 },
-                onConsoleMessage: (controller, consoleMessage) {
-                  print('console message: ${consoleMessage.message}');
-                },
-                onDownloadStartRequest: (controller, url) {
-                  print('download url: $url');
+                pullToRefreshController: pullToRefreshController,
+                onDownloadStartRequest: (controller, downloadRequest) async {
+                  final BuildContext context = webViewKey.currentContext!;
+                  final String url = downloadRequest.url.toString();
+                  final Uri uri = Uri.parse(url);
+
+                  final scaffoldMessenger = ScaffoldMessenger.of(context);
+                  bool isMounted = scaffoldMessenger.mounted;
+
+                  if (Platform.isAndroid || Platform.isIOS) {
+                    if (isMounted) {
+                      scaffoldMessenger.showSnackBar(SnackBar(
+                        content: Text('Download iniciado: $url'),
+                      ));
+                    }
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri);
+                    } else {
+                      if (isMounted) {
+                        scaffoldMessenger.showSnackBar(SnackBar(
+                          content: Text('Não foi possível abrir o link: $url'),
+                        ));
+                      }
+                    }
+                  }
                 },
                 shouldOverrideUrlLoading: (controller, navigationAction) async {
                   final String host =
-                      Uri.parse(navigationAction.request.url as String).host;
-                  print('host: $host');
-                  if (host == 'ufcat.edu.br') {
+                      Uri.parse(navigationAction.request.url.toString()).host;
+
+                  final List<String> allowedHosts = [
+                    'ufcat.edu.br',
+                    'biblioteca.sophia.com.br',
+                    'prod.ufcat.edu.br',
+                    'cppg.catalao.ufg.br',
+                    'ppgep.catalao.ufg.br',
+                    'files.cercomp.ufg.br',
+                  ];
+
+                  if (allowedHosts.contains(host)) {
                     return NavigationActionPolicy.ALLOW;
                   }
+
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text('Não é possível abrir links externos.'),
                   ));
                   return NavigationActionPolicy.CANCEL;
                 },
               ),
-              // WebViewWidget(
-              //   key: _key,
-              //   controller: _controller,
-              // ),
             ),
           ),
         ),

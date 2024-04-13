@@ -12,7 +12,7 @@ import 'package:ufcat_app/providers/api_key.dart';
 import 'package:http/http.dart' as http;
 
 class CalendarScreen extends StatefulWidget {
-  const CalendarScreen({Key? key}) : super(key: key);
+  const CalendarScreen({super.key});
 
   @override
   State<CalendarScreen> createState() => _CalendarScreenState();
@@ -96,7 +96,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         defaultDecoration: _defaultDecoration,
         markerSizeScale: 0.15,
         markerMargin: const EdgeInsets.only(
-          top: 5.0,
+          top: 4.0,
           left: 0.5,
           right: 0.5,
         ),
@@ -213,7 +213,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             margin: const EdgeInsets.only(
               left: 10,
               right: 10,
-              top: 10,
+              top: 20,
               bottom: 20,
             ),
             color: grayUfcat,
