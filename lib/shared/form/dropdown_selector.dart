@@ -33,7 +33,7 @@ class DropdownSelector extends StatelessWidget {
             color: grayUfcat,
           ),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
       ),
       value: selectedValue,
       validator: (String? value) {

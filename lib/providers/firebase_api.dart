@@ -27,7 +27,7 @@ class FirebaseApi {
         .ref('data')
         .orderByChild('title')
         .startAt(query)
-        .endAt('$query\uf8ff')
+        .endAt(query + '\uf8ff')
         .once();
     final dataValue = databaseEvent.snapshot.value; // data is Object? type
     if (dataValue != null) {
