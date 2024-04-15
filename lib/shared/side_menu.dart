@@ -12,7 +12,7 @@ import 'package:ufcat_app/theme/src/app_colors.dart';
 import '../features/tabs/pages/tab_screen.dart';
 
 class MyNavigationDrawer extends StatelessWidget {
-  const MyNavigationDrawer({Key? key}) : super(key: key);
+  const MyNavigationDrawer({super.key});
 
   static const MaterialColor textColor = grayUfcat;
   final MaterialColor iconColor = grayUfcat;
@@ -108,7 +108,6 @@ class MyNavigationDrawer extends StatelessWidget {
                               leading: Icon(
                                 item['icon'],
                                 semanticLabel: item['title'],
-                                // TODO: acessibilidade
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -135,6 +134,7 @@ class MyNavigationDrawer extends StatelessWidget {
                                           return const LibraryScreen(
                                             url:
                                                 'https://biblioteca.sophia.com.br/terminal/9396/',
+                                            title: "Biblioteca",
                                           );
                                         case 'Calendário':
                                           return const CalendarScreen();

@@ -70,7 +70,7 @@ class MySearchBar extends SearchDelegate {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return Center(child: Text('Erro ao carregar dados'));
+          return const Center(child: Text('Erro ao carregar dados'));
         }
 
         final bool isQueryEmpty = query.isEmpty;
@@ -117,7 +117,7 @@ class MySearchBar extends SearchDelegate {
     titles = titles.take(15).toList(); // Limitando para 15 elementos
     return ListView.builder(
       itemBuilder: (context, index) {
-        if (index < recentQueries!.length) {
+        if (index < recentQueries.length) {
           return ListTile(
             tileColor: Colors.white,
             onTap: () {
@@ -156,7 +156,7 @@ class MySearchBar extends SearchDelegate {
       List<String>? recentQueries, List<String> filteredTitles) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        if (index < recentQueries!.length) {
+        if (index < recentQueries.length) {
           final queryIndex =
               recentQueries[index].toLowerCase().indexOf(query.toLowerCase());
           return ListTile(

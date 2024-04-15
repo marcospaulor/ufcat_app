@@ -11,9 +11,9 @@ class TabScreen extends StatefulWidget {
   final int index;
 
   const TabScreen({
-    Key? key,
+    super.key,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   State<TabScreen> createState() => _TabScreenState();

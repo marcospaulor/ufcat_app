@@ -7,12 +7,12 @@ class StickyButton extends StatefulWidget {
   final Function() onPressed;
 
   const StickyButton({
-    Key? key,
+    super.key,
     required this.label,
     required this.color,
     required this.size,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<StickyButton> createState() => _StickyButtonState();

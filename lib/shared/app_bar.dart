@@ -11,13 +11,13 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool? isSearch;
 
   const MyAppBar({
-    Key? key,
+    super.key,
     this.icon,
     this.title,
     this.bottom,
     this.height = kToolbarHeight,
     this.isSearch,
-  }) : super(key: key);
+  });
 
   @override
   State<MyAppBar> createState() => _MyAppBarState();

@@ -5,7 +5,7 @@ import 'package:ufcat_app/features/home/widgets/carousel.dart';
 import 'package:ufcat_app/features/home/widgets/shortcut_item.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();

@@ -4,13 +4,18 @@ import 'package:ufcat_app/shared/app_bar.dart';
 import 'package:ufcat_app/shared/bottom_bar.dart';
 import 'package:ufcat_app/shared/side_menu.dart';
 
-class About extends StatelessWidget {
-  const About({super.key});
+class Help extends StatefulWidget {
+  const Help({super.key});
+
+  @override
+  State<Help> createState() => _HelpState();
+}
+
+class _HelpState extends State<Help> {
+  final drawerKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    final drawerKey = GlobalKey<ScaffoldState>();
-
     return Scaffold(
       key: drawerKey,
       appBar: const MyAppBar(
@@ -25,7 +30,7 @@ class About extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Sobre o Aplicativo',
+                'Precisa de ajuda?',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -34,7 +39,7 @@ class About extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'Este aplicativo foi desenvolvido para a Universidade Federal de Catalão (UFCAT) em conjunto com o SETI (Secretaria de Tecnologia e Informação).',
+                'Estamos aqui para ajudar! Entre em contato conosco pelo email:',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
@@ -43,11 +48,12 @@ class About extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Text(
-                'Desenvolvedores: Marcos Paulo Rodrigues e Marcio Filho',
+                'ajuda@exemplo.com',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.black,
+                  decoration: TextDecoration.underline,
                 ),
               ),
             ],

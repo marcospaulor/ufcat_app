@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
 import 'package:ufcat_app/features/calendar/pages/calendar_screen.dart';
 import 'package:ufcat_app/features/about/pages/about.dart';
+import 'package:ufcat_app/features/help/pages/help.dart';
 import 'package:ufcat_app/features/ru/pages/ru_screen.dart';
 import 'package:ufcat_app/features/library/pages/library_screen.dart';
 import 'package:ufcat_app/features/security/pages/security_screen.dart';
@@ -11,8 +12,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AtalhoIcon extends StatefulWidget {
   const AtalhoIcon({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<AtalhoIcon> createState() => _AtalhoIconState();
@@ -62,6 +63,7 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                         return const LibraryScreen(
                           url:
                               'https://biblioteca.sophia.com.br/terminal/9396/',
+                          title: 'Biblioteca',
                         );
                       case 'Calendário':
                         return const CalendarScreen();
@@ -75,6 +77,8 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                         return const TabScreen(index: 2);
                       case 'Sobre':
                         return const About();
+                      case 'Help':
+                        return const Help();
                       default:
                         return const Scaffold(
                           appBar: MyAppBar(

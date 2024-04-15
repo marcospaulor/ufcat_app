@@ -5,7 +5,7 @@ import 'package:ufcat_app/providers/firebase_api.dart';
 import 'package:ufcat_app/theme/theme.dart';
 
 class Carousel extends StatefulWidget {
-  const Carousel({Key? key}) : super(key: key);
+  const Carousel({super.key});
 
   @override
   State<Carousel> createState() => _CarouselState();

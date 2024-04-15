@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class ContainerRu extends StatelessWidget {
   const ContainerRu({
-    Key? key,
+    super.key,
     required this.title,
     required this.content,
-  }) : super(key: key);
+  });
 
   final String title;
   final String content;
@@ -27,6 +27,7 @@ class ContainerRu extends StatelessWidget {
               child: Text(
                 title,
                 style: Theme.of(context).textTheme.displaySmall,
+                textAlign: TextAlign.center,
               ),
             ),
             Container(
@@ -35,6 +36,7 @@ class ContainerRu extends StatelessWidget {
               child: Text(
                 content,
                 style: Theme.of(context).textTheme.bodyLarge,
+                textAlign: TextAlign.center,
               ),
             ),
           ],

@@ -9,16 +9,16 @@ class NewsList extends StatefulWidget {
   final String category;
 
   const NewsList({
-    Key? key,
+    super.key,
     required this.futureInfos,
     required this.category,
-  }) : super(key: key);
+  });
 
   @override
-  _NewsListState createState() => _NewsListState();
+  NewsListState createState() => NewsListState();
 }
 
-class _NewsListState extends State<NewsList> {
+class NewsListState extends State<NewsList> {
   late Future<List<Map<String, dynamic>>> _futureInfos;
   late List<Map<String, dynamic>> _allInfos = [];
   int _visibleItemCount = 8;

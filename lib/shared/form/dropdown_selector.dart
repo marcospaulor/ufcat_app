@@ -9,13 +9,13 @@ class DropdownSelector extends StatelessWidget {
   final ValueChanged<String?> onChanged;
 
   const DropdownSelector({
-    Key? key,
+    super.key,
     this.label = "",
     this.hintText = "",
     required this.items,
     required this.onChanged,
     this.selectedValue,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class DropdownSelector extends StatelessWidget {
             color: grayUfcat,
           ),
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
       ),
       value: selectedValue,
       validator: (String? value) {

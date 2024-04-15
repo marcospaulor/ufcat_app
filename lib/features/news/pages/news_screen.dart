@@ -6,13 +6,13 @@ import 'package:ufcat_app/shared/side_menu.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({
-    Key? key,
+    super.key,
     required this.label,
     required this.text,
     required this.title,
     required this.data,
     required this.img,
-  }) : super(key: key);
+  });
 
   final String label;
   final String text;
