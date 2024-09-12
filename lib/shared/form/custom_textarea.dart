@@ -43,22 +43,18 @@ class CustomTextAreaState extends State<CustomTextArea> {
       ),
       inputFormatters: [
         FilteringTextInputFormatter.allow(
-          RegExp(r'^[a-zA-Z0-9 ,.!?()]+$'), // Permitir letras, números, espaços, vírgula, ponto, exclamação e parênteses
+          RegExp(
+              r'^[a-zA-Z0-9 ,.!?()]+$'), // Permitir letras, números, espaços, vírgula, ponto, exclamação e parênteses
         ),
       ],
       onTap: () {
         // Define a seleção inicial no início do texto
         final text = widget.controller.text;
-        widget.controller.selection = TextSelection.collapsed(offset: text.length);
+        widget.controller.selection =
+            TextSelection.collapsed(offset: text.length);
       },
       // Define a configuração do teclado para começar com a primeira letra maiúscula
       textCapitalization: TextCapitalization.sentences,
     );
-  }
-
-  @override
-  void dispose() {
-    widget.controller.dispose(); // Dispose do controlador de texto
-    super.dispose();
   }
 }
