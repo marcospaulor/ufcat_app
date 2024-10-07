@@ -21,6 +21,7 @@ class NewsWebView extends StatefulWidget {
 class NewsWebViewState extends State<NewsWebView> {
   String handleUrl = '';
   bool isLoading = true;
+  bool showWebView = false;
   // final _key = UniqueKey();
   // late final WebViewController _controller;
   final GlobalKey webViewKey = GlobalKey();
@@ -78,27 +79,27 @@ class NewsWebViewState extends State<NewsWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        PopScope(
-          onPopInvoked: (pop) {
-            if (pop) {
-              if (mounted) {
-                setState(() {
-                  isLoading = true;
-                });
+    return Scaffold(
+      appBar: MyAppBar(
+        icon: FontAwesomeIcons.arrowLeft,
+        title: handleTitle(widget.titleAppBar),
+      ),
+      body: Stack(
+        children: <Widget>[
+          PopScope(
+            onPopInvoked: (pop) {
+              if (pop) {
+                if (mounted) {
+                  setState(() {
+                    isLoading = true;
+                  });
+                }
+                _controller?.goBack();
+              } else {
+                Navigator.pop(context);
               }
-              _controller?.goBack();
-            } else {
-              Navigator.pop(context);
-            }
-          },
-          child: Scaffold(
-            appBar: MyAppBar(
-              icon: FontAwesomeIcons.arrowLeft,
-              title: handleTitle(widget.titleAppBar),
-            ),
-            body: Padding(
+            },
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: InAppWebView(
                 initialUrlRequest: URLRequest(url: WebUri(handleUrl)),
@@ -120,12 +121,8 @@ class NewsWebViewState extends State<NewsWebView> {
                   }
                 },
                 onLoadStop: (controller, url) async {
-                  if (mounted) {
-                    setState(() {
-                      isLoading = false;
-                    });
-                  }
-                  await controller.evaluateJavascript(source: '''
+                  try {
+                    await controller.evaluateJavascript(source: '''
                     var mainContent = document.querySelector('.main-content');
                     if (mainContent) {
                       document.body.innerHTML = '';
@@ -136,6 +133,16 @@ class NewsWebViewState extends State<NewsWebView> {
                       shareGroup.remove();
                     }
                   ''');
+                  } catch (e) {
+                    print('Erro ao remover elementos da página: $e');
+                  }
+
+                  if (mounted) {
+                    setState(() {
+                      isLoading = false;
+                      showWebView = true;
+                    });
+                  }
                 },
                 onProgressChanged: (controller, progress) {
                   if (mounted) {
@@ -146,11 +153,11 @@ class NewsWebViewState extends State<NewsWebView> {
                 },
                 pullToRefreshController: pullToRefreshController,
                 onDownloadStartRequest: (controller, downloadRequest) async {
-                  final BuildContext context = webViewKey.currentContext!;
+                  final BuildContext? context = webViewKey.currentContext;
                   final String url = downloadRequest.url.toString();
                   final Uri uri = Uri.parse(url);
 
-                  final scaffoldMessenger = ScaffoldMessenger.of(context);
+                  final scaffoldMessenger = ScaffoldMessenger.of(context!);
                   bool isMounted = scaffoldMessenger.mounted;
 
                   if (Platform.isAndroid || Platform.isIOS) {
@@ -173,6 +180,7 @@ class NewsWebViewState extends State<NewsWebView> {
                 shouldOverrideUrlLoading: (controller, navigationAction) async {
                   final String host =
                       Uri.parse(navigationAction.request.url.toString()).host;
+                  final String url = navigationAction.request.url.toString();
 
                   final List<String> allowedHosts = [
                     'ufcat.edu.br',
@@ -188,28 +196,48 @@ class NewsWebViewState extends State<NewsWebView> {
                   }
 
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Não é possível abrir links externos.'),
+                    content: Text('Abrindo link externo no navegador...'),
                   ));
+                  if (await canLaunchUrl(Uri.parse(url))) {
+                    await launchUrl(Uri.parse(url));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Não foi possível abrir o link.'),
+                    ));
+                  }
+
                   return NavigationActionPolicy.CANCEL;
                 },
               ),
             ),
           ),
-        ),
-        if (isLoading)
-          Center(
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: const BoxDecoration(
+          if (isLoading || !showWebView)
+            Stack(children: [
+              Container(
                 color: Colors.white,
-                shape: BoxShape.circle,
               ),
-              child: Platform.isAndroid
-                  ? const CircularProgressIndicator()
-                  : const CupertinoActivityIndicator(),
-            ),
-          ),
-      ],
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 10,
+                        spreadRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: Platform.isAndroid
+                      ? const CircularProgressIndicator()
+                      : const CupertinoActivityIndicator(),
+                ),
+              ),
+            ]),
+        ],
+      ),
     );
   }
 }
