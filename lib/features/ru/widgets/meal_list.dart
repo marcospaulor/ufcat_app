@@ -6,7 +6,7 @@ class MealList extends StatelessWidget {
 
   final Map<String, String> texts = {
     'prato_principal': 'Prato Principal',
-    'prato_vegano': 'Prato Vegano',
+    'vegano/vegetariano': 'Prato Vegano/Vegetariano',
     'acompanhamento': "Acompanhamento",
     'guarnicao': 'Guarnição',
     'sobremesa': 'Sobremesa',
