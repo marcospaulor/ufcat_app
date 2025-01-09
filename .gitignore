@@ -52,3 +52,5 @@ ios/firebase/GoogleService-Info.plist
 ios/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
 api_key.dart
+
+.env
