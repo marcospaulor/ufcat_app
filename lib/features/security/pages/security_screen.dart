@@ -12,6 +12,9 @@ import 'package:ufcat_app/shared/form/custom_textfield.dart';
 import 'package:ufcat_app/shared/form/dropdown_selector.dart';
 import 'package:ufcat_app/shared/side_menu.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SecurityScreen extends StatefulWidget {
   const SecurityScreen({super.key});
@@ -338,12 +341,48 @@ class _SecurityScreenState extends State<SecurityScreen> {
           content: Text('Dados enviados com sucesso!'),
         ),
       );
+
+      // Save in e-mail
+      await _sendEmail(data);
     } catch (error) {
       scaffoldMessenger.showSnackBar(
         const SnackBar(
           content: Text('Erro ao enviar dados!'),
         ),
       );
+    }
+  }
+
+  Future<void> _sendEmail(Map<String, dynamic> data) async {
+    final emailUser = dotenv.env['EMAIL_USER'] ?? '';
+    final emailPass = dotenv.env['EMAIL_PASS'] ?? '';
+    final emailTo = dotenv.env['EMAIL_TO'] ?? '';
+
+    String username = emailUser; // Substitua pelo seu e-mail
+    String password =
+        emailPass; // Substitua pela sua senha ou token de app (recomendado para Gmail)
+
+    final smtpServer = gmail(username, password); // Servidor SMTP para Gmail
+    final message = Message()
+      ..from = Address(username, 'Serviços UFCAT - Security')
+      ..recipients.add(emailTo) // Substitua pelo e-mail destinatário
+      ..subject = 'Nova Ocorrência: ${data['category']}'
+      ..text = '''
+          Nova ocorrência registrada:
+          Categoria: ${data['category']}
+          Contato: ${data['contact']}
+          Descrição: ${data['description']}
+          Localização: (${data['latitude']}, ${data['longitude']})
+          Data/Hora: ${DateTime.now()}
+        ''';
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('E-mail enviado: ${sendReport.toString()}');
+    } catch (e) {
+      print('Erro ao enviar e-mail: ${e.toString()}');
+      print("Nome do erro: ${e.runtimeType}");
+      print("${emailUser} ${emailPass} ${emailTo}");
     }
   }
 }
