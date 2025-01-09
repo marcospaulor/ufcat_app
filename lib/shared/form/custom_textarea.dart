@@ -43,9 +43,7 @@ class CustomTextAreaState extends State<CustomTextArea> {
       ),
       inputFormatters: [
         FilteringTextInputFormatter.allow(
-          RegExp(
-              r'^[a-zA-Z0-9 ,.!?()]+$'), // Permitir letras, números, espaços, vírgula, ponto, exclamação e parênteses
-        ),
+            RegExp(r'^[\p{L}\p{N} ,.!?()]+$', unicode: true)),
       ],
       onTap: () {
         // Define a seleção inicial no início do texto
