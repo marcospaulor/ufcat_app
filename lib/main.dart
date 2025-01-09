@@ -5,9 +5,11 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:ufcat_app/shared/splash.dart';
 import 'package:ufcat_app/theme/theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
