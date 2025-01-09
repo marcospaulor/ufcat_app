@@ -61,6 +61,8 @@ dependencies:
   firebase_database: ^10.4.0
   flutter_inappwebview: ^6.0.0
   cloud_firestore: ^4.16.0
+  mailer: ^6.3.0
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -94,6 +96,7 @@ flutter:
   assets:
     - assets/images/
     - assets/database/
+    - .env
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
