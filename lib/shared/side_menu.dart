@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/features/calendar/pages/calendar_screen.dart';
 import 'package:ufcat_app/features/about/pages/about.dart';
+import 'package:ufcat_app/features/help/pages/help.dart';
 import 'package:ufcat_app/features/library/pages/library_screen.dart';
 import 'package:ufcat_app/features/home/pages/home_screen.dart';
 import 'package:ufcat_app/features/map/pages/mapa_screen.dart';
+import 'package:ufcat_app/features/os/pages/os_screen.dart';
 import 'package:ufcat_app/features/ru/pages/ru_screen.dart';
 import 'package:ufcat_app/features/security/pages/security_screen.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
@@ -97,8 +99,8 @@ class MyNavigationDrawer extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Theme(
               data: Theme.of(context).copyWith(
-                splashColor: redUfcat,
-                highlightColor: redUfcat,
+                splashColor: orangeUfcat,
+                highlightColor: orangeUfcat,
               ),
               child: Wrap(
                 children: items
@@ -140,6 +142,8 @@ class MyNavigationDrawer extends StatelessWidget {
                                           return const CalendarScreen();
                                         case 'Segurança':
                                           return const SecurityScreen();
+                                        case 'Ordem de Serviço':
+                                          return const OSScreen();
                                         case 'Notícias':
                                           return const TabScreen(index: 0);
                                         case 'Eventos':
@@ -148,6 +152,8 @@ class MyNavigationDrawer extends StatelessWidget {
                                           return const TabScreen(index: 2);
                                         case 'Sobre':
                                           return const About();
+                                        case 'Ajuda':
+                                          return const Help();
                                         default:
                                           return const HomeView();
                                       }
