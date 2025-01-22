@@ -18,14 +18,12 @@ class ImagePickerInputState extends State<ImagePickerInput> {
 
   Future<void> _pickImage(ImageSource source) async {
     final XFile? pickedFile = await _picker.pickImage(source: source);
-    if (pickedFile != null) {
-      setState(() {
+    if (pickedFile == null) return;
+
+    setState(() {
         _selectedImage = File(pickedFile.path);
       });
       widget.onImageSelected(_selectedImage); // Notifica o parent widget
-    } else {
-      print('Nenhuma imagem selecionada.');
-    }
   }
 
   void _removeImage() {
