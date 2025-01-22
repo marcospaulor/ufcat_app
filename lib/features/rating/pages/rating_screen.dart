@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
 import 'package:ufcat_app/shared/bottom_bar.dart';
@@ -43,7 +43,7 @@ class _RatingScreenState extends State<RatingScreen> {
     'Sexta-feira'
   ];
 
-    @override
+  @override
   void initState() {
     super.initState();
     assert(widget.currentDay.isNotEmpty);
@@ -236,8 +236,10 @@ class _RatingScreenState extends State<RatingScreen> {
                         await db
                             .collection('ru')
                             .doc('rating')
-                            .collection('avaliacoes') // Subcoleção onde as avaliações serão armazenadas
-                            .add(data) // Usando add() para gerar um ID único para cada avaliação
+                            .collection(
+                                'avaliacoes') // Subcoleção onde as avaliações serão armazenadas
+                            .add(
+                                data) // Usando add() para gerar um ID único para cada avaliação
                             .then((_) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -263,8 +265,8 @@ class _RatingScreenState extends State<RatingScreen> {
                       child: const Text('ENVIAR'),
                     ),
                   ),
-                  SizedBox(
-                    height: height * 0.1,
+                  const SizedBox(
+                    height: 20,
                   ),
                 ],
               ),
