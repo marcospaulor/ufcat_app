@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ufcat_app/features/os/pages/os_screen.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
 import 'package:ufcat_app/features/calendar/pages/calendar_screen.dart';
 import 'package:ufcat_app/features/about/pages/about.dart';
@@ -67,6 +68,8 @@ class _AtalhoIconState extends State<AtalhoIcon> {
                         );
                       case 'Calendário':
                         return const CalendarScreen();
+                      case 'OS':
+                        return const OSScreen();
                       case 'Segurança':
                         return const SecurityScreen();
                       case 'Notícias':
