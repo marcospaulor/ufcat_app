@@ -67,7 +67,7 @@ class _RUScreenState extends State<RUScreen> {
               future: _cardapio,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator(color: orangeUfcat,));
                 } else if (snapshot.hasError) {
                   return const Center(child: Text('Erro ao carregar dados'));
                 } else {
