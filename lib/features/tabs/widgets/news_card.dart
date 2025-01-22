@@ -38,6 +38,11 @@ class NewsCard extends StatelessWidget {
   }
 
   Widget buildImage(BuildContext context) {
+    const double imageHeight = 0.30;
+    final double containerHeight =
+        MediaQuery.of(context).size.height * imageHeight;
+    final double containerWidth = double.infinity;
+
     return FutureBuilder<bool>(
       future: isValidUrl(imageUrl),
       builder: (context, snapshot) {
@@ -45,38 +50,39 @@ class NewsCard extends StatelessWidget {
           return SkeletonAnimation(
             shimmerDuration: 1000,
             child: Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.25,
+              width: containerWidth,
+              height: containerHeight,
               decoration: BoxDecoration(
                 color: Colors.grey[300],
               ),
             ),
           );
-        } else {
-          if (snapshot.hasData && snapshot.data == true) {
+        }
+        
+        if (snapshot.hasData && snapshot.data == true) {
             return SizedBox(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.25,
+              width: containerWidth,
+              height: containerHeight,
               child: CachedNetworkImage(
                 imageUrl: imageUrl,
-                fit: BoxFit.cover,
+                fit: BoxFit.scaleDown,
                 errorWidget: (context, url, error) => Image.asset(
                   'assets/images/placeholder.png',
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.25,
+                  fit: BoxFit.contain,
+                  width: containerWidth,
+                  height: containerHeight,
                 ),
               ),
             );
-          } else {
-            return Image.asset(
-              'assets/images/placeholder.png',
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.25,
-            );
           }
-        }
+
+          return Image.asset(
+              'assets/images/placeholder.png',
+              fit: BoxFit.contain,
+              width: containerWidth,
+              height: MediaQuery.of(context).size.height * imageHeight,
+            );
+
       },
     );
   }
