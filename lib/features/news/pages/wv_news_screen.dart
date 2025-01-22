@@ -7,6 +7,7 @@ import 'package:ufcat_app/providers/handle_url.dart';
 import 'package:ufcat_app/shared/app_bar.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:ufcat_app/theme/theme.dart';
 
 class NewsWebView extends StatefulWidget {
   final String url;
@@ -222,16 +223,9 @@ class NewsWebViewState extends State<NewsWebView> {
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 10,
-                        spreadRadius: 5,
-                      ),
-                    ],
                   ),
                   child: Platform.isAndroid
-                      ? const CircularProgressIndicator()
+                      ? const CircularProgressIndicator(color: orangeUfcat)
                       : const CupertinoActivityIndicator(),
                 ),
               ),
