@@ -48,7 +48,7 @@ class _HelpState extends State<Help> {
               ),
               SizedBox(height: 10),
               Text(
-                'ajuda@exemplo.com',
+                'dev.silva.marcos@gmail.com',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,

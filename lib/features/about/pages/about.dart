@@ -43,7 +43,7 @@ class About extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Text(
-                'Desenvolvedores: Marcos Paulo Rodrigues e Marcio Filho',
+                'Desenvolvido por (GitHub):\n Marcos Paulo Rodrigues (@marcospaulor)\n Marcio Filho (@Marcio-F)',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
