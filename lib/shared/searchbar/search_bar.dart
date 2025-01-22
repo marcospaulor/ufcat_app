@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ufcat_app/providers/firebase_api.dart';
 import 'package:ufcat_app/shared/searchbar/result_screen.dart';
+import 'package:ufcat_app/theme/src/app_colors.dart';
 
 class MySearchBar extends SearchDelegate {
   final int maxSearchHistory = 10;
@@ -54,7 +55,7 @@ class MySearchBar extends SearchDelegate {
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done ||
             snapshot.hasError) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator(color: orangeUfcat,));
         }
         return ResultScreen(query: query, data: snapshot.data ?? []);
       },
@@ -67,7 +68,7 @@ class MySearchBar extends SearchDelegate {
       future: _loadData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator(color: orangeUfcat,));
         }
         if (snapshot.hasError) {
           return const Center(child: Text('Erro ao carregar dados'));
