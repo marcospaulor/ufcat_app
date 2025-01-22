@@ -41,7 +41,7 @@ class NewsCard extends StatelessWidget {
     const double imageHeight = 0.30;
     final double containerHeight =
         MediaQuery.of(context).size.height * imageHeight;
-    final double containerWidth = double.infinity;
+    const double containerWidth = double.infinity;
 
     return FutureBuilder<bool>(
       future: isValidUrl(imageUrl),
