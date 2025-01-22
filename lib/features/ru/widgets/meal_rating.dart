@@ -23,7 +23,7 @@ class MealRating extends StatelessWidget {
           day), // Convertendo o dia para minúsculas
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const CircularProgressIndicator(color: orangeUfcat);
         } else if (snapshot.hasError) {
           return const Text('Error calculating average rating');
         } else {
