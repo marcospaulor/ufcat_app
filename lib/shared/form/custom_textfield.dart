@@ -7,12 +7,11 @@ class CustomTextField extends StatelessWidget {
   final String label;
   final String hintText;
   final bool isPassword;
-  // keyboardType
   final TextInputType? keyboardType;
-  // inputFormatters
   final List<TextInputFormatter>? inputFormatters;
-
   final void Function(String)? onChanged;
+  final bool isRequired; // Controle de validação
+  final bool isEmail;
 
   const CustomTextField({
     super.key,
@@ -23,7 +22,17 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType,
     this.inputFormatters = const [],
     this.onChanged,
+    this.isRequired = true, // Validação padrão
+    this.isEmail = false,
   });
+
+  String? emailValidator(String? value) {
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
+    if (!emailRegex.hasMatch(value!)) return 'Por favor, insira um email válido';
+
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +41,14 @@ class CustomTextField extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: isPassword,
       onChanged: onChanged,
-      validator: (value) => value!.isEmpty ? 'Campo obrigatório' : null,
-      inputFormatters: inputFormatters,
+      validator: (value) {
+        if (isRequired && (value == null || value.isEmpty)) return 'Campo obrigatório';
+
+        if(isEmail) return emailValidator(value);
+
+        return null;
+      },
+      inputFormatters: inputFormatters, // Adiciona suporte a inputFormatters
       style: Theme.of(context).textTheme.bodyLarge,
       decoration: InputDecoration(
         labelText: label,

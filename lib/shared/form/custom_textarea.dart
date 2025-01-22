@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Importe esta biblioteca
+import 'package:flutter/services.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
 
 class CustomTextArea extends StatefulWidget {
   final TextEditingController controller;
   final String label;
   final String hintText;
-  final int maxLength; // Adicione esta propriedade
+  final int maxLength;
   final void Function(String)? onChanged;
+  final bool isRequired; // Controle de validação
 
   const CustomTextArea({
     super.key,
     required this.controller,
     required this.label,
     required this.hintText,
-    required this.maxLength, // Adicione esta propriedade
+    required this.maxLength,
     this.onChanged,
+    this.isRequired = true, // Validação padrão
   });
 
   @override
@@ -27,9 +29,12 @@ class CustomTextAreaState extends State<CustomTextArea> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      maxLines: 5, // Permite múltiplas linhas
-      maxLength: widget.maxLength, // Define o limite de caracteres
+      maxLines: 5,
+      maxLength: widget.maxLength,
       onChanged: widget.onChanged,
+      validator: widget.isRequired
+          ? (value) => value!.isEmpty ? 'Campo obrigatório' : null
+          : null,
       style: Theme.of(context).textTheme.bodyLarge,
       decoration: InputDecoration(
         labelText: widget.label,
@@ -44,14 +49,12 @@ class CustomTextAreaState extends State<CustomTextArea> {
       inputFormatters: [
         FilteringTextInputFormatter.allow(
             RegExp(r'^[\p{L}\p{N} ,.!?()]+$', unicode: true)),
-      ],
+      ], // Adiciona suporte a inputFormatters
       onTap: () {
-        // Define a seleção inicial no início do texto
         final text = widget.controller.text;
         widget.controller.selection =
             TextSelection.collapsed(offset: text.length);
       },
-      // Define a configuração do teclado para começar com a primeira letra maiúscula
       textCapitalization: TextCapitalization.sentences,
     );
   }
