@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart'; // Importe esta biblioteca
-import 'package:loadmore/loadmore.dart'; // Importe esta biblioteca
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:loadmore_listview/loadmore_listview.dart';
 import 'package:ufcat_app/features/news/pages/wv_news_screen.dart';
+import 'package:ufcat_app/theme/src/app_colors.dart';
 
 class ResultList extends StatefulWidget {
   final List<Map<String, dynamic>> results;
@@ -15,73 +16,97 @@ class ResultList extends StatefulWidget {
 class ResultListState extends State<ResultList> {
   late List<Map<String, dynamic>> _visibleResults;
   late int _visibleItemCount;
-  bool _isLoadingMore = false; // Adicione esta variável de estado
+  bool _isLoading = false; // Para evitar carregamentos duplicados
+  bool _hasMoreItems = true;
 
   @override
   void initState() {
     super.initState();
-    _visibleResults = widget.results;
-    _visibleItemCount = widget.results.length > 10 ? 10 : widget.results.length;
+    _visibleResults = widget.results.take(12).toList();
+    _visibleItemCount = _visibleResults.length;
+    _hasMoreItems = _visibleItemCount < widget.results.length;
   }
 
   @override
   Widget build(BuildContext context) {
-    return LoadMore(
-      isFinish: _visibleItemCount >= widget.results.length,
-      textBuilder: textLoadMore,
-      onLoadMore:
-          _loadMore, // Use uma função separada para lidar com o carregamento de mais itens
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          final result = _visibleResults[index];
-          return ListTile(
-            title: Text(
-              result['title'].trim(),
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
-            subtitle: Text(result['date'].trim()),
-            leading: _buildImage(result['image_url']),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => NewsWebView(
-                    url: result['link'],
-                    titleAppBar: result['type'],
-                  ),
-                ),
-              );
-            },
-          );
-        },
-        itemCount: _visibleItemCount,
+    return LoadMoreListView.builder(
+      hasMoreItem: _hasMoreItems,
+      onLoadMore: _loadMore,
+      onRefresh: _refreshList,
+      refreshBackgroundColor: orangeUfcat,
+      loadMoreWidget: Container(
+        margin: const EdgeInsets.all(20.0),
+        alignment: Alignment.center,
+        child: const CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation(orangeUfcat),
+        ),
       ),
+      itemCount: _visibleItemCount,
+      itemBuilder: ((context, index) {
+        final result = _visibleResults[index];
+        return ListTile(
+          title: Text(
+            result['title'].trim(),
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          subtitle: Text(result['date'].trim()),
+          leading: _buildImage(result['image_url']),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NewsWebView(
+                  url: result['link'],
+                  titleAppBar: result['type'],
+                ),
+              ),
+            );
+          },
+        );
+      }),
     );
   }
 
-  Future<bool> _loadMore() async {
-    if (_isLoadingMore) return false; // Se já estiver carregando, não faça nada
+  Future<void> _refreshList() async {
+    await Future.delayed(const Duration(seconds: 1));
 
-    _isLoadingMore = true; // Marque que estamos carregando
-    await Future.delayed(
-        const Duration(seconds: 2)); // Simule uma carga assíncrona
+    if (!mounted) return;
 
-    if (mounted) {
-      // Verifique se o estado do widget ainda está montado
-      setState(() {
-        _visibleItemCount += 10;
-        _visibleResults = widget.results.sublist(0, _visibleItemCount);
-      });
-    }
+    setState(() {
+      _visibleResults = widget.results.take(12).toList();
+      _visibleItemCount = _visibleResults.length;
+      _hasMoreItems = _visibleItemCount < widget.results.length;
+    });
+  }
 
-    _isLoadingMore = false; // Marque que terminamos de carregar
-    return true; // Indica que ainda há mais itens para carregar
+  Future<void> _loadMore() async {
+    if (!_hasMoreItems || _isLoading) return; // Evitar carregamentos duplicados
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    if (!mounted) return;
+
+    setState(() {
+      final remainingItems = widget.results.length - _visibleItemCount;
+      final itemsToLoad = remainingItems > 12 ? 12 : remainingItems;
+
+      _visibleResults.addAll(
+        widget.results.skip(_visibleItemCount).take(itemsToLoad),
+      );
+
+      _visibleItemCount += itemsToLoad;
+      _hasMoreItems = _visibleItemCount < widget.results.length;
+      _isLoading = false;
+    });
   }
 
   Widget _buildImage(String? imageUrl) {
     if (imageUrl != null && imageUrl.isNotEmpty) {
       return CachedNetworkImage(
-        // Substitua o Image.network pelo CachedNetworkImage
         imageUrl: imageUrl,
         width: 50,
         height: 50,
@@ -93,27 +118,13 @@ class ResultListState extends State<ResultList> {
           fit: BoxFit.cover,
         ),
       );
-    } else {
-      return Image.asset(
-        'assets/images/placeholder.png',
-        width: 50,
-        height: 50,
-        fit: BoxFit.cover,
-      );
     }
-  }
 
-  String textLoadMore(status) {
-    switch (status) {
-      case LoadMoreStatus.idle:
-        return 'Carregar mais';
-      case LoadMoreStatus.loading:
-        return 'Carregando...';
-      case LoadMoreStatus.fail:
-        return 'Erro ao carregar';
-      case LoadMoreStatus.nomore:
-        return 'Fim';
-    }
-    return '';
+    return Image.asset(
+      'assets/images/placeholder.png',
+      width: 50,
+      height: 50,
+      fit: BoxFit.cover,
+    );
   }
 }
