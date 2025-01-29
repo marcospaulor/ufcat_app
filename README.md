@@ -36,4 +36,3 @@ Para utilizar o aplicativo, siga os passos abaixo:
 
 - [Marcos Paulo Rodrigues](https://github.com/marcospaulor)
 - [Marcio Filho](https://github.com/Marcio-F)
-
