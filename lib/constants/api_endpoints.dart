@@ -1,6 +1,8 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class ApiEndpoints {
-  static const baseUrl = "https://sigos-ufcat-08e5206c37c2.herokuapp.com/api";
-  static const createOrder = '$baseUrl/workorders/create/';
-  static const getCategories = '$baseUrl/categories/';
-  static const String getDepts = '$baseUrl/depts/';
+  static final baseUrl = dotenv.env['API_URL'];
+  static final createOrder = '$baseUrl/workorders/create/';
+  static final getCategories = '$baseUrl/categories/';
+  static final String getDepts = '$baseUrl/depts/';
 }
