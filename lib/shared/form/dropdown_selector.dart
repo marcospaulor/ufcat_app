@@ -23,8 +23,11 @@ class DropdownSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
       isExpanded: true,
-      iconSize: 30,
+      iconSize: 35,
+      itemHeight: null,
+      menuMaxHeight: 400,
       decoration: InputDecoration(
+        // alignLabelWithHint: true,
         labelText: label,
         labelStyle: Theme.of(context).textTheme.bodyLarge!,
         hintText: hintText,
@@ -35,7 +38,7 @@ class DropdownSelector extends StatelessWidget {
             color: grayUfcat,
           ),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       ),
       value: selectedValue,
       validator: isRequired

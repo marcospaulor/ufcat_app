@@ -41,6 +41,7 @@ class CustomTextField extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: isPassword,
       onChanged: onChanged,
+      textCapitalization: isEmail ? TextCapitalization.none : TextCapitalization.sentences,
       validator: (value) {
         if (isRequired && (value == null || value.isEmpty)) return 'Campo obrigatório';
 
