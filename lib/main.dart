@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -14,7 +15,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   CachedNetworkImage.logLevel = CacheManagerLogLevel.debug;
-  initializeDateFormatting().then((_) => runApp(const MyApp()));
+  initializeDateFormatting().then((_) => {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]),
+    runApp(const MyApp())
+  });
 }
 
 class MyApp extends StatelessWidget {
