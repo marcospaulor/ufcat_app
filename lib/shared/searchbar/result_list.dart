@@ -16,7 +16,7 @@ class ResultList extends StatefulWidget {
 class ResultListState extends State<ResultList> {
   late List<Map<String, dynamic>> _visibleResults;
   late int _visibleItemCount;
-  bool _isLoading = false; // Para evitar carregamentos duplicados
+  bool _isLoading = false;
   bool _hasMoreItems = true;
 
   @override
@@ -42,7 +42,7 @@ class ResultListState extends State<ResultList> {
         ),
       ),
       itemCount: _visibleItemCount,
-      itemBuilder: ((context, index) {
+      itemBuilder: (context, index) {
         final result = _visibleResults[index];
         return ListTile(
           title: Text(
@@ -63,7 +63,7 @@ class ResultListState extends State<ResultList> {
             );
           },
         );
-      }),
+      },
     );
   }
 
@@ -80,7 +80,7 @@ class ResultListState extends State<ResultList> {
   }
 
   Future<void> _loadMore() async {
-    if (!_hasMoreItems || _isLoading) return; // Evitar carregamentos duplicados
+    if (!_hasMoreItems || _isLoading) return;
 
     setState(() {
       _isLoading = true;
