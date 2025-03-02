@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ufcat_app/providers/firebase_api.dart';
-import 'package:ufcat_app/shared/searchbar/result_screen.dart';
+import 'package:ufcat_app/shared/searchbar/result_list.dart';
 import 'package:ufcat_app/theme/src/app_colors.dart';
 
 class MySearchBar extends SearchDelegate {
@@ -53,11 +53,24 @@ class MySearchBar extends SearchDelegate {
     return FutureBuilder<List<Map<String, dynamic>>>(
       future: _loadData(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done ||
-            snapshot.hasError) {
-          return const Center(child: CircularProgressIndicator(color: orangeUfcat,));
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Center(
+              child: CircularProgressIndicator(
+            color: orangeUfcat,
+          ));
         }
-        return ResultScreen(query: query, data: snapshot.data ?? []);
+
+        if(snapshot.hasError) {
+          return const Center(child: Text('Erro ao carregar dados'));
+        }
+
+        final List<Map<String, dynamic>> filteredResults = (snapshot.data ?? [])
+          .where((element) => element['title']
+              .toLowerCase()
+              .contains(query.toLowerCase()))
+          .toList();
+
+        return ResultList(results: filteredResults);
       },
     );
   }
@@ -68,7 +81,10 @@ class MySearchBar extends SearchDelegate {
       future: _loadData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return const Center(child: CircularProgressIndicator(color: orangeUfcat,));
+          return const Center(
+              child: CircularProgressIndicator(
+            color: orangeUfcat,
+          ));
         }
         if (snapshot.hasError) {
           return const Center(child: Text('Erro ao carregar dados'));
