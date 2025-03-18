@@ -43,7 +43,7 @@ class _TabScreenState extends State<TabScreen> {
         key: drawerKey,
         appBar: const MyAppBar(
           icon: FontAwesomeIcons.arrowLeft,
-          title: 'Serviços UFCAT',
+          title: 'UFCAT Serviços',
           height: 2 * kToolbarHeight,
           bottom: TabBar(
             labelColor: orangeUfcat,
