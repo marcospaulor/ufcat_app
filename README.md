@@ -1,6 +1,6 @@
-# Serviços UFCAT - Aplicativo Mobile
+# UFCAT Serviços- Aplicativo Mobile
 
-Serviços UFCAT é um aplicativo desenvolvido em Flutter com o objetivo de compartilhar os serviços da Universidade Federal de Catalão (UFCAT) com a comunidade em geral e a comunidade acadêmica.
+UFCAT Serviçosé um aplicativo desenvolvido em Flutter com o objetivo de compartilhar os serviços da Universidade Federal de Catalão (UFCAT) com a comunidade em geral e a comunidade acadêmica.
 
 ## Visão Geral
 
