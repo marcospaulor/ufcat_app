@@ -24,7 +24,7 @@
     <!-- Removed duplicate declaration of ACCESS_FINE_LOCATION here. -->
     
     <application
-        android:label="Serviços UFCAT"
+        android:label="UFCAT Serviços"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         >
