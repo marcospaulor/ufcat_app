@@ -23,8 +23,7 @@ class NewsWebViewState extends State<NewsWebView> {
   String handleUrl = '';
   bool isLoading = true;
   bool showWebView = false;
-  // final _key = UniqueKey();
-  // late final WebViewController _controller;
+  bool isRefreshing = false;
   final GlobalKey webViewKey = GlobalKey();
 
   InAppWebViewController? _controller;
@@ -43,14 +42,11 @@ class NewsWebViewState extends State<NewsWebView> {
   final urlController = TextEditingController();
 
   String handleTitle(String title) {
-    // Mapa para mapear títulos para categorias correspondentes
     Map<String, String> titleMapping = {
       "noticia": "Notícia",
       "evento": "Evento",
       "edital": "Edital",
     };
-
-    // Obtém a categoria correspondente ou retorna uma string vazia se não encontrada
     return titleMapping[title.toLowerCase()] ?? title;
   }
 
@@ -62,16 +58,19 @@ class NewsWebViewState extends State<NewsWebView> {
 
     pullToRefreshController = PullToRefreshController(
       settings: PullToRefreshSettings(
-        color: Colors.blue,
+        color: orangeUfcat,
       ),
       onRefresh: () async {
+        if (mounted) {
+          setState(() {
+            isRefreshing = true;
+          });
+        }
         if (defaultTargetPlatform == TargetPlatform.android) {
           await _controller?.reload();
         } else if (defaultTargetPlatform == TargetPlatform.iOS) {
           await _controller?.loadUrl(
-            urlRequest: URLRequest(
-              url: await _controller?.getUrl(),
-            ),
+            urlRequest: URLRequest(url: await _controller?.getUrl()),
           );
         }
       },
@@ -88,28 +87,31 @@ class NewsWebViewState extends State<NewsWebView> {
       body: Stack(
         children: <Widget>[
           PopScope(
-            onPopInvoked: (pop) {
-              if (pop) {
-                if (mounted) {
-                  setState(() {
-                    isLoading = true;
-                  });
+            onPopInvoked: (didPop) async {
+              if (didPop) {
+                if (await _controller?.canGoBack() ?? false) {
+                  if (mounted) {
+                    setState(() {
+                      isLoading = true;
+                    });
+                  }
+                  await _controller?.goBack();
+                } else {
+                  return;
                 }
-                _controller?.goBack();
-              } else {
-                Navigator.pop(context);
               }
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: InAppWebView(
+                key: webViewKey,
                 initialUrlRequest: URLRequest(url: WebUri(handleUrl)),
                 initialSettings: settings,
+                pullToRefreshController: pullToRefreshController,
                 onWebViewCreated: (controller) {
                   _controller = controller;
                 },
-                onReceivedServerTrustAuthRequest:
-                    (controller, challenge) async {
+                onReceivedServerTrustAuthRequest: (controller, challenge) async {
                   return ServerTrustAuthResponse(
                     action: ServerTrustAuthResponseAction.PROCEED,
                   );
@@ -117,23 +119,26 @@ class NewsWebViewState extends State<NewsWebView> {
                 onLoadStart: (controller, url) {
                   if (mounted) {
                     setState(() {
-                      isLoading = true;
+                      if (!isRefreshing) {
+                        isLoading = true;
+                      }
+                      showWebView = false;
                     });
                   }
                 },
                 onLoadStop: (controller, url) async {
                   try {
                     await controller.evaluateJavascript(source: '''
-                    var mainContent = document.querySelector('.main-content');
-                    if (mainContent) {
-                      document.body.innerHTML = '';
-                      document.body.appendChild(mainContent);
-                    }
-                    var shareGroup = document.querySelector('.sharegroup-horizontal');
-                    if (shareGroup) {
-                      shareGroup.remove();
-                    }
-                  ''');
+                      var mainContent = document.querySelector('.main-content');
+                      if (mainContent) {
+                        document.body.innerHTML = '';
+                        document.body.appendChild(mainContent);
+                      }
+                      var shareGroup = document.querySelector('.sharegroup-horizontal');
+                      if (shareGroup) {
+                        shareGroup.remove();
+                      }
+                    ''');
                   } catch (e) {
                     print('Erro ao remover elementos da página: $e');
                   }
@@ -141,9 +146,11 @@ class NewsWebViewState extends State<NewsWebView> {
                   if (mounted) {
                     setState(() {
                       isLoading = false;
+                      isRefreshing = false;
                       showWebView = true;
                     });
                   }
+                  await pullToRefreshController?.endRefreshing();
                 },
                 onProgressChanged: (controller, progress) {
                   if (mounted) {
@@ -152,35 +159,25 @@ class NewsWebViewState extends State<NewsWebView> {
                     });
                   }
                 },
-                pullToRefreshController: pullToRefreshController,
                 onDownloadStartRequest: (controller, downloadRequest) async {
-                  final BuildContext? context = webViewKey.currentContext;
                   final String url = downloadRequest.url.toString();
                   final Uri uri = Uri.parse(url);
 
-                  final scaffoldMessenger = ScaffoldMessenger.of(context!);
-                  bool isMounted = scaffoldMessenger.mounted;
-
-                  if (Platform.isAndroid || Platform.isIOS) {
-                    if (isMounted) {
-                      scaffoldMessenger.showSnackBar(SnackBar(
-                        content: Text('Download iniciado: $url'),
-                      ));
-                    }
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('Download iniciado: $url'),
+                    ));
                     if (await canLaunchUrl(uri)) {
                       await launchUrl(uri);
                     } else {
-                      if (isMounted) {
-                        scaffoldMessenger.showSnackBar(SnackBar(
-                          content: Text('Não foi possível abrir o link: $url'),
-                        ));
-                      }
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Não foi possível abrir o link: $url'),
+                      ));
                     }
                   }
                 },
                 shouldOverrideUrlLoading: (controller, navigationAction) async {
-                  final String host =
-                      Uri.parse(navigationAction.request.url.toString()).host;
+                  final String host = Uri.parse(navigationAction.request.url.toString()).host;
                   final String url = navigationAction.request.url.toString();
 
                   final List<String> allowedHosts = [
@@ -196,40 +193,43 @@ class NewsWebViewState extends State<NewsWebView> {
                     return NavigationActionPolicy.ALLOW;
                   }
 
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Abrindo link externo no navegador...'),
-                  ));
-                  if (await canLaunchUrl(Uri.parse(url))) {
-                    await launchUrl(Uri.parse(url));
-                  } else {
+                  if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Não foi possível abrir o link.'),
+                      content: Text('Abrindo link externo no navegador...'),
                     ));
+                    if (await canLaunchUrl(Uri.parse(url))) {
+                      await launchUrl(Uri.parse(url));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Não foi possível abrir o link.'),
+                      ));
+                    }
                   }
-
                   return NavigationActionPolicy.CANCEL;
                 },
               ),
             ),
           ),
-          if (isLoading || !showWebView)
-            Stack(children: [
-              Container(
-                color: Colors.white,
-              ),
-              Center(
-                child: Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
+          if (isLoading && !isRefreshing)
+            SizedBox.expand(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Platform.isAndroid
+                        ? const CircularProgressIndicator(color: orangeUfcat)
+                        : const CupertinoActivityIndicator(),
                   ),
-                  child: Platform.isAndroid
-                      ? const CircularProgressIndicator(color: orangeUfcat)
-                      : const CupertinoActivityIndicator(),
                 ),
               ),
-            ]),
+            ),
         ],
       ),
     );
