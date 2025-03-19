@@ -19,10 +19,10 @@ class OSScreen extends StatefulWidget {
   const OSScreen({super.key});
 
   @override
-  State<OSScreen> createState() => _OSScreenState();
+  State<OSScreen> createState() => OSScreenState();
 }
 
-class _OSScreenState extends State<OSScreen> {
+class OSScreenState extends State<OSScreen> {
   // Chaves e controladores do formulário
   final GlobalKey<ScaffoldState> drawerKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

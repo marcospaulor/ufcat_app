@@ -20,10 +20,10 @@ class SecurityScreen extends StatefulWidget {
   const SecurityScreen({super.key});
 
   @override
-  State<SecurityScreen> createState() => _SecurityScreenState();
+  State<SecurityScreen> createState() => SecurityScreenState();
 }
 
-class _SecurityScreenState extends State<SecurityScreen> {
+class SecurityScreenState extends State<SecurityScreen> {
   String? dropdownValue;
   LatLng _position = const LatLng(-18.154695973733883, -47.928891981710066);
   final TextEditingController inputTextController = TextEditingController();
@@ -31,14 +31,20 @@ class _SecurityScreenState extends State<SecurityScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   GoogleMapController? mapController;
   final GlobalKey<ScaffoldState> drawerKey = GlobalKey<ScaffoldState>();
-  final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
+  GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
   bool _permission = false;
+
+// TODO: Remover getters e setters após refatoração
+  GeolocatorPlatform get geolocatorPlatform => _geolocatorPlatform; // Getter público
+  set geolocatorPlatform(GeolocatorPlatform value) => _geolocatorPlatform = value; // Setter para testes
+  LatLng get position => _position; // Getter público
+  set position(LatLng value) => _position = value; // Setter para testes
 
   @override
   void initState() {
     super.initState();
-    _handlePermission();
-    _getCurrentPosition();
+    handlePermission();
+    getCurrentPosition();
   }
 
   @override
@@ -191,7 +197,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(content: Text('Enviando...')),
                                 );
-                                _saveDataToFirestore(context);
+                                saveDataToFirestore(context);
                                 inputTextController.clear();
                                 textAreaController.clear();
                                 setState(() {
@@ -281,9 +287,9 @@ class _SecurityScreenState extends State<SecurityScreen> {
       ),
     );
   }
-
-  Future<void> _getCurrentPosition() async {
-    final hasPermission = await _handlePermission();
+// TODO: tornar métodos privados após a refatoração
+  Future<void> getCurrentPosition() async {
+    final hasPermission = await handlePermission();
 
     if (!hasPermission) {
       return;
@@ -299,7 +305,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
     });
   }
 
-  Future<bool> _handlePermission() async {
+  Future<bool> handlePermission() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -322,7 +328,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
     return true;
   }
 
-  Future<void> _saveDataToFirestore(BuildContext context) async {
+  Future<void> saveDataToFirestore(BuildContext context) async {
     Map<String, dynamic> data = {
       'category': dropdownValue,
       'contact': inputTextController.text,
@@ -343,7 +349,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
       );
 
       // Save in e-mail
-      await _sendEmail(data);
+      await sendEmail(data);
     } catch (error) {
       scaffoldMessenger.showSnackBar(
         const SnackBar(
@@ -353,7 +359,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
     }
   }
 
-  Future<void> _sendEmail(Map<String, dynamic> data) async {
+  Future<void> sendEmail(Map<String, dynamic> data) async {
     final emailUser = dotenv.env['EMAIL_USER'] ?? '';
     final emailPass = dotenv.env['EMAIL_PASS'] ?? '';
     final emailTo = dotenv.env['EMAIL_TO'] ?? '';

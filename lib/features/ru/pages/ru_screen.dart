@@ -12,15 +12,18 @@ class RUScreen extends StatefulWidget {
   const RUScreen({super.key});
 
   @override
-  State<RUScreen> createState() => _RUScreenState();
+  State<RUScreen> createState() => RUScreenState();
 }
 
-class _RUScreenState extends State<RUScreen> {
+class RUScreenState extends State<RUScreen> {
   late Future<Map<String, dynamic>> _cardapio;
   String _day = 'Segunda';
   GlobalKey<ScaffoldState> drawerKey = GlobalKey();
 
-  final db = FirebaseFirestore.instance;
+  FirebaseFirestore db;
+
+  RUScreenState({FirebaseFirestore? firestore})
+      : db = firestore ?? FirebaseFirestore.instance;
 
   @override
   void initState() {

@@ -16,19 +16,19 @@ class TabScreen extends StatefulWidget {
   });
 
   @override
-  State<TabScreen> createState() => _TabScreenState();
+  State<TabScreen> createState() => TabScreenState();
 }
 
-class _TabScreenState extends State<TabScreen> {
+class TabScreenState extends State<TabScreen> {
   late Future<List<Map<String, dynamic>>> _futureInfos;
 
   @override
   void initState() {
     super.initState();
-    _futureInfos = _loadDataFromFirebase();
+    _futureInfos = loadDataFromFirebase();
   }
 
-  Future<List<Map<String, dynamic>>> _loadDataFromFirebase() async {
+  Future<List<Map<String, dynamic>>> loadDataFromFirebase() async {
     return FirebaseApi().getData();
   }
 

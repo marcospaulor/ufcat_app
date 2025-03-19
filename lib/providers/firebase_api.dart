@@ -1,7 +1,10 @@
 import 'package:firebase_database/firebase_database.dart';
 
 class FirebaseApi {
-  final FirebaseDatabase database = FirebaseDatabase.instance;
+  final FirebaseDatabase database;
+
+  FirebaseApi({FirebaseDatabase? database})
+      : database = database ?? FirebaseDatabase.instance;
 
   Future<List<Map<String, dynamic>>> getData() async {
     List<Map<Object?, Object?>> listObjects = [];

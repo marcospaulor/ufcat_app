@@ -21,10 +21,10 @@ class RatingScreen extends StatefulWidget {
       required this.currentDay});
 
   @override
-  State<RatingScreen> createState() => _RatingScreenState();
+  State<RatingScreen> createState() => RatingScreenState();
 }
 
-class _RatingScreenState extends State<RatingScreen> {
+class RatingScreenState extends State<RatingScreen> {
   GlobalKey<ScaffoldState> drawerKey = GlobalKey();
   final _formKey = GlobalKey<FormState>();
   late bool selected;
@@ -33,7 +33,9 @@ class _RatingScreenState extends State<RatingScreen> {
   int? currentRating = 3;
   late TextEditingController controller = TextEditingController();
 
-  final db = FirebaseFirestore.instance;
+  FirebaseFirestore db;
+
+  RatingScreenState({FirebaseFirestore? firestore}) : db = firestore ?? FirebaseFirestore.instance;
 
   List<String> diasDaSemana = [
     'Segunda-feira',
